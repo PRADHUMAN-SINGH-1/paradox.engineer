@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { requireAdmin } from '@/lib/admin-auth';
+import { revalidateTag } from 'next/cache';
 
 export async function POST(request: Request) {
   const denied = requireAdmin(request);
@@ -109,6 +110,10 @@ export async function POST(request: Request) {
       where: { id: submissionId },
       data: { status: 'approved' },
     });
+
+    revalidateTag('paradox:deals', 'max');
+    revalidateTag('paradox:brands', 'max');
+    revalidateTag('paradox:topics', 'max');
 
     return NextResponse.json({ success: true, deal, brand });
   } catch (error) {
