@@ -3,7 +3,7 @@ import Script from 'next/script';
 import './globals.css';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import AppShell from '@/components/AppShell';
-import { getPublicTopics, getPublicDeals } from '@/lib/public-data';
+import { getPublicTopics, getDealTypeCounts } from '@/lib/public-data';
 
 
 export const metadata: Metadata = {
@@ -86,9 +86,9 @@ export default async function RootLayout({
   };
 
   try {
-    const [dbTopics, activeDeals] = await Promise.all([
+    const [dbTopics, dbDealTypes] = await Promise.all([
       getPublicTopics(),
-      getPublicDeals(),
+      getDealTypeCounts(),
     ]);
 
     topics = dbTopics;
@@ -101,12 +101,12 @@ export default async function RootLayout({
       promoCodes: 0,
     };
 
-    for (const deal of activeDeals) {
-      if (deal.dealType === 'freebie') counts.freebies += 1;
-      if (deal.dealType === 'discount') counts.discounts += 1;
-      if (deal.dealType === 'trial') counts.trials += 1;
-      if (deal.dealType === 'credit') counts.credits += 1;
-      if (deal.dealType === 'promo-code') counts.promoCodes += 1;
+    for (const entry of dbDealTypes) {
+      if (entry.dealType === 'freebie') counts.freebies = entry._count.id;
+      if (entry.dealType === 'discount') counts.discounts = entry._count.id;
+      if (entry.dealType === 'trial') counts.trials = entry._count.id;
+      if (entry.dealType === 'credit') counts.credits = entry._count.id;
+      if (entry.dealType === 'promo-code') counts.promoCodes = entry._count.id;
     }
 
     categoryCounts = counts;
