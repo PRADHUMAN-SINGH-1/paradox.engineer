@@ -6,6 +6,7 @@ interface ParadoxLogoProps {
   showWordmark?: boolean;
   className?: string;
   href?: string;
+  tag?: string;
 }
 
 export default function ParadoxLogo({
@@ -13,12 +14,29 @@ export default function ParadoxLogo({
   showWordmark = true,
   className = '',
   href,
+  tag = '/deals',
 }: ParadoxLogoProps) {
   const sizeMap = {
-    sm: { icon: 'w-6 h-6', text: 'text-sm', badge: 'text-[10px]' },
-    md: { icon: 'w-8 h-8', text: 'text-base', badge: 'text-[11px]' },
-    lg: { icon: 'w-10 h-10', text: 'text-xl', badge: 'text-xs' },
-    xl: { icon: 'w-12 h-12', text: 'text-2xl', badge: 'text-sm' },
+    sm: {
+      icon: 'w-6 h-6',
+      text: 'text-sm tracking-tight',
+      badge: 'text-[9px] px-1.5 py-0.2',
+    },
+    md: {
+      icon: 'w-8 h-8',
+      text: 'text-[17px] tracking-tight',
+      badge: 'text-[10.5px] px-2 py-0.5',
+    },
+    lg: {
+      icon: 'w-10 h-10',
+      text: 'text-xl tracking-tight',
+      badge: 'text-xs px-2.5 py-0.5',
+    },
+    xl: {
+      icon: 'w-12 h-12',
+      text: 'text-2xl tracking-tight',
+      badge: 'text-xs px-3 py-1',
+    },
   };
 
   const { icon, text, badge } = sizeMap[size];
@@ -29,54 +47,44 @@ export default function ParadoxLogo({
         viewBox="0 0 40 40"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="w-full h-full drop-shadow-[0_2px_8px_rgba(37,99,235,0.25)]"
+        className="w-full h-full drop-shadow-[0_2px_8px_rgba(37,99,235,0.32)]"
       >
         <defs>
-          <linearGradient id="paradox-blue-1" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#60A5FA" />
-            <stop offset="50%" stopColor="#2563EB" />
+          <linearGradient id="paradox-brand-blue" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#2563EB" />
             <stop offset="100%" stopColor="#1D4ED8" />
           </linearGradient>
-          <linearGradient id="paradox-blue-2" x1="100%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#38BDF8" />
-            <stop offset="100%" stopColor="#2563EB" />
-          </linearGradient>
-          <linearGradient id="paradox-blue-3" x1="0%" y1="100%" x2="100%" y2="0%">
+          <linearGradient id="paradox-shadow" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#1E40AF" />
-            <stop offset="100%" stopColor="#3B82F6" />
+            <stop offset="100%" stopColor="#172554" />
           </linearGradient>
-          <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="2" result="blur" />
-            <feComposite in="SourceGraphic" in2="blur" operator="over" />
-          </filter>
         </defs>
 
-        {/* Impossible Ribbon 'P' Logo Mark */}
-        {/* Background rounded squircle container */}
-        <rect width="40" height="40" rx="11" className="fill-blue-600 dark:fill-blue-500/10" />
+        {/* 1. Base Squircle Badge */}
+        <rect width="40" height="40" rx="10" fill="url(#paradox-brand-blue)" />
 
-        {/* Geometric Impossible Loop Facet 1: Left Vertical Pillar */}
-        <path
-          d="M11 9H17V31H11V9Z"
-          fill="url(#paradox-blue-2)"
-          className="dark:opacity-90"
+        {/* 2. Top Specular Border Light */}
+        <rect
+          x="0.75"
+          y="0.75"
+          width="38.5"
+          height="38.5"
+          rx="9.25"
+          stroke="rgba(255, 255, 255, 0.25)"
+          strokeWidth="1"
+          fill="none"
         />
 
-        {/* Geometric Facet 2: Upper Arch loop */}
+        {/* 3. Pure Modernist Geometric Ribbon 'P' */}
         <path
-          d="M17 9H25C28.3137 9 31 11.6863 31 15C31 18.3137 28.3137 21 25 21H17V15H25C25 15 25 15 25 15C25 15 25 15 25 15H17V9Z"
-          fill="white"
-          opacity="0.95"
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M11 9C11 8.44772 11.4477 8 12 8H24C28.4183 8 32 11.5817 32 16C32 20.4183 28.4183 24 24 24H21V19H23.5C25.1569 19 26.5 17.6569 26.5 16C26.5 14.3431 25.1569 13 23.5 13H16.5V31C16.5 31.5523 16.0523 32 15.5 32H12C11.4477 32 11 31.5523 11 31V9ZM21 24V28L16.5 32V24H21Z"
+          fill="#FFFFFF"
         />
 
-        {/* Geometric Facet 3: Impossible Interlocking Fold */}
-        <path
-          d="M17 15H23C24.1046 15 25 15.8954 25 17C25 18.1046 24.1046 19 23 19H17V27H11V21H17V15Z"
-          fill="url(#paradox-blue-3)"
-        />
-
-        {/* Center Quantum Void / Negative Space Sparkle */}
-        <circle cx="21" cy="15" r="2.2" fill="white" />
+        {/* 4. Optical Interlocking Underfold Shadow */}
+        <path d="M16.5 19H21V24H16.5V19Z" fill="url(#paradox-shadow)" />
       </svg>
     </div>
   );
@@ -86,13 +94,18 @@ export default function ParadoxLogo({
       {logoMark}
 
       {showWordmark && (
-        <div className="flex items-baseline gap-1.5 leading-none">
-          <span className={`font-extrabold ${text} tracking-tight text-slate-900 dark:text-white font-sans`}>
+        <div className="flex items-center gap-2 leading-none select-none">
+          <span className={`font-bold ${text} text-slate-900 dark:text-zinc-50 font-sans`}>
             Paradox
           </span>
-          <span className={`font-semibold ${badge} text-blue-600 dark:text-blue-400 font-sans tracking-normal`}>
-            deal
-          </span>
+
+          {tag && (
+            <span
+              className={`font-mono ${badge} font-semibold text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 dark:border-blue-500/30 rounded-md tracking-tight transition-colors group-hover:border-blue-500/40`}
+            >
+              {tag}
+            </span>
+          )}
         </div>
       )}
     </div>
@@ -100,7 +113,10 @@ export default function ParadoxLogo({
 
   if (href) {
     return (
-      <Link href={href} className="group inline-flex items-center">
+      <Link
+        href={href}
+        className="group inline-flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-lg"
+      >
         {content}
       </Link>
     );
