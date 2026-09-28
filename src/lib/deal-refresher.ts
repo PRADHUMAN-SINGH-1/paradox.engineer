@@ -11,6 +11,10 @@ export interface RefreshResult {
   dealsSummary: Array<{
     title: string
     brand: string
+    slug?: string
+    shortDescription?: string
+    discountAmount?: string | null
+    dealType?: string
     action: 'created' | 'updated' | 'skipped'
   }>
 }
@@ -107,6 +111,10 @@ export async function refreshDealsPipeline(): Promise<RefreshResult> {
       summary.push({
         title: dealData.title,
         brand: dealData.brandName,
+        slug: dealData.slug,
+        shortDescription: dealData.shortDescription,
+        discountAmount: dealData.discountAmount,
+        dealType: dealData.dealType,
         action: 'created',
       });
     } else {
