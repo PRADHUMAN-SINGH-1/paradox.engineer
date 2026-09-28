@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/db';
+import { getPublicTopics } from '@/lib/public-data';
 import TopicCard from '@/components/TopicCard';
 import { Metadata } from 'next';
 import Link from 'next/link';
@@ -11,14 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default async function AllTopicsPage() {
-  const topics = await prisma.topic.findMany({
-    include: {
-      _count: {
-        select: { deals: { where: { isActive: true } } },
-      },
-    },
-    orderBy: { name: 'asc' },
-  });
+  const topics = await getPublicTopics();
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-8 font-sans">
