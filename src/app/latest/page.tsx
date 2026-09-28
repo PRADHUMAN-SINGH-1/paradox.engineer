@@ -6,7 +6,7 @@ import { Metadata } from 'next';
 import { SITE_URL } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Latest Deals & Developer Perks | Paradox',
+  title: 'Latest Deals & Developer Perks',
   description: 'Chronological index of freshly added software infrastructure credits, trials, and student savings.',
   alternates: { canonical: SITE_URL + '/latest' },
 };
