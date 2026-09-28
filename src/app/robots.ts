@@ -2,28 +2,15 @@ import { MetadataRoute } from 'next';
 import { SITE_URL } from '@/lib/site';
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = SITE_URL;
-
   return {
-    rules: [
-      {
-        userAgent: '*',
-        allow: '/',
-        disallow: [
-          '/admin',
-          '/api/',
-        ],
-      },
-      {
-        userAgent: 'Googlebot',
-        allow: '/',
-        disallow: [
-          '/admin',
-          '/api/admin/',
-          '/api/cron/',
-        ],
-      },
-    ],
-    sitemap: `${baseUrl}/sitemap.xml`,
+    rules: {
+      userAgent: '*',
+      allow: '/',
+      disallow: [
+        '/admin',
+        '/api/',
+      ],
+    },
+    sitemap: `${SITE_URL}/sitemap.xml`,
   };
 }

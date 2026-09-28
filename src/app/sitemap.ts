@@ -15,6 +15,7 @@ const getSitemapData = unstable_cache(
         select: { slug: true, updatedAt: true },
       }),
       prisma.topic.findMany({
+        where: { deals: { some: { isActive: true } } },
         select: { slug: true, updatedAt: true },
       }),
     ]);
@@ -34,7 +35,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: SITE_URL + '/no-credit-card', changeFrequency: 'daily', priority: 0.85 },
     { url: SITE_URL + '/brands', changeFrequency: 'daily', priority: 0.8 },
     { url: SITE_URL + '/topics', changeFrequency: 'daily', priority: 0.8 },
-    { url: SITE_URL + '/submit', changeFrequency: 'monthly', priority: 0.5 },
     { url: SITE_URL + '/affiliate-disclosure', changeFrequency: 'monthly', priority: 0.4 },
     { url: SITE_URL + '/about', changeFrequency: 'monthly', priority: 0.5 },
   ];

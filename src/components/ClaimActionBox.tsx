@@ -17,6 +17,7 @@ interface ClaimActionBoxProps {
   clickCount: number;
   viewCount: number;
   expiryDate?: Date | string | null;
+  updatedAt: Date | string;
   isLimitedTime?: boolean;
 }
 
@@ -33,6 +34,7 @@ export default function ClaimActionBox({
   clickCount,
   viewCount,
   expiryDate,
+  updatedAt,
   isLimitedTime,
 }: ClaimActionBoxProps) {
   const [copied, setCopied] = useState(false);
@@ -42,6 +44,11 @@ export default function ClaimActionBox({
     try {
       fetch(`/api/click/${slug}`, { method: 'POST' }).catch(() => {});
       setClicks((prev) => prev + 1);
+      (window as Window & { gtag?: (...args: unknown[]) => void }).gtag?.('event', 'deal_claim_click', {
+        deal_slug: slug,
+        brand_name: brandName,
+        deal_type: dealType,
+      });
     } catch (_) {}
   };
 
@@ -49,6 +56,11 @@ export default function ClaimActionBox({
     if (promoCode) {
       try {
         await navigator.clipboard.writeText(promoCode);
+        (window as Window & { gtag?: (...args: unknown[]) => void }).gtag?.('event', 'promo_code_copy', {
+          deal_slug: slug,
+          brand_name: brandName,
+          deal_type: dealType,
+        });
         setCopied(true);
         setTimeout(() => setCopied(false), 3000);
       } catch (err) {
@@ -168,9 +180,12 @@ export default function ClaimActionBox({
 
           <div className="flex items-center justify-between text-slate-600 dark:text-zinc-400">
             <span>Last Verified</span>
-            <span className="text-emerald-600 dark:text-emerald-400 font-medium">
-              Verified active today
-            </span>
+            <time
+              dateTime={new Date(updatedAt).toISOString()}
+              className="text-emerald-600 dark:text-emerald-400 font-medium"
+            >
+              Verified {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: 'numeric' }).format(new Date(updatedAt))}
+            </time>
           </div>
         </div>
       </div>

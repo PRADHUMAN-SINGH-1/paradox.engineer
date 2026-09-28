@@ -48,6 +48,13 @@ export default async function Home({
   const newArrivals = allDeals.slice(0, 6);
 
   const totalPages = Math.ceil(totalDeals / limit);
+  const latestUpdatedAt = allDeals.reduce<Date | null>((latest, deal) => {
+    const updatedAt = new Date(deal.updatedAt);
+    return !latest || updatedAt > latest ? updatedAt : latest;
+  }, null);
+  const latestUpdatedLabel = latestUpdatedAt
+    ? new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: 'numeric' }).format(latestUpdatedAt)
+    : null;
   const paginationBaseUrl = searchQuery ? `/?q=${encodeURIComponent(searchQuery)}` : '/';
 
   // Schema.org WebSite with SearchAction and Organization for Google Search Sitelinks
@@ -151,7 +158,7 @@ export default async function Home({
                 The best digital discounts, developer deals, freelancer offers, and student savings, updated daily.
               </p>
               <span className="inline-flex items-center text-[11px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 dark:bg-zinc-800 dark:text-zinc-300">
-                Last updated 1 day ago
+                Last updated {latestUpdatedLabel || 'recently'}
               </span>
             </div>
           </section>

@@ -283,6 +283,7 @@ export default async function DealDetailPage({ params }: { params: Promise<{ slu
             viewCount={deal.viewCount}
             expiryDate={deal.expiryDate}
             isLimitedTime={deal.isLimitedTime}
+            updatedAt={deal.updatedAt}
           />
         </div>
       </div>
