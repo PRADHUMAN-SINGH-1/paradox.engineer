@@ -1,61 +1,58 @@
-import { unstable_cache } from 'next/cache';
+import { cacheLife } from 'next/cache';
 import { prisma } from '@/lib/db';
 
-export const getPublicDeals = unstable_cache(
-  async () =>
-    prisma.deal.findMany({
-      where: { isActive: true },
-      include: { brand: true, topic: true },
-      orderBy: { createdAt: 'desc' },
-    }),
-  ['paradox-public-active-deals-v3'],
-  { revalidate: 60 }
-);
+export async function getPublicDeals() {
+  'use cache';
+  cacheLife({ stale: 60, revalidate: 60, expire: 300 });
 
-export const getPublicTopics = unstable_cache(
-  async () =>
-    prisma.topic.findMany({
-      select: {
-        id: true,
-        name: true,
-        slug: true,
-        icon: true,
-        _count: {
-          select: { deals: { where: { isActive: true } } },
+  return prisma.deal.findMany({
+    where: { isActive: true },
+    include: { brand: true, topic: true },
+    orderBy: { createdAt: 'desc' },
+  });
+}
+
+export async function getPublicTopics() {
+  'use cache';
+  cacheLife({ stale: 300, revalidate: 300, expire: 900 });
+
+  return prisma.topic.findMany({
+    select: {
+      id: true,
+      name: true,
+      slug: true,
+      icon: true,
+      _count: {
+        select: { deals: { where: { isActive: true } } },
+      },
+    },
+    orderBy: { name: 'asc' },
+  });
+}
+
+export async function getPublicBrands() {
+  'use cache';
+  cacheLife({ stale: 120, revalidate: 120, expire: 600 });
+
+  return prisma.brand.findMany({
+    include: {
+      deals: {
+        where: { isActive: true },
+        select: {
+          id: true,
+          dealType: true,
+          isTrending: true,
+          clickCount: true,
+          viewCount: true,
+          topic: { select: { slug: true } },
         },
       },
-      orderBy: { name: 'asc' },
-    }),
-  ['paradox-public-topics-v3'],
-  { revalidate: 300 }
-);
+    },
+    orderBy: { name: 'asc' },
+  });
+}
 
-export const getPublicBrands = unstable_cache(
-  async () =>
-    prisma.brand.findMany({
-      include: {
-        deals: {
-          where: { isActive: true },
-          select: {
-            id: true,
-            dealType: true,
-            isTrending: true,
-            clickCount: true,
-            viewCount: true,
-            topic: { select: { slug: true } },
-          },
-        },
-      },
-      orderBy: { name: 'asc' },
-    }),
-  ['paradox-public-brands-v3'],
-  { revalidate: 120 }
-);
-
-export function sortDeals(
-  deals: any[],
-  sortParam: string
-): any[] {
+export function sortDeals(deals: any[], sortParam: string): any[] {
   const sorted = [...deals];
 
   if (sortParam === 'popular') {
@@ -63,17 +60,15 @@ export function sortDeals(
   } else if (sortParam === 'claimed') {
     sorted.sort((a, b) => b.clickCount - a.clickCount);
   } else if (sortParam === 'last_updated') {
-    sorted.sort((a, b) => {
-      const aTime = new Date(a.updatedAt).getTime();
-      const bTime = new Date(b.updatedAt).getTime();
-      return bTime - aTime;
-    });
+    sorted.sort(
+      (a, b) =>
+        new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+    );
   } else {
-    sorted.sort((a, b) => {
-      const aTime = new Date(a.createdAt).getTime();
-      const bTime = new Date(b.createdAt).getTime();
-      return bTime - aTime;
-    });
+    sorted.sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
   }
 
   return sorted;
@@ -100,12 +95,16 @@ export function matchesDealSearch(deal: any, searchQuery: string): boolean {
     .toLowerCase();
 
   const keywordMatch =
-    (query.includes('student') || query.includes('edu')) && deal.isStudentDeal ||
-    (query.includes('no cc') || query.includes('nocc') || query.includes('no credit card')) && !deal.needsCreditCard ||
-    query.includes('startup') && deal.isStartupDeal ||
-    query.includes('credit') && deal.dealType === 'credit' ||
-    (query.includes('free') || query.includes('freebie')) && deal.dealType === 'freebie' ||
-    query.includes('trial') && deal.dealType === 'trial';
+    ((query.includes('student') || query.includes('edu')) && deal.isStudentDeal) ||
+    ((query.includes('no cc') ||
+      query.includes('nocc') ||
+      query.includes('no credit card')) &&
+      !deal.needsCreditCard) ||
+    (query.includes('startup') && deal.isStartupDeal) ||
+    (query.includes('credit') && deal.dealType === 'credit') ||
+    ((query.includes('free') || query.includes('freebie')) &&
+      deal.dealType === 'freebie') ||
+    (query.includes('trial') && deal.dealType === 'trial');
 
-  return text.includes(query) || keywordMatch;
+  return text.includes(query) || Boolean(keywordMatch);
 }
