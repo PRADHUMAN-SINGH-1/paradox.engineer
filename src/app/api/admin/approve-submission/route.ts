@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { requireAdmin } from '@/lib/admin-auth';
 import { revalidateTag } from 'next/cache';
+import { after } from 'next/server';
+import { sendDealPublishedEmail, sendNewDealNotifications } from '@/lib/email';
 
 export async function POST(request: Request) {
   const denied = requireAdmin(request);
@@ -114,6 +116,27 @@ export async function POST(request: Request) {
     revalidateTag('paradox:deals', 'max');
     revalidateTag('paradox:brands', 'max');
     revalidateTag('paradox:topics', 'max');
+
+    after(async () => {
+      if (submission.submittedBy) {
+        await sendDealPublishedEmail(submission.submittedBy, {
+          id: deal.id,
+          slug: deal.slug,
+          title: deal.title,
+          brandName: brand.name,
+        }).catch((error) => console.error('Submitter publication email failed:', error));
+      }
+
+      await sendNewDealNotifications({
+        id: deal.id,
+        slug: deal.slug,
+        title: deal.title,
+        shortDescription: deal.shortDescription,
+        discountAmount: deal.discountAmount,
+        dealType: deal.dealType,
+        brandName: brand.name,
+      }).catch((error) => console.error('New deal subscriber emails failed:', error));
+    });
 
     return NextResponse.json({ success: true, deal, brand });
   } catch (error) {
