@@ -2,10 +2,12 @@ import { getPublicDeals, sortDeals, paginateDeals } from '@/lib/public-data';
 import DealGrid from '@/components/DealGrid';
 import Pagination from '@/components/Pagination';
 import { Metadata } from 'next';
+import { SITE_URL } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Student Developer Perks & Academic Grants | Paradox',
   description: 'Verified academic software tiers, free Pro accounts, and student developer packs.',
+  alternates: { canonical: SITE_URL + '/student' },
 };
 
 
