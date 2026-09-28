@@ -30,6 +30,38 @@ export const getPublicTopics = unstable_cache(
   { revalidate: 300 }
 );
 
+export const getDealTypeCounts = unstable_cache(
+  async () =>
+    prisma.deal.groupBy({
+      by: ['dealType'],
+      where: { isActive: true },
+      _count: { id: true },
+    }),
+  ['paradox-public-deal-type-counts-v4'],
+  { revalidate: 60 }
+);
+
+export const getPopularBrands = unstable_cache(
+  async () =>
+    prisma.brand.findMany({
+      where: { deals: { some: { isActive: true } } },
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+        logoUrl: true,
+        website: true,
+        _count: {
+          select: { deals: { where: { isActive: true } } },
+        },
+      },
+      orderBy: { name: 'asc' },
+      take: 16,
+    }),
+  ['paradox-public-popular-brands-v4'],
+  { revalidate: 120 }
+);
+
 export const getPublicBrands = unstable_cache(
   async () =>
     prisma.brand.findMany({
@@ -51,6 +83,56 @@ export const getPublicBrands = unstable_cache(
   ['paradox-public-brands-v4'],
   { revalidate: 120 }
 );
+
+export const getBrandBySlug = (slug: string) =>
+  unstable_cache(
+    async () =>
+      prisma.brand.findUnique({
+        where: { slug },
+        include: {
+          deals: {
+            where: { isActive: true },
+            include: { brand: true, topic: true },
+            orderBy: { createdAt: 'desc' },
+          },
+        },
+      }),
+    ['paradox-brand', slug],
+    { revalidate: 120 }
+  )();
+
+export const getTopicBySlug = (slug: string) =>
+  unstable_cache(
+    async () =>
+      prisma.topic.findUnique({
+        where: { slug },
+      }),
+    ['paradox-topic', slug],
+    { revalidate: 300 }
+  )();
+
+export const getDealsByTopic = (slug: string) =>
+  unstable_cache(
+    async () =>
+      prisma.deal.findMany({
+        where: { topic: { slug }, isActive: true },
+        include: { brand: true, topic: true },
+        orderBy: { createdAt: 'desc' },
+      }),
+    ['paradox-topic-deals', slug],
+    { revalidate: 120 }
+  )();
+
+export const getDealBySlug = (slug: string) =>
+  unstable_cache(
+    async () =>
+      prisma.deal.findUnique({
+        where: { slug },
+        include: { brand: true, topic: true },
+      }),
+    ['paradox-deal', slug],
+    { revalidate: 300 }
+  )();
 
 export function sortDeals(deals: any[], sortParam: string): any[] {
   const sorted = [...deals];
