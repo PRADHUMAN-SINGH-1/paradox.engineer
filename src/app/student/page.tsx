@@ -4,11 +4,17 @@ import Pagination from '@/components/Pagination';
 import { Metadata } from 'next';
 import { SITE_URL } from '@/lib/site';
 
-export const metadata: Metadata = {
-  title: 'Student Developer Perks & Academic Grants',
-  description: 'Verified academic software tiers, free Pro accounts, and student developer packs.',
-  alternates: { canonical: SITE_URL + '/student' },
-};
+export async function generateMetadata({ searchParams }: { searchParams?: Promise<{ page?: string }> }): Promise<Metadata> {
+  const resolved = searchParams ? await searchParams : {};
+  const page = Number(resolved.page) || 1;
+
+  return {
+    title: 'Student Developer Perks & Academic Grants',
+    description: 'Verified academic software tiers, free Pro accounts, and student developer packs.',
+    alternates: { canonical: SITE_URL + '/student' },
+    robots: page > 1 ? { index: false, follow: true } : { index: true, follow: true },
+  };
+}
 
 
 export default async function StudentDealsPage({ searchParams }: { searchParams?: Promise<{ page?: string }> }) {
