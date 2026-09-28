@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
+import { after } from 'next/server';
+import { sendDealSubmissionNotification } from '@/lib/email';
 
 export async function POST(request: Request) {
   try {
@@ -21,6 +23,12 @@ export async function POST(request: Request) {
         status: 'PENDING'
       },
     });
+
+    after(() =>
+      sendDealSubmissionNotification(dealSubmission).catch((error) =>
+        console.error('Admin submission email failed:', error)
+      )
+    );
 
     return NextResponse.json({ success: true, dealSubmission }, { status: 201 });
   } catch (error) {
