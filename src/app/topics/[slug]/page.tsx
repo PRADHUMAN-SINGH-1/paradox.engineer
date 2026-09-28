@@ -16,15 +16,18 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
+export const dynamic = 'force-dynamic';
+
 export default async function TopicDealsPage({
   params,
   searchParams,
 }: {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ sort?: string; page?: string }>;
+  searchParams?: Promise<{ sort?: string; page?: string }>;
 }) {
   const { slug } = await params;
-  const { sort, page } = await searchParams;
+  const resolved = searchParams ? await searchParams : {};
+  const { sort, page } = resolved;
   
   const topic = await prisma.topic.findUnique({ where: { slug } });
   if (!topic) {

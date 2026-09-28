@@ -7,14 +7,15 @@ import SortTabs from '@/components/SortTabs';
 import Pagination from '@/components/Pagination';
 import Link from 'next/link';
 
-export const revalidate = 60; // ISR cache revalidation every minute
+export const dynamic = 'force-dynamic';
 
 export default async function Home({
   searchParams,
 }: {
-  searchParams: Promise<{ sort?: string; page?: string; q?: string }>;
+  searchParams?: Promise<{ sort?: string; page?: string; q?: string }>;
 }) {
-  const { sort, page, q } = await searchParams;
+  const resolvedParams = searchParams ? await searchParams : {};
+  const { sort, page, q } = resolvedParams;
   const currentPage = Number(page) || 1;
   const sortParam = sort || 'latest';
   const searchQuery = q?.trim() || '';

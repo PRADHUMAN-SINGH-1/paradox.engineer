@@ -23,15 +23,18 @@ export async function generateMetadata({ params }: { params: Promise<{ type: str
   };
 }
 
+export const dynamic = 'force-dynamic';
+
 export default async function CategoryPage({
   params,
   searchParams,
 }: {
   params: Promise<{ type: string }>;
-  searchParams: Promise<{ page?: string }>;
+  searchParams?: Promise<{ page?: string }>;
 }) {
   const { type: rawType } = await params;
-  const { page } = await searchParams;
+  const resolved = searchParams ? await searchParams : {};
+  const { page } = resolved;
   
   const category = TYPE_MAP[rawType];
   if (!category) {

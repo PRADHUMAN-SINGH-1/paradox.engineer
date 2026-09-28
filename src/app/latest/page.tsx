@@ -9,8 +9,11 @@ export const metadata: Metadata = {
   description: 'Chronological index of freshly added software infrastructure credits, trials, and student savings.',
 };
 
-export default async function LatestDealsPage({ searchParams }: { searchParams: Promise<{ sort?: string; page?: string }> }) {
-  const { sort, page } = await searchParams;
+export const dynamic = 'force-dynamic';
+
+export default async function LatestDealsPage({ searchParams }: { searchParams?: Promise<{ sort?: string; page?: string }> }) {
+  const resolved = searchParams ? await searchParams : {};
+  const { sort, page } = resolved;
   const currentPage = Number(page) || 1;
   const sortParam = sort || 'latest';
   const limit = 12;

@@ -9,8 +9,11 @@ export const metadata: Metadata = {
   description: 'Verified digital tools, free trials, and developer platform grants requiring zero credit card details.',
 };
 
-export default async function NoCreditCardPage({ searchParams }: { searchParams: Promise<{ page?: string }> }) {
-  const { page } = await searchParams;
+export const dynamic = 'force-dynamic';
+
+export default async function NoCreditCardPage({ searchParams }: { searchParams?: Promise<{ page?: string }> }) {
+  const resolved = searchParams ? await searchParams : {};
+  const { page } = resolved;
   const currentPage = Number(page) || 1;
   const limit = 12;
   const skip = (currentPage - 1) * limit;

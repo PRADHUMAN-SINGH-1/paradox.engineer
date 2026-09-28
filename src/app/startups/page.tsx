@@ -8,8 +8,11 @@ export const metadata: Metadata = {
   description: 'Up to $5,000 in cloud infrastructure and developer credits for early-stage engineering teams.',
 };
 
-export default async function StartupDealsPage({ searchParams }: { searchParams: Promise<{ page?: string }> }) {
-  const { page } = await searchParams;
+export const dynamic = 'force-dynamic';
+
+export default async function StartupDealsPage({ searchParams }: { searchParams?: Promise<{ page?: string }> }) {
+  const resolved = searchParams ? await searchParams : {};
+  const { page } = resolved;
   const currentPage = Number(page) || 1;
   const limit = 12;
   const skip = (currentPage - 1) * limit;
