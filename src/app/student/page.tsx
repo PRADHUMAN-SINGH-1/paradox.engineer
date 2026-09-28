@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   description: 'Verified academic software tiers, free Pro accounts, and student developer packs.',
 };
 
-export const revalidate = 120;
 
 export default async function StudentDealsPage({ searchParams }: { searchParams?: Promise<{ page?: string }> }) {
   const resolved = searchParams ? await searchParams : {};
