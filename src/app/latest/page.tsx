@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: 'Chronological index of freshly added software infrastructure credits, trials, and student savings.',
 };
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 120;
 
 export default async function LatestDealsPage({ searchParams }: { searchParams?: Promise<{ sort?: string; page?: string }> }) {
   const resolved = searchParams ? await searchParams : {};
