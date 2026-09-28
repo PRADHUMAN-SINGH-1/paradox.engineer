@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import ThemeToggle from './ThemeToggle';
 import ParadoxLogo from './ParadoxLogo';
+import SearchAutocompleteDropdown from './SearchAutocompleteDropdown';
 
 interface TopNavbarProps {
   topics?: Array<{
@@ -24,6 +25,46 @@ export default function TopNavbar({ topics = [], onOpenMobileMenu }: TopNavbarPr
   const searchInputRef = useRef<HTMLInputElement>(null);
   const mobileSearchInputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const searchContainerRef = useRef<HTMLDivElement>(null);
+  const mobileSearchContainerRef = useRef<HTMLDivElement>(null);
+
+  // Instant Autocomplete Search State
+  const [searchResults, setSearchResults] = useState<{
+    deals: any[];
+    brands: any[];
+    topics: any[];
+    totalMatches: number;
+  }>({ deals: [], brands: [], topics: [], totalMatches: 0 });
+  const [isSearching, setIsSearching] = useState(false);
+  const [searchDropdownOpen, setSearchDropdownOpen] = useState(false);
+
+  // Live instant autocomplete as user types each letter
+  useEffect(() => {
+    const q = search.trim();
+    if (!q) {
+      setSearchResults({ deals: [], brands: [], topics: [], totalMatches: 0 });
+      setSearchDropdownOpen(false);
+      return;
+    }
+
+    const timer = setTimeout(async () => {
+      try {
+        setIsSearching(true);
+        const res = await fetch(`/api/search?q=${encodeURIComponent(q)}`);
+        if (res.ok) {
+          const data = await res.json();
+          setSearchResults(data);
+          setSearchDropdownOpen(true);
+        }
+      } catch (err) {
+        console.error('Instant search query error:', err);
+      } finally {
+        setIsSearching(false);
+      }
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [search]);
 
   // Keyboard shortcut: Cmd+K / Ctrl+K focuses search
   useEffect(() => {
@@ -36,17 +77,26 @@ export default function TopNavbar({ topics = [], onOpenMobileMenu }: TopNavbarPr
       if (e.key === 'Escape') {
         setTopicsOpen(false);
         setMobileSearchOpen(false);
+        setSearchDropdownOpen(false);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Close dropdown on click outside
+  // Close dropdowns on click outside
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
         setTopicsOpen(false);
+      }
+      if (
+        searchContainerRef.current &&
+        !searchContainerRef.current.contains(e.target as Node) &&
+        mobileSearchContainerRef.current &&
+        !mobileSearchContainerRef.current.contains(e.target as Node)
+      ) {
+        setSearchDropdownOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -91,20 +141,29 @@ export default function TopNavbar({ topics = [], onOpenMobileMenu }: TopNavbarPr
           </div>
         </div>
 
-        {/* Center: Desktop Search Bar */}
-        <div className="hidden md:flex items-center flex-1 max-w-lg mx-auto">
+        {/* Center: Desktop Search Bar with Instant Autocomplete */}
+        <div ref={searchContainerRef} className="hidden md:flex items-center flex-1 max-w-lg mx-auto relative">
           <form onSubmit={handleSearch} className="relative w-full">
             <div className="relative flex items-center">
               <span className="absolute left-3 text-slate-400 dark:text-zinc-500 pointer-events-none">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
+                {isSearching ? (
+                  <span className="animate-spin inline-block text-xs">🔄</span>
+                ) : (
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                )}
               </span>
               <input
                 ref={searchInputRef}
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
+                onFocus={() => {
+                  if (search.trim() && (searchResults.deals.length > 0 || searchResults.brands.length > 0)) {
+                    setSearchDropdownOpen(true);
+                  }
+                }}
                 placeholder="Search deals, brands, or perks..."
                 className="w-full pl-9 pr-14 py-1.5 text-xs sm:text-sm bg-slate-100/80 dark:bg-zinc-900/90 text-slate-900 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 rounded-full border border-slate-200 dark:border-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-600/40 focus:border-blue-600 transition"
               />
@@ -113,6 +172,23 @@ export default function TopNavbar({ topics = [], onOpenMobileMenu }: TopNavbarPr
               </span>
             </div>
           </form>
+
+          {/* Autocomplete Dropdown */}
+          <SearchAutocompleteDropdown
+            isOpen={searchDropdownOpen}
+            query={search}
+            isLoading={isSearching}
+            deals={searchResults.deals}
+            brands={searchResults.brands}
+            topics={searchResults.topics}
+            onSelectDeal={() => setSearchDropdownOpen(false)}
+            onSelectBrand={() => setSearchDropdownOpen(false)}
+            onSelectTopic={() => setSearchDropdownOpen(false)}
+            onViewAll={() => {
+              setSearchDropdownOpen(false);
+              router.push(`/?q=${encodeURIComponent(search.trim())}`);
+            }}
+          />
         </div>
 
         {/* Right Nav Actions */}
@@ -186,30 +262,38 @@ export default function TopNavbar({ topics = [], onOpenMobileMenu }: TopNavbarPr
           {/* Submit Deal Button */}
           <Link
             href="/submit"
-            className="inline-flex items-center gap-1 bg-blue-600 hover:bg-blue-700 text-white dark:bg-white dark:hover:bg-zinc-200 dark:text-zinc-950 font-semibold text-xs px-2.5 sm:px-3.5 py-1.5 rounded-full transition shadow-xs hover:shadow-sm shrink-0"
+            className="inline-flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white dark:bg-white dark:hover:bg-zinc-200 dark:text-zinc-950 font-semibold text-xs px-3 sm:px-3.5 py-1.5 rounded-full transition shadow-xs hover:shadow-sm shrink-0"
           >
             <span className="text-sm leading-none">+</span>
-            <span className="hidden xs:inline">Submit Deal</span>
-            <span className="xs:hidden">Submit</span>
+            <span>Submit Deal</span>
           </Link>
         </div>
       </div>
 
-      {/* Expandable Mobile Search Bar */}
+      {/* Expandable Mobile Search Bar with Instant Autocomplete */}
       {mobileSearchOpen && (
-        <div className="md:hidden px-3 py-2 bg-slate-50 dark:bg-zinc-900 border-t border-slate-200/80 dark:border-zinc-800 animate-in slide-in-from-top-2 duration-150">
+        <div ref={mobileSearchContainerRef} className="md:hidden px-3 py-2 bg-slate-50 dark:bg-zinc-900 border-t border-slate-200/80 dark:border-zinc-800 animate-in slide-in-from-top-2 duration-150 relative">
           <form onSubmit={handleSearch} className="relative w-full">
             <div className="relative flex items-center">
               <span className="absolute left-3 text-slate-400 dark:text-zinc-500 pointer-events-none">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
+                {isSearching ? (
+                  <span className="animate-spin inline-block text-xs">🔄</span>
+                ) : (
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                )}
               </span>
               <input
                 ref={mobileSearchInputRef}
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
+                onFocus={() => {
+                  if (search.trim() && (searchResults.deals.length > 0 || searchResults.brands.length > 0)) {
+                    setSearchDropdownOpen(true);
+                  }
+                }}
                 placeholder="Search deals, brands, or perks..."
                 className="w-full pl-9 pr-9 py-2 text-xs bg-white dark:bg-zinc-950 text-slate-900 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 rounded-lg border border-slate-200 dark:border-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-600/40 focus:border-blue-600 transition"
               />
@@ -226,6 +310,33 @@ export default function TopNavbar({ topics = [], onOpenMobileMenu }: TopNavbarPr
               )}
             </div>
           </form>
+
+          {/* Mobile Autocomplete Dropdown */}
+          <SearchAutocompleteDropdown
+            isOpen={searchDropdownOpen}
+            query={search}
+            isLoading={isSearching}
+            deals={searchResults.deals}
+            brands={searchResults.brands}
+            topics={searchResults.topics}
+            onSelectDeal={() => {
+              setSearchDropdownOpen(false);
+              setMobileSearchOpen(false);
+            }}
+            onSelectBrand={() => {
+              setSearchDropdownOpen(false);
+              setMobileSearchOpen(false);
+            }}
+            onSelectTopic={() => {
+              setSearchDropdownOpen(false);
+              setMobileSearchOpen(false);
+            }}
+            onViewAll={() => {
+              setSearchDropdownOpen(false);
+              setMobileSearchOpen(false);
+              router.push(`/?q=${encodeURIComponent(search.trim())}`);
+            }}
+          />
         </div>
       )}
     </header>

@@ -98,6 +98,43 @@ export default async function DealDetailPage({ params }: { params: Promise<{ slu
     ],
   };
 
+  const schemaFAQ = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: `How do I claim the ${deal.title}?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: howToClaim.length > 0 
+            ? howToClaim.map((step, idx) => `${idx + 1}. ${step}`).join(' ')
+            : `Click "Claim Deal" on Paradox to visit ${deal.brand.name} and apply promo code ${deal.promoCode || 'at checkout'}.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: `Who is eligible for this ${deal.brand.name} discount?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: eligibility.length > 0
+            ? eligibility.join(' ')
+            : `This deal is available for developers, students, and startups signing up with ${deal.brand.name}.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: `What benefits are included in this perk?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: keyBenefits.length > 0
+            ? keyBenefits.join(' ')
+            : `Get access to ${deal.discountAmount || 'exclusive benefits'} on ${deal.brand.name}.`,
+        },
+      },
+    ],
+  };
+
   return (
     <>
       <ViewTracker slug={deal.slug} />
@@ -110,6 +147,10 @@ export default async function DealDetailPage({ params }: { params: Promise<{ slu
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumbs) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaFAQ) }}
       />
 
       {/* Clean Modern Breadcrumbs */}

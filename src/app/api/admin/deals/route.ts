@@ -46,8 +46,51 @@ export async function GET(req: Request) {
 
     return NextResponse.json({ success: true, deals });
   } catch (error) {
-    console.error('Failed to fetch admin deals:', error);
-    return NextResponse.json({ success: false, error: 'Database query failed' }, { status: 500 });
+    console.warn('Failed to fetch admin deals from DB, serving catalog fallback:', error);
+    try {
+      const { searchParams } = new URL(req.url);
+      const filter = searchParams.get('filter') || 'all';
+      const query = searchParams.get('q')?.trim().toLowerCase() || '';
+
+      const catalogData = require('../../../../../prisma/catalog-data.json');
+      const brandsMap = new Map((catalogData.brands || []).map((b: any) => [b.id, b]));
+      const topicsMap = new Map((catalogData.topics || []).map((t: any) => [t.id, t]));
+
+      let deals = (catalogData.deals || []).map((d: any) => {
+        const b: any = brandsMap.get(d.brandId);
+        const t: any = topicsMap.get(d.topicId);
+        return {
+          ...d,
+          brand: {
+            id: b?.id || d.brandId,
+            name: b?.name || 'Partner',
+            slug: b?.slug || 'partner',
+            logoUrl: b?.logoUrl || null,
+            website: b?.website || null,
+          },
+          topic: t ? { id: t.id, name: t.name, slug: t.slug } : null,
+        };
+      });
+
+      if (filter === 'active') {
+        deals = deals.filter((d: any) => d.isActive);
+      } else if (filter === 'inactive') {
+        deals = deals.filter((d: any) => !d.isActive);
+      }
+
+      if (query) {
+        deals = deals.filter(
+          (d: any) =>
+            d.title.toLowerCase().includes(query) ||
+            d.shortDescription.toLowerCase().includes(query) ||
+            d.brand.name.toLowerCase().includes(query)
+        );
+      }
+
+      return NextResponse.json({ success: true, deals });
+    } catch {
+      return NextResponse.json({ success: false, error: 'Database query failed' }, { status: 500 });
+    }
   }
 }
 

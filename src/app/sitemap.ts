@@ -3,24 +3,42 @@ import { unstable_cache } from 'next/cache';
 import { prisma } from '@/lib/db';
 import { SITE_URL } from '@/lib/site';
 
+import catalogData from '../../prisma/catalog-data.json';
+
 const getSitemapData = unstable_cache(
   async () => {
-    const [deals, brands, topics] = await Promise.all([
-      prisma.deal.findMany({
-        where: { isActive: true },
-        select: { slug: true, updatedAt: true },
-      }),
-      prisma.brand.findMany({
-        where: { deals: { some: { isActive: true } } },
-        select: { slug: true, updatedAt: true },
-      }),
-      prisma.topic.findMany({
-        where: { deals: { some: { isActive: true } } },
-        select: { slug: true, updatedAt: true },
-      }),
-    ]);
+    try {
+      const [deals, brands, topics] = await Promise.all([
+        prisma.deal.findMany({
+          where: { isActive: true },
+          select: { slug: true, updatedAt: true },
+        }),
+        prisma.brand.findMany({
+          where: { deals: { some: { isActive: true } } },
+          select: { slug: true, updatedAt: true },
+        }),
+        prisma.topic.findMany({
+          where: { deals: { some: { isActive: true } } },
+          select: { slug: true, updatedAt: true },
+        }),
+      ]);
 
-    return { deals, brands, topics };
+      if (deals.length > 0) {
+        return { deals, brands, topics };
+      }
+    } catch {
+      // Database offline or building sandboxed: graceful catalog fallback
+    }
+
+    const fallbackDeals = (catalogData.deals || [])
+      .filter((d: any) => d.isActive)
+      .map((d: any) => ({ slug: d.slug, updatedAt: new Date() }));
+    const fallbackBrands = (catalogData.brands || [])
+      .map((b: any) => ({ slug: b.slug, updatedAt: new Date() }));
+    const fallbackTopics = (catalogData.topics || [])
+      .map((t: any) => ({ slug: t.slug, updatedAt: new Date() }));
+
+    return { deals: fallbackDeals, brands: fallbackBrands, topics: fallbackTopics };
   },
   ['paradox-sitemap-v1'],
   { revalidate: 3600, tags: ['paradox:sitemap', 'paradox:deals', 'paradox:brands', 'paradox:topics'] }

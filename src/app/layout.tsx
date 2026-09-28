@@ -6,7 +6,6 @@ import AppShell from '@/components/AppShell';
 import { getPublicTopics, getDealTypeCounts } from '@/lib/public-data';
 import { SITE_URL } from '@/lib/site';
 
-
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
@@ -122,6 +121,14 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Modern Typography: Plus Jakarta Sans & JetBrains Mono */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
+
         {/* Google AdSense Verification */}
         <meta name="google-adsense-account" content="ca-pub-4630615697632107" />
         {/* Anti-flicker inline theme script */}

@@ -82,7 +82,7 @@ export default async function BrandsPage() {
     getPublicTopics(),
   ]);
 
-  const categoryCounts = dbBrands.flatMap((brand) => brand.deals).reduce((counts, deal) => {
+  const categoryCounts = (dbBrands as any[]).flatMap((brand) => brand.deals).reduce((counts: Map<string, number>, deal: any) => {
     const mappedSlug =
       deal.dealType === 'freebie' ? 'freebies' :
       deal.dealType === 'discount' ? 'discounts' :
@@ -95,23 +95,21 @@ export default async function BrandsPage() {
   }, new Map<string, number>());
 
   // Format topics for dropdown
-  const topics: TopicOption[] = dbTopics.map((t) => ({
+  const topics: TopicOption[] = (dbTopics as any[]).map((t) => ({
     name: t.name,
     slug: t.slug,
-    dealCount: t._count.deals,
+    dealCount: t._count?.deals || 0,
   }));
 
   // Format categories with deal counts
-  const categoryMap = categoryCounts;
-
   const categories: CategoryOption[] = CATEGORIES_CONFIG.map((cat) => ({
     name: cat.name,
     slug: cat.slug,
-    dealCount: categoryMap.get(cat.slug) || 0,
+    dealCount: categoryCounts.get(cat.slug) || 0,
   }));
 
   // Format all brands with computed metadata
-  const allBrands: BrandData[] = dbBrands.map((b) => {
+  const allBrands: BrandData[] = (dbBrands as any[]).map((b) => {
     let trendingCount = 0;
     let totalClicks = 0;
     let totalViews = 0;
