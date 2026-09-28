@@ -5,11 +5,42 @@ export const getPublicDeals = unstable_cache(
   async () =>
     prisma.deal.findMany({
       where: { isActive: true },
-      include: { brand: true, topic: true },
+      select: {
+        id: true,
+        title: true,
+        shortDescription: true,
+        slug: true,
+        dealType: true,
+        discountAmount: true,
+        promoCode: true,
+        clickCount: true,
+        viewCount: true,
+        isTrending: true,
+        isLimitedTime: true,
+        isStudentDeal: true,
+        isStartupDeal: true,
+        needsCreditCard: true,
+        expiryDate: true,
+        createdAt: true,
+        updatedAt: true,
+        brand: {
+          select: {
+            name: true,
+            slug: true,
+            logoUrl: true,
+            website: true,
+          },
+        },
+        topic: {
+          select: {
+            name: true,
+          },
+        },
+      },
       orderBy: { createdAt: 'desc' },
     }),
-  ['paradox-public-active-deals-v4'],
-  { revalidate: 60 }
+  ['paradox-public-active-deals-v5'],
+  { revalidate: 60, tags: ['paradox:deals'] }
 );
 
 export const getPublicTopics = unstable_cache(
@@ -26,8 +57,8 @@ export const getPublicTopics = unstable_cache(
       },
       orderBy: { name: 'asc' },
     }),
-  ['paradox-public-topics-v4'],
-  { revalidate: 300 }
+  ['paradox-public-topics-v5'],
+  { revalidate: 300, tags: ['paradox:topics'] }
 );
 
 export const getDealTypeCounts = unstable_cache(
@@ -37,8 +68,8 @@ export const getDealTypeCounts = unstable_cache(
       where: { isActive: true },
       _count: { id: true },
     }),
-  ['paradox-public-deal-type-counts-v4'],
-  { revalidate: 60 }
+  ['paradox-public-deal-type-counts-v5'],
+  { revalidate: 60, tags: ['paradox:deals'] }
 );
 
 export const getPopularBrands = unstable_cache(
@@ -58,8 +89,8 @@ export const getPopularBrands = unstable_cache(
       orderBy: { name: 'asc' },
       take: 16,
     }),
-  ['paradox-public-popular-brands-v4'],
-  { revalidate: 120 }
+  ['paradox-public-popular-brands-v5'],
+  { revalidate: 120, tags: ['paradox:brands', 'paradox:deals'] }
 );
 
 export const getPublicBrands = unstable_cache(
@@ -80,8 +111,8 @@ export const getPublicBrands = unstable_cache(
       },
       orderBy: { name: 'asc' },
     }),
-  ['paradox-public-brands-v4'],
-  { revalidate: 120 }
+  ['paradox-public-brands-v5'],
+  { revalidate: 120, tags: ['paradox:brands', 'paradox:deals'] }
 );
 
 export const getBrandBySlug = (slug: string) =>
@@ -98,7 +129,7 @@ export const getBrandBySlug = (slug: string) =>
         },
       }),
     ['paradox-brand', slug],
-    { revalidate: 120 }
+    { revalidate: 120, tags: ['paradox:brand:' + slug, 'paradox:brands', 'paradox:deals'] }
   )();
 
 export const getTopicBySlug = (slug: string) =>
@@ -108,7 +139,7 @@ export const getTopicBySlug = (slug: string) =>
         where: { slug },
       }),
     ['paradox-topic', slug],
-    { revalidate: 300 }
+    { revalidate: 300, tags: ['paradox:topic:' + slug, 'paradox:topics'] }
   )();
 
 export const getDealsByTopic = (slug: string) =>
@@ -120,7 +151,7 @@ export const getDealsByTopic = (slug: string) =>
         orderBy: { createdAt: 'desc' },
       }),
     ['paradox-topic-deals', slug],
-    { revalidate: 120 }
+    { revalidate: 120, tags: ['paradox:topic:' + slug, 'paradox:deals'] }
   )();
 
 export const getDealBySlug = (slug: string) =>
@@ -131,7 +162,7 @@ export const getDealBySlug = (slug: string) =>
         include: { brand: true, topic: true },
       }),
     ['paradox-deal', slug],
-    { revalidate: 300 }
+    { revalidate: 300, tags: ['paradox:deal:' + slug, 'paradox:deals'] }
   )();
 
 export function sortDeals(deals: any[], sortParam: string): any[] {
