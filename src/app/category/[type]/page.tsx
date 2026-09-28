@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/db';
+import { getPublicDeals, sortDeals, paginateDeals } from '@/lib/public-data';
 import { notFound } from 'next/navigation';
 import DealGrid from '@/components/DealGrid';
 import Pagination from '@/components/Pagination';
@@ -45,16 +45,11 @@ export default async function CategoryPage({
   const limit = 12;
   const skip = (currentPage - 1) * limit;
 
-  const [deals, totalDeals] = await Promise.all([
-    prisma.deal.findMany({
-      where: { dealType: category.type, isActive: true },
-      include: { brand: true, topic: true },
-      orderBy: { createdAt: 'desc' },
-      skip,
-      take: limit,
-    }),
-    prisma.deal.count({ where: { dealType: category.type, isActive: true } }),
-  ]);
+  const allDeals = await getPublicDeals();
+  const categoryDeals = allDeals.filter((deal) => deal.dealType === category.type);
+  const sortedDeals = sortDeals(categoryDeals, 'latest');
+  const totalDeals = sortedDeals.length;
+  const deals = paginateDeals(sortedDeals, currentPage, limit);
 
   const totalPages = Math.ceil(totalDeals / limit);
 
