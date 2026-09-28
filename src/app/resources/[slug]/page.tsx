@@ -10,15 +10,6 @@ import ViewTracker from '@/components/ViewTracker';
 export const revalidate = 300;
 
 
-export async function generateStaticParams() {
-  const deals = await prisma.deal.findMany({
-    where: { isActive: true },
-    select: { slug: true },
-  });
-
-  return deals.map((deal) => ({ slug: deal.slug }));
-}
-
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const deal = await prisma.deal.findUnique({
