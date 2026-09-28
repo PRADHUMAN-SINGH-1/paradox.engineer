@@ -59,7 +59,6 @@ export default function Footer() {
               <li><Link href="/submit" className="hover:text-blue-600 dark:hover:text-white transition">Submit a New Perk</Link></li>
               <li><Link href="/category/freebies" className="hover:text-blue-600 dark:hover:text-white transition">Free Developer Vault</Link></li>
               <li><Link href="/affiliate-disclosure" className="hover:text-blue-600 dark:hover:text-white transition">Affiliate Disclosure</Link></li>
-              <li><Link href="/admin" className="hover:text-blue-600 dark:hover:text-white transition">Admin Dashboard</Link></li>
             </ul>
           </div>
         </div>
