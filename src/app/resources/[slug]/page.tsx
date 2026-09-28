@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function DealDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const deal = (await getPublicDeals()).find((item) => item.slug === slug);
+  const deal = await getDealBySlug(slug);
 
   if (!deal) {
     notFound();
