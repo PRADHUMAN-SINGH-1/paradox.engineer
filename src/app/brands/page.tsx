@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/db';
+import { getPublicBrands, getPublicTopics } from '@/lib/public-data';
 import { Metadata } from 'next';
 import BrandsDirectoryClient, {
   BrandData,
@@ -76,39 +76,22 @@ const CATEGORIES_CONFIG = [
 ];
 
 export default async function BrandsPage() {
-  // Parallel DB queries
-  const [dbBrands, dbTopics, categoryCounts] = await Promise.all([
-    prisma.brand.findMany({
-      include: {
-        deals: {
-          where: { isActive: true },
-          select: {
-            id: true,
-            dealType: true,
-            isTrending: true,
-            clickCount: true,
-            viewCount: true,
-            topic: { select: { slug: true } },
-          },
-        },
-      },
-      orderBy: { name: 'asc' },
-    }),
-    prisma.topic.findMany({
-      select: {
-        id: true,
-        name: true,
-        slug: true,
-        _count: { select: { deals: { where: { isActive: true } } } },
-      },
-      orderBy: { name: 'asc' },
-    }),
-    prisma.deal.groupBy({
-      by: ['dealType'],
-      where: { isActive: true },
-      _count: true,
-    }),
+  const [dbBrands, dbTopics] = await Promise.all([
+    getPublicBrands(),
+    getPublicTopics(),
   ]);
+
+  const categoryCounts = dbBrands.flatMap((brand) => brand.deals).reduce((counts, deal) => {
+    const mappedSlug =
+      deal.dealType === 'freebie' ? 'freebies' :
+      deal.dealType === 'discount' ? 'discounts' :
+      deal.dealType === 'trial' ? 'trials' :
+      deal.dealType === 'credit' ? 'credits' :
+      deal.dealType === 'promo-code' ? 'promo-codes' :
+      deal.dealType;
+    counts.set(mappedSlug, (counts.get(mappedSlug) || 0) + 1);
+    return counts;
+  }, new Map<string, number>());
 
   // Format topics for dropdown
   const topics: TopicOption[] = dbTopics.map((t) => ({
@@ -118,23 +101,7 @@ export default async function BrandsPage() {
   }));
 
   // Format categories with deal counts
-  const categoryMap = new Map<string, number>();
-  for (const c of categoryCounts) {
-    // Map db dealType (e.g. 'freebie', 'discount') to URL slug
-    const mappedSlug =
-      c.dealType === 'freebie'
-        ? 'freebies'
-        : c.dealType === 'discount'
-        ? 'discounts'
-        : c.dealType === 'trial'
-        ? 'trials'
-        : c.dealType === 'credit'
-        ? 'credits'
-        : c.dealType === 'promo-code'
-        ? 'promo-codes'
-        : c.dealType;
-    categoryMap.set(mappedSlug, (categoryMap.get(mappedSlug) || 0) + c._count);
-  }
+  const categoryMap = categoryCounts;
 
   const categories: CategoryOption[] = CATEGORIES_CONFIG.map((cat) => ({
     name: cat.name,
