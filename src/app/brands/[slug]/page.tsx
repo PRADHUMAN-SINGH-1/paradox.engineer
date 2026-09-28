@@ -4,6 +4,7 @@ import Link from 'next/link';
 import DealGrid from '@/components/DealGrid';
 import BrandLogo from '@/components/BrandLogo';
 import { Metadata } from 'next';
+import { SITE_URL } from '@/lib/site';
 
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -14,6 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: brand.name + ' Deals, Coupons & Credits | Paradox',
     description: 'Browse all verified active credits, promo codes, and software tiers from ' + brand.name + '.',
+    alternates: { canonical: SITE_URL + '/brands/' + slug },
   };
 }
 
@@ -28,8 +30,20 @@ export default async function BrandDealsPage({ params }: { params: Promise<{ slu
 
   const brandDeals = brand.deals;
 
+  const schemaBreadcrumbs = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Brands', item: SITE_URL + '/brands' },
+      { '@type': 'ListItem', position: 3, name: brand.name, item: SITE_URL + '/brands/' + brand.slug },
+    ],
+  };
+
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-8 font-sans">
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumbs) }} />
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-8 font-sans">
       {/* Breadcrumb */}
       <nav className="text-xs text-slate-500 dark:text-zinc-400 flex items-center gap-1.5">
         <Link href="/" className="hover:text-blue-600 dark:hover:text-white transition font-medium">Home</Link>
@@ -107,6 +121,7 @@ export default async function BrandDealsPage({ params }: { params: Promise<{ slu
           </div>
         )}
       </div>
-    </div>
+      </div>
+    </>
   );
 }
