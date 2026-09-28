@@ -37,13 +37,6 @@ export default function Navbar() {
           <div className="hidden md:flex items-center space-x-3 text-xs font-mono">
             {/* Theme Toggle (Night mode / White-Blue mode) */}
             <ThemeToggle />
-
-            <Link
-              href="/admin"
-              className="text-slate-500 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-zinc-100 px-2 py-1 rounded hover:bg-slate-100 dark:hover:bg-zinc-900 transition"
-            >
-              [console]
-            </Link>
             <Link
               href="/submit"
               className="bg-blue-600 hover:bg-blue-700 text-white dark:bg-white dark:hover:bg-zinc-200 dark:text-zinc-950 font-semibold px-3.5 py-1.5 rounded-lg transition text-xs font-sans shadow-xs"
