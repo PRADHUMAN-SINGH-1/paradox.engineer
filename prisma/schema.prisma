@@ -60,6 +60,15 @@ model Deal {
   topicId          String
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
+
+  @@index([isActive, createdAt(sort: Desc)])
+  @@index([isActive, dealType, createdAt(sort: Desc)])
+  @@index([isActive, topicId, createdAt(sort: Desc)])
+  @@index([isActive, isStudentDeal, createdAt(sort: Desc)])
+  @@index([isActive, isStartupDeal, createdAt(sort: Desc)])
+  @@index([isActive, needsCreditCard, createdAt(sort: Desc)])
+  @@index([isActive, viewCount(sort: Desc)])
+  @@index([isActive, clickCount(sort: Desc)])
 }
 
 model BlogPost {
