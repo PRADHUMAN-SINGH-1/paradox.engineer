@@ -4,6 +4,7 @@ import DealGrid from '@/components/DealGrid';
 import Pagination from '@/components/Pagination';
 import Link from 'next/link';
 import { Metadata } from 'next';
+import { SITE_URL } from '@/lib/site';
 
 const TYPE_MAP: Record<string, { type: string; name: string; tag: string }> = {
   'freebies': { type: 'freebie', name: 'Free Developer Tiers & Freebies', tag: 'Free' },
@@ -20,6 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ type: str
   return {
     title: `${category.name} | Paradox`,
     description: `Verified ${category.name.toLowerCase()} for developers, startups, and engineers.`,
+    alternates: { canonical: SITE_URL + '/category/' + rawType },
   };
 }
 
@@ -52,8 +54,20 @@ export default async function CategoryPage({
 
   const totalPages = Math.ceil(totalDeals / limit);
 
+  const schemaBreadcrumbs = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Category', item: SITE_URL + '/category/' + rawType },
+      { '@type': 'ListItem', position: 3, name: category.name, item: SITE_URL + '/category/' + rawType },
+    ],
+  };
+
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-8 font-sans">
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumbs) }} />
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-8 font-sans">
       {/* Breadcrumb */}
       <nav className="text-xs text-slate-500 dark:text-zinc-400 flex items-center gap-1.5">
         <Link href="/" className="hover:text-blue-600 dark:hover:text-white transition font-medium">Home</Link>
@@ -77,6 +91,7 @@ export default async function CategoryPage({
           <Pagination currentPage={currentPage} totalPages={totalPages} baseUrl={`/category/${rawType}`} />
         </div>
       )}
-    </div>
+      </div>
+    </>
   );
 }
