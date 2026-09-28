@@ -1,4 +1,4 @@
-import { getPublicDeals, getPublicTopics, sortDeals, paginateDeals } from '@/lib/public-data';
+import { getTopicBySlug, getDealsByTopic, sortDeals, paginateDeals } from '@/lib/public-data';
 import { notFound } from 'next/navigation';
 import DealGrid from '@/components/DealGrid';
 import SortTabs from '@/components/SortTabs';
@@ -9,7 +9,7 @@ import { Metadata } from 'next';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const topic = (await getPublicTopics()).find((item) => item.slug === slug);
+  const topic = await getTopicBySlug(slug);
   if (!topic) return { title: 'Topic Not Found' };
   return {
     title: topic.name + ' Deals & Perks | Paradox',
@@ -38,7 +38,7 @@ export default async function TopicDealsPage({
   const sortParam = sort || 'latest';
   const limit = 12;
   const skip = (currentPage - 1) * limit;
-  const topicDeals = (await getPublicDeals()).filter((deal) => deal.topic?.slug === slug);
+  const topicDeals = await getDealsByTopic(slug);
   const deals = paginateDeals(sortDeals(topicDeals, sortParam), currentPage, limit);
   const totalDeals = topicDeals.length;
 
