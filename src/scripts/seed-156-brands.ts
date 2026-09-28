@@ -72,7 +72,7 @@ const DOMAIN_MAP: Record<string, string> = {
   'base44': 'https://base44.com',
   'notegpt-inc': 'https://notegpt.io',
   'runwayml': 'https://runwayml.com',
-  'generic': 'https://paradox.engineer',
+  'generic': 'https://www.paradox.engineer',
   'kaggle': 'https://kaggle.com',
   'shapr3d': 'https://shapr3d.com',
   'meta': 'https://meta.com',
