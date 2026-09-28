@@ -16,6 +16,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
+export const revalidate = 120;
+
 export default async function BrandDealsPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const brand = await prisma.brand.findUnique({
