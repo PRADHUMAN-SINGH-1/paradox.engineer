@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!brand) return { title: 'Brand Not Found' };
 
   return {
-    title: brand.name + ' Deals, Coupons & Credits | Paradox',
+    title: brand.name + ' Deals, Coupons & Credits',
     description: 'Browse all verified active credits, promo codes, and software tiers from ' + brand.name + '.',
     alternates: { canonical: SITE_URL + '/brands/' + slug },
   };
