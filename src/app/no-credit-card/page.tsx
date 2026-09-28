@@ -5,11 +5,17 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 import { SITE_URL } from '@/lib/site';
 
-export const metadata: Metadata = {
-  title: 'No Credit Card Required Deals',
-  description: 'Verified digital tools, free trials, and developer platform grants that do not require credit card details upfront.',
-  alternates: { canonical: SITE_URL + '/no-credit-card' },
-};
+export async function generateMetadata({ searchParams }: { searchParams?: Promise<{ page?: string }> }): Promise<Metadata> {
+  const resolved = searchParams ? await searchParams : {};
+  const page = Number(resolved.page) || 1;
+
+  return {
+    title: 'No Credit Card Required Deals',
+    description: 'Verified digital tools, free trials, and developer platform grants that do not require credit card details upfront.',
+    alternates: { canonical: SITE_URL + '/no-credit-card' },
+    robots: page > 1 ? { index: false, follow: true } : { index: true, follow: true },
+  };
+}
 
 
 export default async function NoCreditCardPage({ searchParams }: { searchParams?: Promise<{ page?: string }> }) {
