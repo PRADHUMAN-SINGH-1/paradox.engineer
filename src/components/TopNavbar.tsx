@@ -20,7 +20,9 @@ export default function TopNavbar({ topics = [], onOpenMobileMenu }: TopNavbarPr
   const router = useRouter();
   const [search, setSearch] = useState('');
   const [topicsOpen, setTopicsOpen] = useState(false);
+  const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const mobileSearchInputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Keyboard shortcut: Cmd+K / Ctrl+K focuses search
@@ -29,9 +31,11 @@ export default function TopNavbar({ topics = [], onOpenMobileMenu }: TopNavbarPr
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
         searchInputRef.current?.focus();
+        mobileSearchInputRef.current?.focus();
       }
       if (e.key === 'Escape') {
         setTopicsOpen(false);
+        setMobileSearchOpen(false);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -49,10 +53,17 @@ export default function TopNavbar({ topics = [], onOpenMobileMenu }: TopNavbarPr
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    if (mobileSearchOpen) {
+      setTimeout(() => mobileSearchInputRef.current?.focus(), 50);
+    }
+  }, [mobileSearchOpen]);
+
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (search.trim()) {
       router.push(`/?q=${encodeURIComponent(search.trim())}`);
+      setMobileSearchOpen(false);
     } else {
       router.push('/');
     }
@@ -60,25 +71,28 @@ export default function TopNavbar({ topics = [], onOpenMobileMenu }: TopNavbarPr
 
   return (
     <header className="sticky top-0 z-20 border-b border-slate-200 dark:border-zinc-800 bg-white/95 dark:bg-[#09090b]/90 backdrop-blur-md transition-colors">
-      <div className="w-full px-4 sm:px-6 h-14 flex items-center justify-between gap-3">
-        {/* Left: Mobile Menu Trigger + Search Bar */}
-        <div className="flex items-center gap-3 flex-1 max-w-xl">
-          {/* Mobile hamburger button + Mobile Logo */}
-          <div className="flex items-center gap-2 lg:hidden">
-            <button
-              type="button"
-              onClick={onOpenMobileMenu}
-              aria-label="Open sidebar"
-              className="p-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-zinc-400 dark:hover:text-white dark:hover:bg-zinc-800 transition"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-            <ParadoxLogo href="/" size="sm" showWordmark={false} />
-          </div>
+      <div className="w-full px-3 sm:px-6 h-14 flex items-center justify-between gap-2 sm:gap-4">
+        {/* Left: Mobile Menu Trigger + Full Brand Logo */}
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          <button
+            type="button"
+            onClick={onOpenMobileMenu}
+            aria-label="Open sidebar"
+            className="p-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-zinc-400 dark:hover:text-white dark:hover:bg-zinc-800 transition lg:hidden"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
 
-          {/* Search Box with Cmd+K */}
+          {/* Full Logo + Wordmark visible on mobile */}
+          <div className="lg:hidden flex items-center">
+            <ParadoxLogo href="/" size="sm" showWordmark={true} />
+          </div>
+        </div>
+
+        {/* Center: Desktop Search Bar */}
+        <div className="hidden md:flex items-center flex-1 max-w-lg mx-auto">
           <form onSubmit={handleSearch} className="relative w-full">
             <div className="relative flex items-center">
               <span className="absolute left-3 text-slate-400 dark:text-zinc-500 pointer-events-none">
@@ -102,9 +116,21 @@ export default function TopNavbar({ topics = [], onOpenMobileMenu }: TopNavbarPr
         </div>
 
         {/* Right Nav Actions */}
-        <div className="flex items-center gap-2 sm:gap-3 shrink-0 text-xs font-sans">
-          {/* Topics Dropdown */}
-          <div className="relative" ref={dropdownRef}>
+        <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0 text-xs font-sans">
+          {/* Mobile Search Toggle Icon */}
+          <button
+            type="button"
+            onClick={() => setMobileSearchOpen(!mobileSearchOpen)}
+            aria-label="Search"
+            className="md:hidden p-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-zinc-400 dark:hover:text-white dark:hover:bg-zinc-800 transition"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </button>
+
+          {/* Topics Dropdown (Tablet & Desktop) */}
+          <div className="relative hidden sm:block" ref={dropdownRef}>
             <button
               type="button"
               onClick={() => setTopicsOpen(!topicsOpen)}
@@ -154,21 +180,54 @@ export default function TopNavbar({ topics = [], onOpenMobileMenu }: TopNavbarPr
             )}
           </div>
 
-          {/* Theme Toggle (Night mode) - only on mobile when sidebar is off-screen */}
-          <div className="lg:hidden">
-            <ThemeToggle />
-          </div>
+          {/* Theme Toggle (Night mode) - visible on mobile & desktop */}
+          <ThemeToggle />
 
           {/* Submit Deal Button */}
           <Link
             href="/submit"
-            className="inline-flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white dark:bg-white dark:hover:bg-zinc-200 dark:text-zinc-950 font-semibold text-xs px-3.5 py-1.5 rounded-full transition shadow-xs hover:shadow-sm"
+            className="inline-flex items-center gap-1 bg-blue-600 hover:bg-blue-700 text-white dark:bg-white dark:hover:bg-zinc-200 dark:text-zinc-950 font-semibold text-xs px-2.5 sm:px-3.5 py-1.5 rounded-full transition shadow-xs hover:shadow-sm shrink-0"
           >
             <span className="text-sm leading-none">+</span>
-            <span>Submit Deal</span>
+            <span className="hidden xs:inline">Submit Deal</span>
+            <span className="xs:hidden">Submit</span>
           </Link>
         </div>
       </div>
+
+      {/* Expandable Mobile Search Bar */}
+      {mobileSearchOpen && (
+        <div className="md:hidden px-3 py-2 bg-slate-50 dark:bg-zinc-900 border-t border-slate-200/80 dark:border-zinc-800 animate-in slide-in-from-top-2 duration-150">
+          <form onSubmit={handleSearch} className="relative w-full">
+            <div className="relative flex items-center">
+              <span className="absolute left-3 text-slate-400 dark:text-zinc-500 pointer-events-none">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </span>
+              <input
+                ref={mobileSearchInputRef}
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search deals, brands, or perks..."
+                className="w-full pl-9 pr-9 py-2 text-xs bg-white dark:bg-zinc-950 text-slate-900 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 rounded-lg border border-slate-200 dark:border-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-600/40 focus:border-blue-600 transition"
+              />
+              {search && (
+                <button
+                  type="button"
+                  onClick={() => setSearch('')}
+                  className="absolute right-2.5 p-1 text-slate-400 hover:text-slate-600 dark:hover:text-zinc-300"
+                >
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              )}
+            </div>
+          </form>
+        </div>
+      )}
     </header>
   );
 }

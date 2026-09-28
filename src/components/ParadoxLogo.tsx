@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import React, { useId } from 'react';
 import Link from 'next/link';
 
 interface ParadoxLogoProps {
@@ -16,11 +18,15 @@ export default function ParadoxLogo({
   href,
   tag = '/deals',
 }: ParadoxLogoProps) {
+  const rawId = useId();
+  // Sanitize id for valid CSS/SVG selector
+  const id = rawId.replace(/:/g, '_');
+
   const sizeMap = {
     sm: {
-      icon: 'w-6 h-6',
-      text: 'text-sm tracking-tight',
-      badge: 'text-[9px] px-1.5 py-0.2',
+      icon: 'w-7 h-7',
+      text: 'text-[15px] tracking-tight',
+      badge: 'text-[9.5px] px-1.5 py-0.5',
     },
     md: {
       icon: 'w-8 h-8',
@@ -42,26 +48,30 @@ export default function ParadoxLogo({
   const { icon, text, badge } = sizeMap[size];
 
   const logoMark = (
-    <div className={`relative ${icon} shrink-0 group-hover:scale-105 transition-transform duration-200`}>
+    <div
+      className={`relative ${icon} shrink-0 rounded-[10px] shadow-[0_2px_8px_rgba(37,99,235,0.28)] group-hover:scale-105 transition-transform duration-200 select-none`}
+    >
       <svg
         viewBox="0 0 40 40"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="w-full h-full drop-shadow-[0_2px_8px_rgba(37,99,235,0.32)]"
+        className="w-full h-full block"
+        width="100%"
+        height="100%"
       >
         <defs>
-          <linearGradient id="paradox-brand-blue" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id={`p-brand-blue-${id}`} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#2563EB" />
             <stop offset="100%" stopColor="#1D4ED8" />
           </linearGradient>
-          <linearGradient id="paradox-shadow" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id={`p-shadow-${id}`} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#1E40AF" />
             <stop offset="100%" stopColor="#172554" />
           </linearGradient>
         </defs>
 
         {/* 1. Base Squircle Badge */}
-        <rect width="40" height="40" rx="10" fill="url(#paradox-brand-blue)" />
+        <rect width="40" height="40" rx="10" fill={`url(#p-brand-blue-${id})`} />
 
         {/* 2. Top Specular Border Light */}
         <rect
@@ -84,17 +94,17 @@ export default function ParadoxLogo({
         />
 
         {/* 4. Optical Interlocking Underfold Shadow */}
-        <path d="M16.5 19H21V24H16.5V19Z" fill="url(#paradox-shadow)" />
+        <path d="M16.5 19H21V24H16.5V19Z" fill={`url(#p-shadow-${id})`} />
       </svg>
     </div>
   );
 
   const content = (
-    <div className={`flex items-center gap-2.5 ${className}`}>
+    <div className={`flex items-center gap-2 sm:gap-2.5 whitespace-nowrap shrink-0 ${className}`}>
       {logoMark}
 
       {showWordmark && (
-        <div className="flex items-center gap-2 leading-none select-none">
+        <div className="flex items-center gap-1.5 sm:gap-2 leading-none select-none whitespace-nowrap shrink-0">
           <span className={`font-bold ${text} text-slate-900 dark:text-zinc-50 font-sans`}>
             Paradox
           </span>
@@ -115,7 +125,7 @@ export default function ParadoxLogo({
     return (
       <Link
         href={href}
-        className="group inline-flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-lg"
+        className="group inline-flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-lg whitespace-nowrap shrink-0"
       >
         {content}
       </Link>

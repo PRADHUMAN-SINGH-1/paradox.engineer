@@ -40,7 +40,7 @@ export default function AppShell({ topics, categoryCounts, children }: AppShellP
             onClick={() => setMobileMenuOpen(false)}
           />
           <div className="relative w-64 max-w-[80vw] bg-white dark:bg-[#09090b] h-full shadow-2xl z-10 flex flex-col">
-            <Sidebar categoryCounts={categoryCounts} />
+            <Sidebar categoryCounts={categoryCounts} onClose={() => setMobileMenuOpen(false)} />
           </div>
         </div>
       )}

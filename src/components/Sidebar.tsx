@@ -14,6 +14,7 @@ interface SidebarProps {
     credits: number;
     promoCodes: number;
   };
+  onClose?: () => void;
 }
 
 export default function Sidebar({
@@ -24,6 +25,7 @@ export default function Sidebar({
     credits: 10,
     promoCodes: 1,
   },
+  onClose,
 }: SidebarProps) {
   const pathname = usePathname();
   const [activeSection, setActiveSection] = useState<'deals' | 'vault'>('deals');
@@ -152,9 +154,23 @@ export default function Sidebar({
   return (
     <aside className="w-64 shrink-0 border-r border-slate-200 dark:border-zinc-800 bg-white dark:bg-[#09090b] flex flex-col h-screen sticky top-0 transition-colors select-none z-30">
       {/* Brand Header */}
-      <div className="h-14 flex items-center justify-between px-5 border-b border-slate-100 dark:border-zinc-800/80">
+      <div className="h-14 flex items-center justify-between px-4 sm:px-5 border-b border-slate-100 dark:border-zinc-800/80">
         <ParadoxLogo href="/" size="md" />
-        <ThemeToggle />
+        <div className="flex items-center gap-1.5 shrink-0">
+          <ThemeToggle />
+          {onClose && (
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label="Close sidebar"
+              className="p-1.5 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-100 dark:text-zinc-400 dark:hover:text-white dark:hover:bg-zinc-800 transition lg:hidden cursor-pointer"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Scrollable Navigation */}
