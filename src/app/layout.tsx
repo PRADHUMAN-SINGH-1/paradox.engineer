@@ -5,7 +5,6 @@ import { ThemeProvider } from '@/components/ThemeProvider';
 import AppShell from '@/components/AppShell';
 import { getPublicTopics, getPublicDeals } from '@/lib/public-data';
 
-export const revalidate = 300;
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://paradox.engineer'),
