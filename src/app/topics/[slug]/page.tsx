@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 120;
 
 export default async function TopicDealsPage({
   params,
