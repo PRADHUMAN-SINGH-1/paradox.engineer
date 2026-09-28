@@ -764,13 +764,13 @@ export default function AdminDashboardPage() {
                 <input
                   type="text"
                   readOnly
-                  value="https://paradox.engineer/api/cron/refresh-deals"
+                  value="https://www.paradox.engineer/api/cron/refresh-deals"
                   className="w-full px-3.5 py-2 text-xs font-mono bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-xl text-slate-800 dark:text-zinc-200 select-all"
                 />
                 <button
                   type="button"
                   onClick={() => {
-                    navigator.clipboard.writeText('https://paradox.engineer/api/cron/refresh-deals');
+                    navigator.clipboard.writeText('https://www.paradox.engineer/api/cron/refresh-deals');
                     setCopiedWebhook(true);
                     setTimeout(() => setCopiedWebhook(false), 2500);
                   }}
@@ -790,7 +790,7 @@ export default function AdminDashboardPage() {
                 <li>Create a free account on <a href="https://cron-job.org" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline font-medium">cron-job.org</a>.</li>
                 <li>Click <strong>&ldquo;Create Cronjob&rdquo;</strong>.</li>
                 <li>Title: <code className="font-mono bg-white dark:bg-zinc-900 px-1 py-0.5 rounded">Paradox Deals Auto-Ingest</code></li>
-                <li>URL: <code className="font-mono bg-white dark:bg-zinc-900 px-1 py-0.5 rounded">https://paradox.engineer/api/cron/refresh-deals</code></li>
+                <li>URL: <code className="font-mono bg-white dark:bg-zinc-900 px-1 py-0.5 rounded">https://www.paradox.engineer/api/cron/refresh-deals</code></li>
                 <li>Schedule: Set execution to <strong>&ldquo;Every 6 hours&rdquo;</strong> (or every 12 hours).</li>
                 <li>Save! Your catalog will automatically crawl new deals, tag estimated commissions, and archive expired deals forever.</li>
               </ol>
