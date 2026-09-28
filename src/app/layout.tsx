@@ -5,6 +5,8 @@ import { ThemeProvider } from '@/components/ThemeProvider';
 import AppShell from '@/components/AppShell';
 import { prisma } from '@/lib/db';
 
+export const revalidate = 300;
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://paradox.engineer'),
   title: {
