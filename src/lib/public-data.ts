@@ -199,7 +199,6 @@ export function matchesDealSearch(deal: any, searchQuery: string): boolean {
   const text = [
     deal.title,
     deal.shortDescription,
-    deal.fullDescription,
     deal.brand?.name,
     deal.topic?.name,
   ]
