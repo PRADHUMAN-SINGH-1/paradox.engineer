@@ -280,5 +280,25 @@ git push -u origin main
 
 ---
 
+## ✉️ Production Email Notifications
+
+Paradox supports transactional and subscriber email delivery through Resend. The Next.js Route Handlers use the Resend REST API, and notification work is deferred with Next.js `after()` so form submissions do not wait for email delivery.
+
+Set these Vercel Production environment variables:
+
+```text
+RESEND_API_KEY=re_...
+RESEND_FROM_EMAIL=Paradox <updates@paradox.engineer>
+```
+
+The sending domain/address in `RESEND_FROM_EMAIL` must be verified in Resend before production delivery. Resend supports sending from Next.js Route Handlers and batch delivery for subscriber notifications. citeturn399803search1turn654168search0
+
+Current notification flows:
+- A new newsletter subscriber receives a confirmation email.
+- When a new deal is published from the admin dashboard, subscribed users receive the new-deal email.
+- When the crawler discovers a new deal, subscribed users receive the new-deal email.
+- When a community-submitted deal is published, the submitter is notified (when an email was supplied) and subscribers receive the new-deal email.
+- Every community deal submission sends an admin notification to `pradhumansingh196@gmail.com`.
+
 ## 📄 License
 This project is open-source under the [MIT License](LICENSE).
