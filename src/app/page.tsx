@@ -20,8 +20,6 @@ export default async function Home({
   const sortParam = sort || 'latest';
   const searchQuery = q?.trim() || '';
   const limit = 12;
-  const skip = (currentPage - 1) * limit;
-
   const [allDeals, topics, brands] = await Promise.all([
     getPublicDeals(),
     getPublicTopics(),
