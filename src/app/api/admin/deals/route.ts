@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { requireAdmin } from '@/lib/admin-auth';
 import { revalidateTag } from 'next/cache';
+import { after } from 'next/server';
+import { sendNewDealNotifications } from '@/lib/email';
 
 export async function GET(req: Request) {
   const denied = requireAdmin(req);
@@ -156,6 +158,18 @@ export async function POST(req: Request) {
 
     revalidateTag('paradox:deals', 'max');
     revalidateTag('paradox:brands', 'max');
+
+    after(() =>
+      sendNewDealNotifications({
+        id: deal.id,
+        slug: deal.slug,
+        title: deal.title,
+        shortDescription: deal.shortDescription,
+        discountAmount: deal.discountAmount,
+        dealType: deal.dealType,
+        brandName: brand.name,
+      }).catch((error) => console.error('New deal subscriber emails failed:', error))
+    );
 
     return NextResponse.json({ success: true, deal });
   } catch (error) {
