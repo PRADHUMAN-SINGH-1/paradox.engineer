@@ -1,9 +1,10 @@
-import { getDealBySlug } from '@/lib/public-data';
+import { getDealBySlug, getRelatedDeals } from '@/lib/public-data';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { SITE_URL } from '@/lib/site';
 import Link from 'next/link';
 import ClaimActionBox from '@/components/ClaimActionBox';
+import DealGrid from '@/components/DealGrid';
 import BrandLogo from '@/components/BrandLogo';
 import ExpiryBadge from '@/components/ExpiryBadge';
 import ViewTracker from '@/components/ViewTracker';
@@ -42,6 +43,8 @@ export default async function DealDetailPage({ params }: { params: Promise<{ slu
     notFound();
   }
 
+  const relatedDeals = await getRelatedDeals(deal.topic.slug, deal.slug);
+
   let howToClaim: string[] = [];
   let keyBenefits: string[] = [];
   let eligibility: string[] = [];
@@ -59,6 +62,9 @@ export default async function DealDetailPage({ params }: { params: Promise<{ slu
     url: SITE_URL + '/resources/' + deal.slug,
     isPartOf: { '@type': 'WebSite', name: 'Paradox', url: SITE_URL },
     about: { '@type': 'Thing', name: deal.brand.name },
+    datePublished: new Date(deal.createdAt).toISOString(),
+    dateModified: new Date(deal.updatedAt).toISOString(),
+    inLanguage: 'en',
   };
 
   const schemaBreadcrumbs = {
@@ -165,6 +171,11 @@ export default async function DealDetailPage({ params }: { params: Promise<{ slu
             <p className="text-sm sm:text-base text-slate-600 dark:text-zinc-300 leading-relaxed pt-3 border-t border-slate-100 dark:border-zinc-800">
               {deal.fullDescription}
             </p>
+            <div className="flex flex-wrap gap-x-4 gap-y-1 pt-2 text-[11px] text-slate-500 dark:text-zinc-400">
+              <span>Last verified: <time dateTime={new Date(deal.updatedAt).toISOString()}>{new Date(deal.updatedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</time></span>
+              <span>Category: {deal.topic.name}</span>
+              <span>Official source linked below</span>
+            </div>
           </div>
 
           {/* How to Claim Steps */}
@@ -227,6 +238,18 @@ export default async function DealDetailPage({ params }: { params: Promise<{ slu
                 ))}
               </ul>
             </div>
+          )}
+
+          {relatedDeals.length > 0 && (
+            <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-zinc-800">
+              <div>
+                <h2 className="text-lg font-bold text-slate-900 dark:text-white">Related Developer Deals</h2>
+                <p className="text-xs text-slate-500 dark:text-zinc-400 mt-1">
+                  More verified offers in {deal.topic.name}.
+                </p>
+              </div>
+              <DealGrid deals={relatedDeals as any} />
+            </section>
           )}
 
           {deal.termsUrl && (
