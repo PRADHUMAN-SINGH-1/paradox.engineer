@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const topic = await getTopicBySlug(slug);
   if (!topic) return { title: 'Topic Not Found' };
   return {
-    title: topic.name + ' Deals & Perks | Paradox',
+    title: topic.name + ' Deals & Perks',
     description: 'Verified infrastructure credits, software tiers, and discounts for ' + topic.name + '.',
     alternates: { canonical: SITE_URL + '/topics/' + slug },
   };
