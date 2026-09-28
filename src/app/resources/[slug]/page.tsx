@@ -5,6 +5,9 @@ import Link from 'next/link';
 import ClaimActionBox from '@/components/ClaimActionBox';
 import BrandLogo from '@/components/BrandLogo';
 import ExpiryBadge from '@/components/ExpiryBadge';
+import ViewTracker from '@/components/ViewTracker';
+
+export const revalidate = 300;
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -50,12 +53,6 @@ export default async function DealDetailPage({ params }: { params: Promise<{ slu
   if (!deal) {
     notFound();
   }
-
-  // Increment viewCount
-  await prisma.deal.update({
-    where: { id: deal.id },
-    data: { viewCount: { increment: 1 } },
-  });
 
   let howToClaim: string[] = [];
   let keyBenefits: string[] = [];
@@ -120,7 +117,9 @@ export default async function DealDetailPage({ params }: { params: Promise<{ slu
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-8 font-sans">
+    <>
+      <ViewTracker slug={deal.slug} />
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-8 font-sans">
       {/* Schema.org Structured Data for Google SERP */}
       <script
         type="application/ld+json"
@@ -288,6 +287,7 @@ export default async function DealDetailPage({ params }: { params: Promise<{ slu
           />
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }
