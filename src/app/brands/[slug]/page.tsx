@@ -1,4 +1,4 @@
-import { getPublicDeals, getPublicBrands } from '@/lib/public-data';
+import { getBrandBySlug } from '@/lib/public-data';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import DealGrid from '@/components/DealGrid';
@@ -8,7 +8,7 @@ import { Metadata } from 'next';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const brand = (await getPublicBrands()).find((item) => item.slug === slug);
+  const brand = await getBrandBySlug(slug);
   if (!brand) return { title: 'Brand Not Found' };
 
   return {
@@ -20,11 +20,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function BrandDealsPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const brand = (await getPublicBrands()).find((item) => item.slug === slug);
+  const brand = await getBrandBySlug(slug);
+
   if (!brand) {
     notFound();
   }
-  const brandDeals = (await getPublicDeals()).filter((deal) => deal.brand?.slug === slug);
+
+  const brandDeals = brand.deals;
 
   if (!brand) {
     notFound();
