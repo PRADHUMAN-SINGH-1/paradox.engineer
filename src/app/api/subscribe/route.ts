@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
+import { after } from 'next/server';
+import { sendSubscriptionWelcomeEmail } from '@/lib/email';
 
 export async function POST(request: Request) {
   try {
@@ -9,9 +11,18 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Invalid email address' }, { status: 400 });
     }
 
-    const subscriber = await prisma.subscriber.create({
-      data: { email },
+    const normalizedEmail = email.trim().toLowerCase();
+    const subscriber = await prisma.subscriber.upsert({
+      where: { email: normalizedEmail },
+      update: {},
+      create: { email: normalizedEmail },
     });
+
+    after(() =>
+      sendSubscriptionWelcomeEmail(normalizedEmail).catch((error) =>
+        console.error('Subscription welcome email failed:', error)
+      )
+    );
 
     return NextResponse.json({ success: true, subscriber }, { status: 201 });
   } catch (error) {
