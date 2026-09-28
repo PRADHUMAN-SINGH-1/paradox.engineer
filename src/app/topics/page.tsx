@@ -3,7 +3,6 @@ import TopicCard from '@/components/TopicCard';
 import { Metadata } from 'next';
 import Link from 'next/link';
 
-export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: 'All Categories | Paradox',
