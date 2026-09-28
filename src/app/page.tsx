@@ -70,7 +70,7 @@ export default async function Home({
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'Paradox',
-    url: 'https://paradox.engineer',
+    url: SITE_URL,
     logo: SITE_URL + '/icon.png',
     description: 'Curated index of software credits, cloud infrastructure perks, AI tokens, and developer discounts.',
   };
