@@ -5,7 +5,7 @@ import { Metadata } from 'next';
 import { SITE_URL } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Student Developer Perks & Academic Grants | Paradox',
+  title: 'Student Developer Perks & Academic Grants',
   description: 'Verified academic software tiers, free Pro accounts, and student developer packs.',
   alternates: { canonical: SITE_URL + '/student' },
 };
