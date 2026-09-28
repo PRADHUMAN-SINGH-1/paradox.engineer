@@ -7,11 +7,6 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 
 
-export async function generateStaticParams() {
-  const topics = await prisma.topic.findMany({ select: { slug: true } });
-  return topics.map((topic) => ({ slug: topic.slug }));
-}
-
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const topic = await prisma.topic.findUnique({ where: { slug } });
