@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/db';
+import { getPublicDeals, getPublicTopics, sortDeals, paginateDeals } from '@/lib/public-data';
 import { notFound } from 'next/navigation';
 import DealGrid from '@/components/DealGrid';
 import SortTabs from '@/components/SortTabs';
@@ -9,11 +9,11 @@ import { Metadata } from 'next';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const topic = await prisma.topic.findUnique({ where: { slug } });
+  const topic = (await getPublicTopics()).find((item) => item.slug === slug);
   if (!topic) return { title: 'Topic Not Found' };
   return {
-    title: `${topic.name} Deals & Perks | Paradox`,
-    description: `Verified infrastructure credits, software tiers, and discounts for ${topic.name}.`,
+    title: topic.name + ' Deals & Perks | Paradox',
+    description: 'Verified infrastructure credits, software tiers, and discounts for ' + topic.name + '.',
   };
 }
 
@@ -30,7 +30,7 @@ export default async function TopicDealsPage({
   const resolved = searchParams ? await searchParams : {};
   const { sort, page } = resolved;
   
-  const topic = await prisma.topic.findUnique({ where: { slug } });
+  const topic = (await getPublicTopics()).find((item) => item.slug === slug);
   if (!topic) {
     notFound();
   }
@@ -39,22 +39,9 @@ export default async function TopicDealsPage({
   const sortParam = sort || 'latest';
   const limit = 12;
   const skip = (currentPage - 1) * limit;
-
-  let orderBy: any = { createdAt: 'desc' };
-  if (sortParam === 'last_updated') orderBy = { updatedAt: 'desc' };
-  else if (sortParam === 'popular') orderBy = { viewCount: 'desc' };
-  else if (sortParam === 'claimed') orderBy = { clickCount: 'desc' };
-
-  const [deals, totalDeals] = await Promise.all([
-    prisma.deal.findMany({
-      where: { topicId: topic.id, isActive: true },
-      include: { brand: true, topic: true },
-      orderBy,
-      skip,
-      take: limit,
-    }),
-    prisma.deal.count({ where: { topicId: topic.id, isActive: true } }),
-  ]);
+  const topicDeals = (await getPublicDeals()).filter((deal) => deal.topic?.slug === slug);
+  const deals = paginateDeals(sortDeals(topicDeals, sortParam), currentPage, limit);
+  const totalDeals = topicDeals.length;
 
   const totalPages = Math.ceil(totalDeals / limit);
 
