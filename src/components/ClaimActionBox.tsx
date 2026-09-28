@@ -110,7 +110,7 @@ export default function ClaimActionBox({
         <a
           href={finalUrl}
           target="_blank"
-          rel="noopener noreferrer"
+          rel="nofollow sponsored noopener noreferrer"
           onClick={() => {
             trackClick();
             if (promoCode) handleCopyCode();
