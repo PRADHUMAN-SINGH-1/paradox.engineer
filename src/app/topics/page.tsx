@@ -6,7 +6,7 @@ import { SITE_URL } from '@/lib/site';
 
 
 export const metadata: Metadata = {
-  title: 'All Categories | Paradox',
+  title: 'Developer Deals by Topic',
   description: 'Explore verified developer perks, cloud grants, software discounts, and startup offers by technical topic.',
   alternates: { canonical: SITE_URL + '/topics' },
 };
