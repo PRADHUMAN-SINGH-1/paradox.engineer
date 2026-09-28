@@ -13,10 +13,10 @@ function escapeHtml(value: unknown): string {
 
 function getConfig() {
   const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.RESEND_FROM_EMAIL;
+  const from = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
 
-  if (!apiKey || !from) {
-    throw new Error('Email service is not configured');
+  if (!apiKey) {
+    throw new Error('RESEND_API_KEY is not configured');
   }
 
   return { apiKey, from };
@@ -146,6 +146,8 @@ function newDealEmailHtml(deal: {
 </html>`;
 }
 
+const ADMIN_NOTIFICATION_EMAIL = 'pradhumansingh196@gmail.com';
+
 export async function sendDealSubmissionNotification(submission: {
   id: string;
   brandName: string;
@@ -154,10 +156,8 @@ export async function sendDealSubmissionNotification(submission: {
   description?: string | null;
   submittedBy?: string | null;
 }) {
-  const adminEmail = 'pradhumansingh196@gmail.com';
-
   return sendTransactionalEmail({
-    to: [adminEmail],
+    to: [ADMIN_NOTIFICATION_EMAIL],
     subject: `New Paradox deal submission: ${submission.dealTitle}`,
     replyTo: submission.submittedBy || undefined,
     idempotencyKey: `deal-submission-${submission.id}`,
