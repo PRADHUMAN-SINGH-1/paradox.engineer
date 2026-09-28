@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: 'Up to $5,000 in cloud infrastructure and developer credits for early-stage engineering teams.',
 };
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 120;
 
 export default async function StartupDealsPage({ searchParams }: { searchParams?: Promise<{ page?: string }> }) {
   const resolved = searchParams ? await searchParams : {};
