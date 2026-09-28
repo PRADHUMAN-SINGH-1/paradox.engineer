@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/db';
+import { getPublicDeals } from '@/lib/public-data';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import Link from 'next/link';
@@ -12,44 +12,31 @@ export const revalidate = 300;
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const deal = await prisma.deal.findUnique({
-    where: { slug },
-    include: { brand: true, topic: true },
-  });
-
+  const deal = (await getPublicDeals()).find((item) => item.slug === slug);
   if (!deal) return { title: 'Offer Not Found' };
 
-  const title = `${deal.title} – Promo Code & Deal`;
-  const description = `${deal.shortDescription} Verified ${deal.dealType} for ${deal.brand.name}. Step-by-step claim instructions and eligibility rules.`;
+  const title = deal.title + ' – Promo Code & Deal';
+  const description = deal.shortDescription + ' Verified ' + deal.dealType + ' for ' + deal.brand.name + '. Step-by-step claim instructions and eligibility rules.';
 
   return {
     title,
     description,
-    alternates: {
-      canonical: `/resources/${deal.slug}`,
-    },
+    alternates: { canonical: '/resources/' + deal.slug },
     openGraph: {
       title,
       description,
-      url: `https://paradox.engineer/resources/${deal.slug}`,
+      url: 'https://paradox.engineer/resources/' + deal.slug,
       siteName: 'Paradox',
       type: 'article',
       images: deal.brand.logoUrl ? [{ url: deal.brand.logoUrl }] : [],
     },
-    twitter: {
-      card: 'summary_large_image',
-      title,
-      description,
-    },
+    twitter: { card: 'summary_large_image', title, description },
   };
 }
 
 export default async function DealDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const deal = await prisma.deal.findUnique({
-    where: { slug },
-    include: { brand: true, topic: true },
-  });
+  const deal = (await getPublicDeals()).find((item) => item.slug === slug);
 
   if (!deal) {
     notFound();
