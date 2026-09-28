@@ -29,7 +29,7 @@ export default async function TopicDealsPage({
   const resolved = searchParams ? await searchParams : {};
   const { sort, page } = resolved;
   
-  const topic = (await getPublicTopics()).find((item) => item.slug === slug);
+  const topic = await getTopicBySlug(slug);
   if (!topic) {
     notFound();
   }
