@@ -6,7 +6,21 @@ import DealCard from '@/components/DealCard';
 import SortTabs from '@/components/SortTabs';
 import Pagination from '@/components/Pagination';
 import Link from 'next/link';
+import type { Metadata } from 'next';
+import { SITE_URL } from '@/lib/site';
 
+
+export async function generateMetadata({ searchParams }: { searchParams?: Promise<{ q?: string }> }): Promise<Metadata> {
+  const resolved = searchParams ? await searchParams : {};
+  const q = resolved.q?.trim();
+
+  return {
+    title: q ? 'Search results for ' + q + ' | Paradox' : 'Paradox – Digital Deals, Developer Perks & Discounts, Sorted.',
+    description: 'Verified digital discounts, developer cloud credits, AI token grants, and student savings, updated daily.',
+    alternates: { canonical: SITE_URL },
+    robots: q ? { index: false, follow: true } : { index: true, follow: true },
+  };
+}
 
 export default async function Home({
   searchParams,
