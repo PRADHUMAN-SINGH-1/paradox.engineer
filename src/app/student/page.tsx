@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/db';
+import { getPublicDeals, sortDeals, paginateDeals } from '@/lib/public-data';
 import DealGrid from '@/components/DealGrid';
 import Pagination from '@/components/Pagination';
 import { Metadata } from 'next';
@@ -17,16 +17,10 @@ export default async function StudentDealsPage({ searchParams }: { searchParams?
   const limit = 12;
   const skip = (currentPage - 1) * limit;
 
-  const [deals, totalDeals] = await Promise.all([
-    prisma.deal.findMany({
-      where: { isStudentDeal: true, isActive: true },
-      include: { brand: true, topic: true },
-      orderBy: { createdAt: 'desc' },
-      skip,
-      take: limit,
-    }),
-    prisma.deal.count({ where: { isStudentDeal: true, isActive: true } }),
-  ]);
+  const allDeals = await getPublicDeals();
+  const filteredDeals = sortDeals(allDeals.filter((deal) => deal.isStudentDeal), 'latest');
+  const totalDeals = filteredDeals.length;
+  const deals = paginateDeals(filteredDeals, currentPage, limit);
 
   const totalPages = Math.ceil(totalDeals / limit);
 
