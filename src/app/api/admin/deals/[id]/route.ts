@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { requireAdmin } from '@/lib/admin-auth';
+import { revalidateTag } from 'next/cache';
 
 export async function PUT(
   req: Request,
@@ -40,6 +41,9 @@ export async function PUT(
       include: { brand: true, topic: true },
     });
 
+    revalidateTag('paradox:deals', 'max');
+    revalidateTag('paradox:brands', 'max');
+
     return NextResponse.json({ success: true, deal: updated });
   } catch (error) {
     console.error('Failed to update deal:', error);
@@ -57,6 +61,9 @@ export async function DELETE(
   try {
     const { id } = await params;
     await prisma.deal.delete({ where: { id } });
+    revalidateTag('paradox:deals', 'max');
+    revalidateTag('paradox:brands', 'max');
+
     return NextResponse.json({ success: true, message: 'Deal deleted successfully' });
   } catch (error) {
     console.error('Failed to delete deal:', error);
