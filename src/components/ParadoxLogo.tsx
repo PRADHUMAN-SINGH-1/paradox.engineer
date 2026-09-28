@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useId } from 'react';
+import React from 'react';
 import Link from 'next/link';
 
 interface ParadoxLogoProps {
@@ -18,10 +18,6 @@ export default function ParadoxLogo({
   href,
   tag = '/deals',
 }: ParadoxLogoProps) {
-  const rawId = useId();
-  // Sanitize id for valid CSS/SVG selector
-  const id = rawId.replace(/:/g, '_');
-
   const sizeMap = {
     sm: {
       icon: 'w-7 h-7',
@@ -49,7 +45,7 @@ export default function ParadoxLogo({
 
   const logoMark = (
     <div
-      className={`relative ${icon} shrink-0 rounded-[10px] shadow-[0_2px_8px_rgba(37,99,235,0.28)] group-hover:scale-105 transition-transform duration-200 select-none`}
+      className={`relative ${icon} shrink-0 rounded-[10px] bg-[#2563EB] shadow-[0_2px_8px_rgba(37,99,235,0.32)] group-hover:scale-105 transition-transform duration-200 select-none overflow-hidden flex items-center justify-center`}
     >
       <svg
         viewBox="0 0 40 40"
@@ -59,19 +55,8 @@ export default function ParadoxLogo({
         width="100%"
         height="100%"
       >
-        <defs>
-          <linearGradient id={`p-brand-blue-${id}`} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#2563EB" />
-            <stop offset="100%" stopColor="#1D4ED8" />
-          </linearGradient>
-          <linearGradient id={`p-shadow-${id}`} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#1E40AF" />
-            <stop offset="100%" stopColor="#172554" />
-          </linearGradient>
-        </defs>
-
-        {/* 1. Base Squircle Badge */}
-        <rect width="40" height="40" rx="10" fill={`url(#p-brand-blue-${id})`} />
+        {/* 1. Base Squircle Badge (Solid #2563EB - guaranteed visible across all mobile browsers) */}
+        <rect width="40" height="40" rx="10" fill="#2563EB" />
 
         {/* 2. Top Specular Border Light */}
         <rect
@@ -80,7 +65,7 @@ export default function ParadoxLogo({
           width="38.5"
           height="38.5"
           rx="9.25"
-          stroke="rgba(255, 255, 255, 0.25)"
+          stroke="rgba(255, 255, 255, 0.28)"
           strokeWidth="1"
           fill="none"
         />
@@ -94,7 +79,7 @@ export default function ParadoxLogo({
         />
 
         {/* 4. Optical Interlocking Underfold Shadow */}
-        <path d="M16.5 19H21V24H16.5V19Z" fill={`url(#p-shadow-${id})`} />
+        <path d="M16.5 19H21V24H16.5V19Z" fill="#1E40AF" />
       </svg>
     </div>
   );

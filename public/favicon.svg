@@ -1,17 +1,6 @@
 <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="paradox-brand-blue" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#2563EB" />
-      <stop offset="100%" stop-color="#1D4ED8" />
-    </linearGradient>
-    <linearGradient id="paradox-shadow" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#1E40AF" />
-      <stop offset="100%" stop-color="#172554" />
-    </linearGradient>
-  </defs>
-
   <!-- Base Squircle -->
-  <rect width="40" height="40" rx="10" fill="url(#paradox-brand-blue)" />
+  <rect width="40" height="40" rx="10" fill="#2563EB" />
 
   <!-- Rim Highlight -->
   <rect
@@ -20,7 +9,7 @@
     width="38.5"
     height="38.5"
     rx="9.25"
-    stroke="rgba(255, 255, 255, 0.25)"
+    stroke="rgba(255, 255, 255, 0.28)"
     stroke-width="1"
     fill="none"
   />
@@ -34,5 +23,5 @@
   />
 
   <!-- Optical Underfold Shadow -->
-  <path d="M16.5 19H21V24H16.5V19Z" fill="url(#paradox-shadow)" />
+  <path d="M16.5 19H21V24H16.5V19Z" fill="#1E40AF" />
 </svg>
