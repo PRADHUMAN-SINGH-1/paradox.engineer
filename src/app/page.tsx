@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/db';
+import { getPublicDeals, getPublicTopics, getPublicBrands, sortDeals, paginateDeals, matchesDealSearch } from '@/lib/public-data';
 import TopicCard from '@/components/TopicCard';
 import PopularBrands from '@/components/PopularBrands';
 import NewArrivalCard from '@/components/NewArrivalCard';
@@ -22,99 +22,22 @@ export default async function Home({
   const limit = 12;
   const skip = (currentPage - 1) * limit;
 
-  // Build smart search filter
-  const whereClause: any = { isActive: true };
-
-  if (searchQuery) {
-    const lower = searchQuery.toLowerCase();
-    const orConditions: any[] = [
-      { title: { contains: searchQuery } },
-      { shortDescription: { contains: searchQuery } },
-      { fullDescription: { contains: searchQuery } },
-      { brand: { name: { contains: searchQuery } } },
-      { topic: { name: { contains: searchQuery } } },
-    ];
-
-    if (lower.includes('student') || lower.includes('edu')) {
-      orConditions.push({ isStudentDeal: true });
-    }
-    if (lower.includes('no cc') || lower.includes('nocc') || lower.includes('no credit card')) {
-      orConditions.push({ needsCreditCard: false });
-    }
-    if (lower.includes('startup')) {
-      orConditions.push({ isStartupDeal: true });
-    }
-    if (lower.includes('credit')) {
-      orConditions.push({ dealType: 'credit' });
-    }
-    if (lower.includes('free') || lower.includes('freebie')) {
-      orConditions.push({ dealType: 'freebie' });
-    }
-    if (lower.includes('trial')) {
-      orConditions.push({ dealType: 'trial' });
-    }
-
-    whereClause.OR = orConditions;
-  }
-
-  // Determine sort order
-  let orderBy: any = { createdAt: 'desc' };
-  if (sortParam === 'last_updated') {
-    orderBy = { updatedAt: 'desc' };
-  } else if (sortParam === 'popular') {
-    orderBy = { viewCount: 'desc' };
-  } else if (sortParam === 'claimed') {
-    orderBy = { clickCount: 'desc' };
-  }
-
-  // Parallel database fetch for optimal response time
-  const [topics, popularBrands, newArrivals, directoryDeals, totalDeals] = await Promise.all([
-    prisma.topic.findMany({
-      select: {
-        id: true,
-        name: true,
-        slug: true,
-        icon: true,
-        _count: {
-          select: { deals: { where: { isActive: true } } },
-        },
-      },
-      orderBy: { name: 'asc' },
-    }),
-    prisma.brand.findMany({
-      where: {
-        deals: {
-          some: { isActive: true },
-        },
-      },
-      select: {
-        id: true,
-        name: true,
-        slug: true,
-        logoUrl: true,
-        website: true,
-        _count: {
-          select: { deals: { where: { isActive: true } } },
-        },
-      },
-      orderBy: { name: 'asc' },
-      take: 16,
-    }),
-    prisma.deal.findMany({
-      where: { isActive: true },
-      include: { brand: true, topic: true },
-      orderBy: { createdAt: 'desc' },
-      take: 6,
-    }),
-    prisma.deal.findMany({
-      where: whereClause,
-      include: { brand: true, topic: true },
-      orderBy,
-      skip,
-      take: limit,
-    }),
-    prisma.deal.count({ where: whereClause }),
+  const [allDeals, topics, brands] = await Promise.all([
+    getPublicDeals(),
+    getPublicTopics(),
+    getPublicBrands(),
   ]);
+
+  const filteredDeals = searchQuery
+    ? allDeals.filter((deal) => matchesDealSearch(deal, searchQuery))
+    : allDeals;
+
+  const directoryDeals = paginateDeals(sortDeals(filteredDeals, sortParam), currentPage, limit);
+  const totalDeals = filteredDeals.length;
+  const popularBrands = brands
+    .filter((brand) => brand.deals.length > 0)
+    .slice(0, 16);
+  const newArrivals = allDeals.slice(0, 6);
 
   const totalPages = Math.ceil(totalDeals / limit);
   const paginationBaseUrl = searchQuery ? `/?q=${encodeURIComponent(searchQuery)}` : '/';
