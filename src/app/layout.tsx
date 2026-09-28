@@ -144,6 +144,22 @@ export default async function RootLayout({
             {children}
           </AppShell>
         </ThemeProvider>
+        {/* Google Analytics */}
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-5V0LJN6HTS"
+        />
+        <Script
+          id="google-analytics-config"
+          strategy="afterInteractive"
+        >{`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){window.dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-5V0LJN6HTS');
+        `}</Script>
+
         {/* Skimlinks Affiliate Engine */}
         <Script
           strategy="afterInteractive"
