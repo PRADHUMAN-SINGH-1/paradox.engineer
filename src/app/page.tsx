@@ -1,4 +1,4 @@
-import { getPublicDeals, getPublicTopics, getPublicBrands, sortDeals, paginateDeals, matchesDealSearch } from '@/lib/public-data';
+import { getPublicDeals, getPublicTopics, getPopularBrands, sortDeals, paginateDeals, matchesDealSearch } from '@/lib/public-data';
 import TopicCard from '@/components/TopicCard';
 import PopularBrands from '@/components/PopularBrands';
 import NewArrivalCard from '@/components/NewArrivalCard';
@@ -19,10 +19,10 @@ export default async function Home({
   const sortParam = sort || 'latest';
   const searchQuery = q?.trim() || '';
   const limit = 12;
-  const [allDeals, topics, brands] = await Promise.all([
+  const [allDeals, topics, popularBrands] = await Promise.all([
     getPublicDeals(),
     getPublicTopics(),
-    getPublicBrands(),
+    getPopularBrands(),
   ]);
 
   const filteredDeals = searchQuery
@@ -31,17 +31,6 @@ export default async function Home({
 
   const directoryDeals = paginateDeals(sortDeals(filteredDeals, sortParam), currentPage, limit);
   const totalDeals = filteredDeals.length;
-  const popularBrands = brands
-    .filter((brand) => brand.deals.length > 0)
-    .slice(0, 16)
-    .map((brand) => ({
-      id: brand.id,
-      name: brand.name,
-      slug: brand.slug,
-      logoUrl: brand.logoUrl,
-      website: brand.website,
-      _count: { deals: brand.deals.length },
-    }));
   const newArrivals = allDeals.slice(0, 6);
 
   const totalPages = Math.ceil(totalDeals / limit);
