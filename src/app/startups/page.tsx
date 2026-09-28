@@ -5,7 +5,7 @@ import { Metadata } from 'next';
 import { SITE_URL } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Startup Cloud Infrastructure Credits | Paradox',
+  title: 'Startup Cloud Infrastructure Credits',
   description: 'Cloud infrastructure grants, database credits, and developer programs for early-stage engineering teams.',
   alternates: { canonical: SITE_URL + '/startups' },
 };
