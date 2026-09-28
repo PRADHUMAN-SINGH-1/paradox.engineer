@@ -16,6 +16,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: brand.name + ' Deals, Coupons & Credits',
     description: 'Browse all verified active credits, promo codes, and software tiers from ' + brand.name + '.',
     alternates: { canonical: SITE_URL + '/brands/' + slug },
+    openGraph: {
+      title: brand.name + ' Deals, Coupons & Credits',
+      description: 'Browse all verified active credits, promo codes, and software tiers from ' + brand.name + '.',
+      url: SITE_URL + '/brands/' + slug,
+      siteName: 'Paradox',
+      type: 'website',
+    },
   };
 }
 
