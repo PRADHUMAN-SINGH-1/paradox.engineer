@@ -5,11 +5,25 @@ import Pagination from '@/components/Pagination';
 import { Metadata } from 'next';
 import { SITE_URL } from '@/lib/site';
 
-export const metadata: Metadata = {
-  title: 'Latest Deals & Developer Perks',
-  description: 'Chronological index of freshly added software infrastructure credits, trials, and student savings.',
-  alternates: { canonical: SITE_URL + '/latest' },
-};
+export async function generateMetadata({ searchParams }: { searchParams?: Promise<{ sort?: string; page?: string }> }): Promise<Metadata> {
+  const resolved = searchParams ? await searchParams : {};
+  const page = Number(resolved.page) || 1;
+  const hasVariant = page > 1 || (resolved.sort && resolved.sort !== 'latest');
+
+  return {
+    title: 'Latest Deals & Developer Perks',
+    description: 'Chronological index of freshly added software infrastructure credits, trials, and student savings.',
+    alternates: { canonical: SITE_URL + '/latest' },
+    robots: hasVariant ? { index: false, follow: true } : { index: true, follow: true },
+    openGraph: {
+      title: 'Latest Deals & Developer Perks',
+      description: 'Chronological index of freshly added software infrastructure credits, trials, and student savings.',
+      url: SITE_URL + '/latest',
+      siteName: 'Paradox',
+      type: 'website',
+    },
+  };
+}
 
 
 export default async function LatestDealsPage({ searchParams }: { searchParams?: Promise<{ sort?: string; page?: string }> }) {
