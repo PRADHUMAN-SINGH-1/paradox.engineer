@@ -14,14 +14,31 @@ const TYPE_MAP: Record<string, { type: string; name: string; tag: string }> = {
   'promo-codes': { type: 'promo-code', name: 'Exclusive Promo Codes', tag: 'Promo' },
 };
 
-export async function generateMetadata({ params }: { params: Promise<{ type: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ type: string }>;
+  searchParams?: Promise<{ page?: string }>;
+}): Promise<Metadata> {
   const { type: rawType } = await params;
+  const resolved = searchParams ? await searchParams : {};
+  const page = Number(resolved.page) || 1;
   const category = TYPE_MAP[rawType];
   if (!category) return { title: 'Category Not Found' };
+
   return {
     title: category.name,
     description: `Verified ${category.name.toLowerCase()} for developers, startups, and engineers.`,
     alternates: { canonical: SITE_URL + '/category/' + rawType },
+    robots: page > 1 ? { index: false, follow: true } : { index: true, follow: true },
+    openGraph: {
+      title: category.name,
+      description: `Verified ${category.name.toLowerCase()} for developers, startups, and engineers.`,
+      url: SITE_URL + '/category/' + rawType,
+      siteName: 'Paradox',
+      type: 'website',
+    },
   };
 }
 
