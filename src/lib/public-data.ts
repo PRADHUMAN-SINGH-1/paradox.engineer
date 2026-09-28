@@ -1,56 +1,56 @@
-import { cacheLife } from 'next/cache';
+import { unstable_cache } from 'next/cache';
 import { prisma } from '@/lib/db';
 
-export async function getPublicDeals() {
-  'use cache';
-  cacheLife({ stale: 60, revalidate: 60, expire: 300 });
+export const getPublicDeals = unstable_cache(
+  async () =>
+    prisma.deal.findMany({
+      where: { isActive: true },
+      include: { brand: true, topic: true },
+      orderBy: { createdAt: 'desc' },
+    }),
+  ['paradox-public-active-deals-v4'],
+  { revalidate: 60 }
+);
 
-  return prisma.deal.findMany({
-    where: { isActive: true },
-    include: { brand: true, topic: true },
-    orderBy: { createdAt: 'desc' },
-  });
-}
-
-export async function getPublicTopics() {
-  'use cache';
-  cacheLife({ stale: 300, revalidate: 300, expire: 900 });
-
-  return prisma.topic.findMany({
-    select: {
-      id: true,
-      name: true,
-      slug: true,
-      icon: true,
-      _count: {
-        select: { deals: { where: { isActive: true } } },
-      },
-    },
-    orderBy: { name: 'asc' },
-  });
-}
-
-export async function getPublicBrands() {
-  'use cache';
-  cacheLife({ stale: 120, revalidate: 120, expire: 600 });
-
-  return prisma.brand.findMany({
-    include: {
-      deals: {
-        where: { isActive: true },
-        select: {
-          id: true,
-          dealType: true,
-          isTrending: true,
-          clickCount: true,
-          viewCount: true,
-          topic: { select: { slug: true } },
+export const getPublicTopics = unstable_cache(
+  async () =>
+    prisma.topic.findMany({
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+        icon: true,
+        _count: {
+          select: { deals: { where: { isActive: true } } },
         },
       },
-    },
-    orderBy: { name: 'asc' },
-  });
-}
+      orderBy: { name: 'asc' },
+    }),
+  ['paradox-public-topics-v4'],
+  { revalidate: 300 }
+);
+
+export const getPublicBrands = unstable_cache(
+  async () =>
+    prisma.brand.findMany({
+      include: {
+        deals: {
+          where: { isActive: true },
+          select: {
+            id: true,
+            dealType: true,
+            isTrending: true,
+            clickCount: true,
+            viewCount: true,
+            topic: { select: { slug: true } },
+          },
+        },
+      },
+      orderBy: { name: 'asc' },
+    }),
+  ['paradox-public-brands-v4'],
+  { revalidate: 120 }
+);
 
 export function sortDeals(deals: any[], sortParam: string): any[] {
   const sorted = [...deals];
