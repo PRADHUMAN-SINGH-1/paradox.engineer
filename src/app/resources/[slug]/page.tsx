@@ -1,6 +1,7 @@
 import { getDealBySlug } from '@/lib/public-data';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
+import { SITE_URL } from '@/lib/site';
 import Link from 'next/link';
 import ClaimActionBox from '@/components/ClaimActionBox';
 import BrandLogo from '@/components/BrandLogo';
@@ -20,11 +21,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title,
     description,
-    alternates: { canonical: '/resources/' + deal.slug },
+    alternates: { canonical: SITE_URL + '/resources/' + deal.slug },
     openGraph: {
       title,
       description,
-      url: 'https://paradox.engineer/resources/' + deal.slug,
+      url: SITE_URL + '/resources/' + deal.slug,
       siteName: 'Paradox',
       type: 'article',
       images: deal.brand.logoUrl ? [{ url: deal.brand.logoUrl }] : [],
@@ -48,28 +49,16 @@ export default async function DealDetailPage({ params }: { params: Promise<{ slu
   try { keyBenefits = JSON.parse(deal.keyBenefits || '[]'); } catch(e){}
   try { eligibility = JSON.parse(deal.eligibility || '[]'); } catch(e){}
 
-  // Rich Schema.org Structured Data (JSON-LD) for Google SERP
-  const schemaOffer = {
+  // Semantic structured data for a single deal page.
+  // Product rich results are not used here because Paradox is an aggregator, not the merchant.
+  const schemaWebPage = {
     '@context': 'https://schema.org',
-    '@type': 'Product',
+    '@type': 'WebPage',
     name: deal.title,
     description: deal.shortDescription,
-    image: deal.brand.logoUrl || 'https://paradox.engineer/icon.png',
-    brand: {
-      '@type': 'Brand',
-      name: deal.brand.name,
-      url: deal.brand.website || undefined,
-    },
-    offers: {
-      '@type': 'Offer',
-      price: '0.00',
-      priceCurrency: 'USD',
-      priceValidUntil: deal.expiryDate ? new Date(deal.expiryDate).toISOString() : '2026-12-31T23:59:59.000Z',
-      availability: 'https://schema.org/InStock',
-      url: `https://paradox.engineer/resources/${deal.slug}`,
-      category: deal.topic.name,
-      description: deal.discountAmount || 'Verified Developer Tier & Discount',
-    },
+    url: SITE_URL + '/resources/' + deal.slug,
+    isPartOf: { '@type': 'WebSite', name: 'Paradox', url: SITE_URL },
+    about: { '@type': 'Thing', name: deal.brand.name },
   };
 
   const schemaBreadcrumbs = {
@@ -80,25 +69,25 @@ export default async function DealDetailPage({ params }: { params: Promise<{ slu
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://paradox.engineer',
+        item: SITE_URL,
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: deal.topic.name,
-        item: `https://paradox.engineer/topics/${deal.topic.slug}`,
+        item: SITE_URL + `/topics/${deal.topic.slug}`,
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: deal.brand.name,
-        item: `https://paradox.engineer/brands/${deal.brand.slug}`,
+        item: SITE_URL + `/brands/${deal.brand.slug}`,
       },
       {
         '@type': 'ListItem',
         position: 4,
         name: deal.title,
-        item: `https://paradox.engineer/resources/${deal.slug}`,
+        item: SITE_URL + `/resources/${deal.slug}`,
       },
     ],
   };
@@ -110,7 +99,7 @@ export default async function DealDetailPage({ params }: { params: Promise<{ slu
       {/* Schema.org Structured Data for Google SERP */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOffer) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaWebPage) }}
       />
       <script
         type="application/ld+json"
