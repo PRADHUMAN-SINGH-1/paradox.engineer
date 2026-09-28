@@ -2,10 +2,12 @@ import { getPublicDeals, sortDeals, paginateDeals } from '@/lib/public-data';
 import DealGrid from '@/components/DealGrid';
 import Pagination from '@/components/Pagination';
 import { Metadata } from 'next';
+import { SITE_URL } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Startup Cloud Infrastructure Credits | Paradox',
-  description: 'Up to $5,000 in cloud infrastructure and developer credits for early-stage engineering teams.',
+  description: 'Cloud infrastructure grants, database credits, and developer programs for early-stage engineering teams.',
+  alternates: { canonical: SITE_URL + '/startups' },
 };
 
 
