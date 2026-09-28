@@ -7,7 +7,6 @@ import BrandLogo from '@/components/BrandLogo';
 import ExpiryBadge from '@/components/ExpiryBadge';
 import ViewTracker from '@/components/ViewTracker';
 
-export const revalidate = 300;
 
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
