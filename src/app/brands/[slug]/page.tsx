@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/db';
+import { getPublicDeals, getPublicBrands } from '@/lib/public-data';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import DealGrid from '@/components/DealGrid';
@@ -8,12 +8,12 @@ import { Metadata } from 'next';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const brand = await prisma.brand.findUnique({ where: { slug } });
+  const brand = (await getPublicBrands()).find((item) => item.slug === slug);
   if (!brand) return { title: 'Brand Not Found' };
 
   return {
-    title: `${brand.name} Deals, Coupons & Credits | Paradox`,
-    description: `Browse all verified active credits, promo codes, and software tiers from ${brand.name}.`,
+    title: brand.name + ' Deals, Coupons & Credits | Paradox',
+    description: 'Browse all verified active credits, promo codes, and software tiers from ' + brand.name + '.',
   };
 }
 
@@ -21,16 +21,11 @@ export const revalidate = 120;
 
 export default async function BrandDealsPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const brand = await prisma.brand.findUnique({
-    where: { slug },
-    include: {
-      deals: {
-        where: { isActive: true },
-        include: { brand: true, topic: true },
-        orderBy: { createdAt: 'desc' },
-      },
-    },
-  });
+  const brand = (await getPublicBrands()).find((item) => item.slug === slug);
+  if (!brand) {
+    notFound();
+  }
+  const brandDeals = (await getPublicDeals()).filter((deal) => deal.brand?.slug === slug);
 
   if (!brand) {
     notFound();
@@ -64,7 +59,7 @@ export default async function BrandDealsPage({ params }: { params: Promise<{ slu
           </p>
           <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2.5 text-xs">
             <span className="px-3 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200 dark:bg-blue-950 dark:text-blue-300 dark:border-blue-800 font-semibold">
-              {brand.deals.length} active {brand.deals.length === 1 ? 'offer' : 'offers'}
+              {brandDeals.length} active {brandDeals.length === 1 ? 'offer' : 'offers'}
             </span>
             {brand.website && (
               <a 
@@ -87,8 +82,8 @@ export default async function BrandDealsPage({ params }: { params: Promise<{ slu
           Active Offers from {brand.name}
         </h2>
 
-        {brand.deals.length > 0 ? (
-          <DealGrid deals={brand.deals as any} />
+        {brandDeals.length > 0 ? (
+          <DealGrid deals={brandDeals as any} />
         ) : (
           <div className="text-center py-16 bg-white dark:bg-zinc-900 rounded-2xl border border-slate-200 dark:border-zinc-800 p-8 space-y-3">
             <p className="text-3xl">🏷️</p>
