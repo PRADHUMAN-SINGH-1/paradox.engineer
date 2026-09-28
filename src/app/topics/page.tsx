@@ -2,11 +2,13 @@ import { getPublicTopics } from '@/lib/public-data';
 import TopicCard from '@/components/TopicCard';
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { SITE_URL } from '@/lib/site';
 
 
 export const metadata: Metadata = {
   title: 'All Categories | Paradox',
-  description: 'Explore developer perks, cloud grants, and software discounts across all technical domains.',
+  description: 'Explore verified developer perks, cloud grants, software discounts, and startup offers by technical topic.',
+  alternates: { canonical: SITE_URL + '/topics' },
 };
 
 export default async function AllTopicsPage() {
