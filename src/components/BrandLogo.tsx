@@ -45,8 +45,8 @@ export default function BrandLogo({
   const brandKey = name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
   const domain = extractHostname(website);
   
-  // Prefer provided logoUrl, fallback to Google S2 128px high-res favicon
-  const primarySrc = logoUrl || (domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=128` : null);
+  // Use only first-party stored logos. Avoid remote favicon requests on every card/page.
+  const primarySrc = logoUrl || null;
 
   const sizeClasses = {
     sm: 'w-6 h-6 rounded-md text-[10px]',
