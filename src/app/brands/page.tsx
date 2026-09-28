@@ -1,5 +1,6 @@
 import { getPublicBrands, getPublicTopics } from '@/lib/public-data';
 import { Metadata } from 'next';
+import { SITE_URL } from '@/lib/site';
 import BrandsDirectoryClient, {
   BrandData,
   TopicOption,
@@ -13,13 +14,13 @@ export const metadata: Metadata = {
   description:
     'Discover 156+ verified developer credits, cloud computing grants, AI API tokens, and software discounts organized by provider.',
   alternates: {
-    canonical: 'https://paradox.engineer/brands',
+    canonical: SITE_URL + '/brands',
   },
   openGraph: {
     title: 'Browse Deals by Brand | Paradox',
     description:
       'Discover 156+ verified developer credits, cloud computing grants, AI API tokens, and software discounts organized by provider.',
-    url: 'https://paradox.engineer/brands',
+    url: SITE_URL + '/brands',
     siteName: 'Paradox',
     type: 'website',
   },
