@@ -4,12 +4,17 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build --webpack",
     "start": "next start",
-    "lint": "eslint"
+    "refresh-deals": "npx tsx src/scripts/refresh-deals.ts",
+    "lint": "eslint",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "better-sqlite3": "^13.0.3",
     "next": "16.3.6",
+    "prisma": "^5.22.0",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   },
@@ -21,6 +26,14 @@
     "eslint": "^9",
     "eslint-config-next": "16.3.6",
     "tailwindcss": "^4",
+    "tsx": "^4.23.15",
     "typescript": "^5"
+  },
+  "allowScripts": {
+    "prisma@5.22.0": true,
+    "@prisma/client@5.22.0": true,
+    "@prisma/engines@5.22.0": true,
+    "better-sqlite3@13.0.3": true,
+    "esbuild@0.28.2": true
   }
 }

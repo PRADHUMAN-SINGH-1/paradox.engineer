@@ -1,0 +1,91 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Brand {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  logoUrl   String?
+  website   String?
+  deals     Deal[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Topic {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  icon      String?
+  deals     Deal[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Deal {
+  id               String   @id @default(cuid())
+  title            String
+  slug             String   @unique
+  shortDescription String
+  fullDescription  String
+  dealType         String   // freebie, discount, trial, credit, promo-code
+  discountAmount   String?  // e.g., "50% off", "$250 credits"
+  promoCode        String?  // e.g., "CLOUD40", "BOLT20", "STUDENT50"
+  commissionRate   String?  // e.g., "$50 - $125 CPA", "30% Recurring", "15% per sale"
+  affiliateUrl     String?
+  claimUrl         String?
+  howToClaim       String   // JSON array of steps
+  keyBenefits      String   // JSON array of benefits
+  eligibility      String   // JSON array of requirements
+  termsUrl         String?
+  isStudentDeal    Boolean  @default(false)
+  isStartupDeal   Boolean  @default(false)
+  needsCreditCard  Boolean  @default(true)
+  isTrending       Boolean  @default(false)
+  isLimitedTime    Boolean  @default(false)
+  isActive         Boolean  @default(true)
+  clickCount       Int      @default(0)
+  viewCount        Int      @default(0)
+  expiryDate       DateTime?
+  brand            Brand    @relation(fields: [brandId], references: [id])
+  brandId          String
+  topic            Topic    @relation(fields: [topicId], references: [id])
+  topicId          String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model BlogPost {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  excerpt     String
+  content     String
+  coverImage  String?
+  isPublished Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Subscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
+
+model DealSubmission {
+  id          String   @id @default(cuid())
+  brandName   String
+  dealTitle   String
+  dealUrl     String
+  description String
+  submittedBy String
+  status      String   @default("pending") // pending, approved, rejected
+  createdAt   DateTime @default(now())
+}

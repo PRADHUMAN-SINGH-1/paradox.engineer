@@ -1,0 +1,626 @@
+[
+  {
+    "slug": "openai",
+    "name": "OpenAI"
+  },
+  {
+    "slug": "meta-platforms-inc",
+    "name": "Meta Platforms, Inc."
+  },
+  {
+    "slug": "xai",
+    "name": "xAI"
+  },
+  {
+    "slug": "google-gemini",
+    "name": "Google Gemini"
+  },
+  {
+    "slug": "anthropic",
+    "name": "Anthropic"
+  },
+  {
+    "slug": "youtube",
+    "name": "YouTube"
+  },
+  {
+    "slug": "lovable",
+    "name": "Lovable"
+  },
+  {
+    "slug": "z-ai",
+    "name": "Z.ai"
+  },
+  {
+    "slug": "duolingo",
+    "name": "Duolingo"
+  },
+  {
+    "slug": "discord",
+    "name": "Discord"
+  },
+  {
+    "slug": "adobe",
+    "name": "Adobe"
+  },
+  {
+    "slug": "google",
+    "name": "Google"
+  },
+  {
+    "slug": "agentrouter",
+    "name": "AgentRouter"
+  },
+  {
+    "slug": "cursor",
+    "name": "Cursor"
+  },
+  {
+    "slug": "google-antigravity",
+    "name": "Google Antigravity"
+  },
+  {
+    "slug": "higgsfield-ai",
+    "name": "Higgsfield AI"
+  },
+  {
+    "slug": "qoder",
+    "name": "Qoder"
+  },
+  {
+    "slug": "spotify-ab",
+    "name": "Spotify AB"
+  },
+  {
+    "slug": "civo",
+    "name": "Civo"
+  },
+  {
+    "slug": "apple",
+    "name": "Apple"
+  },
+  {
+    "slug": "pixverse-ai",
+    "name": "PixVerse AI"
+  },
+  {
+    "slug": "miro",
+    "name": "Miro"
+  },
+  {
+    "slug": "google-workspace",
+    "name": "Google Workspace"
+  },
+  {
+    "slug": "kiro",
+    "name": "Kiro"
+  },
+  {
+    "slug": "vercel",
+    "name": "Vercel"
+  },
+  {
+    "slug": "minimax",
+    "name": "MiniMax"
+  },
+  {
+    "slug": "elevenlabs",
+    "name": "ElevenLabs"
+  },
+  {
+    "slug": "vultr",
+    "name": "Vultr"
+  },
+  {
+    "slug": "merlin-ai",
+    "name": "Merlin AI"
+  },
+  {
+    "slug": "oracle-corporation",
+    "name": "Oracle Corporation"
+  },
+  {
+    "slug": "amazon",
+    "name": "Amazon"
+  },
+  {
+    "slug": "wispr-ai-inc",
+    "name": "Wispr AI Inc"
+  },
+  {
+    "slug": "perplexity-ai",
+    "name": "Perplexity AI"
+  },
+  {
+    "slug": "cloudflare",
+    "name": "Cloudflare"
+  },
+  {
+    "slug": "browser-use-inc",
+    "name": "Browser Use Inc."
+  },
+  {
+    "slug": "manus-ai",
+    "name": "Manus AI"
+  },
+  {
+    "slug": "shutterstock",
+    "name": "Shutterstock"
+  },
+  {
+    "slug": "bolt-new",
+    "name": "Bolt.new"
+  },
+  {
+    "slug": "figma",
+    "name": "Figma"
+  },
+  {
+    "slug": "openart",
+    "name": "OpenArt"
+  },
+  {
+    "slug": "microsoft",
+    "name": "Microsoft"
+  },
+  {
+    "slug": "github",
+    "name": "Github"
+  },
+  {
+    "slug": "nordvpn",
+    "name": "NordVPN"
+  },
+  {
+    "slug": "canva",
+    "name": "Canva"
+  },
+  {
+    "slug": "digitalocean",
+    "name": "DigitalOcean"
+  },
+  {
+    "slug": "notion",
+    "name": "Notion"
+  },
+  {
+    "slug": "xiaomi",
+    "name": "Xiaomi"
+  },
+  {
+    "slug": "emergent-sh",
+    "name": "Emergent.sh"
+  },
+  {
+    "slug": "zed-dev",
+    "name": "Zed.dev"
+  },
+  {
+    "slug": "udemy",
+    "name": "Udemy"
+  },
+  {
+    "slug": "spaceship-inc",
+    "name": "Spaceship, Inc."
+  },
+  {
+    "slug": "meshy-ai",
+    "name": "Meshy AI"
+  },
+  {
+    "slug": "blink-new",
+    "name": "Blink.new"
+  },
+  {
+    "slug": "lucid-software",
+    "name": "Lucid Software"
+  },
+  {
+    "slug": "cloudways",
+    "name": "Cloudways"
+  },
+  {
+    "slug": "modal",
+    "name": "Modal"
+  },
+  {
+    "slug": "zoho",
+    "name": "Zoho"
+  },
+  {
+    "slug": "linkedin",
+    "name": "LinkedIn"
+  },
+  {
+    "slug": "preply-inc",
+    "name": "Preply, Inc."
+  },
+  {
+    "slug": "craft-do",
+    "name": "Craft.do"
+  },
+  {
+    "slug": "aws",
+    "name": "AWS"
+  },
+  {
+    "slug": "alibaba-cloud",
+    "name": "Alibaba Cloud"
+  },
+  {
+    "slug": "multcloud",
+    "name": "MultCloud"
+  },
+  {
+    "slug": "krea-ai-inc",
+    "name": "KREA.AI, INC."
+  },
+  {
+    "slug": "base44",
+    "name": "Base44"
+  },
+  {
+    "slug": "notegpt-inc",
+    "name": "NoteGPT Inc."
+  },
+  {
+    "slug": "runwayml",
+    "name": "RunwayML"
+  },
+  {
+    "slug": "generic",
+    "name": "Generic"
+  },
+  {
+    "slug": "kaggle",
+    "name": "Kaggle"
+  },
+  {
+    "slug": "shapr3d",
+    "name": "Shapr3D"
+  },
+  {
+    "slug": "meta",
+    "name": "Meta"
+  },
+  {
+    "slug": "suno",
+    "name": "Suno"
+  },
+  {
+    "slug": "circleco-inc",
+    "name": "CircleCo, Inc."
+  },
+  {
+    "slug": "google-cloud",
+    "name": "Google Cloud"
+  },
+  {
+    "slug": "you-com",
+    "name": "You.com"
+  },
+  {
+    "slug": "malwarebytes",
+    "name": "Malwarebytes"
+  },
+  {
+    "slug": "namecheap",
+    "name": "Namecheap"
+  },
+  {
+    "slug": "asana-inc",
+    "name": "Asana, Inc."
+  },
+  {
+    "slug": "mistral-ai",
+    "name": "Mistral AI"
+  },
+  {
+    "slug": "pcloud",
+    "name": "pCloud"
+  },
+  {
+    "slug": "airtable",
+    "name": "Airtable"
+  },
+  {
+    "slug": "y-combinator",
+    "name": "Y Combinator"
+  },
+  {
+    "slug": "upcloud",
+    "name": "UpCloud"
+  },
+  {
+    "slug": "aerolink",
+    "name": "Aerolink"
+  },
+  {
+    "slug": "replit",
+    "name": "Replit"
+  },
+  {
+    "slug": "grammarly",
+    "name": "Grammarly"
+  },
+  {
+    "slug": "trae",
+    "name": "Trae"
+  },
+  {
+    "slug": "akamai",
+    "name": "Akamai"
+  },
+  {
+    "slug": "wasmer-pro",
+    "name": "Wasmer Pro"
+  },
+  {
+    "slug": "gearup-booster",
+    "name": "GearUP Booster"
+  },
+  {
+    "slug": "sentry",
+    "name": "Sentry"
+  },
+  {
+    "slug": "ovhcloud",
+    "name": "OVHcloud"
+  },
+  {
+    "slug": "toggle-vpn",
+    "name": "Toggle VPN"
+  },
+  {
+    "slug": "tableau",
+    "name": "Tableau"
+  },
+  {
+    "slug": "godaddy",
+    "name": "GoDaddy"
+  },
+  {
+    "slug": "atlassian",
+    "name": "Atlassian"
+  },
+  {
+    "slug": "heygen",
+    "name": "HeyGen"
+  },
+  {
+    "slug": "jotform-inc",
+    "name": "Jotform Inc."
+  },
+  {
+    "slug": "parallel-ai",
+    "name": "Parallel AI"
+  },
+  {
+    "slug": "tencent-cloud",
+    "name": "Tencent Cloud"
+  },
+  {
+    "slug": "unity-technologies",
+    "name": "Unity Technologies"
+  },
+  {
+    "slug": "37signals-llc",
+    "name": "37signals LLC"
+  },
+  {
+    "slug": "framer",
+    "name": "Framer"
+  },
+  {
+    "slug": "granola",
+    "name": "Granola"
+  },
+  {
+    "slug": "hostgator",
+    "name": "HostGator"
+  },
+  {
+    "slug": "kimi",
+    "name": "Kimi"
+  },
+  {
+    "slug": "autodesk",
+    "name": "Autodesk"
+  },
+  {
+    "slug": "vidu-ai",
+    "name": "Vidu AI"
+  },
+  {
+    "slug": "jasper-ai",
+    "name": "Jasper AI"
+  },
+  {
+    "slug": "mega-limited",
+    "name": "Mega Limited"
+  },
+  {
+    "slug": "coursera-inc",
+    "name": "Coursera, Inc."
+  },
+  {
+    "slug": "microsoft-corporation",
+    "name": "Microsoft Corporation"
+  },
+  {
+    "slug": "hashicorp",
+    "name": "HashiCorp"
+  },
+  {
+    "slug": "ibm",
+    "name": "IBM"
+  },
+  {
+    "slug": "cloudflare-inc",
+    "name": "Cloudflare, Inc."
+  },
+  {
+    "slug": "netlify",
+    "name": "Netlify"
+  },
+  {
+    "slug": "kit-inc",
+    "name": "Kit, Inc"
+  },
+  {
+    "slug": "quillbot",
+    "name": "QuillBot"
+  },
+  {
+    "slug": "1password",
+    "name": "1Password"
+  },
+  {
+    "slug": "deepgram",
+    "name": "Deepgram"
+  },
+  {
+    "slug": "microsoft-azure",
+    "name": "Microsoft Azure"
+  },
+  {
+    "slug": "overleaf",
+    "name": "Overleaf"
+  },
+  {
+    "slug": "descript",
+    "name": "Descript"
+  },
+  {
+    "slug": "grass-io",
+    "name": "Grass.io"
+  },
+  {
+    "slug": "jio",
+    "name": "Jio"
+  },
+  {
+    "slug": "sketch",
+    "name": "Sketch"
+  },
+  {
+    "slug": "coderabbit",
+    "name": "CodeRabbit"
+  },
+  {
+    "slug": "databricks",
+    "name": "Databricks"
+  },
+  {
+    "slug": "heroku",
+    "name": "Heroku"
+  },
+  {
+    "slug": "veed",
+    "name": "VEED"
+  },
+  {
+    "slug": "mongodb",
+    "name": "MongoDB"
+  },
+  {
+    "slug": "jetbrains",
+    "name": "JetBrains"
+  },
+  {
+    "slug": "seaart-ai",
+    "name": "SeaArt AI"
+  },
+  {
+    "slug": "morphic-inc",
+    "name": "Morphic, Inc."
+  },
+  {
+    "slug": "otter-ai",
+    "name": "Otter.ai"
+  },
+  {
+    "slug": "softorbits",
+    "name": "SoftOrbits"
+  },
+  {
+    "slug": "lcn",
+    "name": "LCN"
+  },
+  {
+    "slug": "koofr",
+    "name": "Koofr"
+  },
+  {
+    "slug": "proton-ag",
+    "name": "Proton AG"
+  },
+  {
+    "slug": "raycast",
+    "name": "Raycast"
+  },
+  {
+    "slug": "slack",
+    "name": "Slack"
+  },
+  {
+    "slug": "pipedrive",
+    "name": "Pipedrive"
+  },
+  {
+    "slug": "scite-ai",
+    "name": "Scite.ai"
+  },
+  {
+    "slug": "oxlo-ai",
+    "name": "Oxlo.ai"
+  },
+  {
+    "slug": "hyper3d",
+    "name": "Hyper3D"
+  },
+  {
+    "slug": "writesonic",
+    "name": "Writesonic"
+  },
+  {
+    "slug": "consensus",
+    "name": "Consensus"
+  },
+  {
+    "slug": "udio-uncharted-labs",
+    "name": "Udio (Uncharted Labs)"
+  },
+  {
+    "slug": "murf-ai",
+    "name": "Murf AI"
+  },
+  {
+    "slug": "reclaim-ai",
+    "name": "Reclaim.ai"
+  },
+  {
+    "slug": "hulu-disney",
+    "name": "Hulu / Disney+"
+  },
+  {
+    "slug": "paperpal",
+    "name": "Paperpal"
+  },
+  {
+    "slug": "headspace",
+    "name": "Headspace"
+  },
+  {
+    "slug": "squarespace",
+    "name": "Squarespace"
+  },
+  {
+    "slug": "softr",
+    "name": "Softr"
+  },
+  {
+    "slug": "sync-com",
+    "name": "Sync.com"
+  }
+]

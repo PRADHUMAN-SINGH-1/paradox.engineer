@@ -1,0 +1,22 @@
+<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="paradox-blue-1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#60A5FA" />
+      <stop offset="50%" stop-color="#2563EB" />
+      <stop offset="100%" stop-color="#1D4ED8" />
+    </linearGradient>
+    <linearGradient id="paradox-blue-2" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#2563EB" />
+    </linearGradient>
+    <linearGradient id="paradox-blue-3" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1E40AF" />
+      <stop offset="100%" stop-color="#3B82F6" />
+    </linearGradient>
+  </defs>
+  <rect width="40" height="40" rx="10" fill="#2563EB" />
+  <path d="M11 9H17V31H11V9Z" fill="url(#paradox-blue-2)" />
+  <path d="M17 9H25C28.3137 9 31 11.6863 31 15C31 18.3137 28.3137 21 25 21H17V15H25C25 15 25 15 25 15C25 15 25 15 25 15H17V9Z" fill="white" opacity="0.95" />
+  <path d="M17 15H23C24.1046 15 25 15.8954 25 17C25 18.1046 24.1046 19 23 19H17V27H11V21H17V15Z" fill="url(#paradox-blue-3)" />
+  <circle cx="21" cy="15" r="2.2" fill="white" />
+</svg>
