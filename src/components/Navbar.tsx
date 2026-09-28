@@ -68,7 +68,6 @@ export default function Navbar() {
             <Link href="/startups" onClick={() => setMobileMenuOpen(false)} className="block px-2 py-1.5 text-slate-700 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-zinc-900 rounded">/startups</Link>
             <Link href="/no-credit-card" onClick={() => setMobileMenuOpen(false)} className="block px-2 py-1.5 text-slate-700 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-zinc-900 rounded">/no-cc</Link>
             <Link href="/brands" onClick={() => setMobileMenuOpen(false)} className="block px-2 py-1.5 text-slate-700 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-zinc-900 rounded">/brands</Link>
-            <Link href="/admin" onClick={() => setMobileMenuOpen(false)} className="block px-2 py-1.5 text-slate-600 dark:text-zinc-400 bg-slate-100 dark:bg-zinc-900 rounded">[console]</Link>
             <Link href="/submit" onClick={() => setMobileMenuOpen(false)} className="block px-2 py-1.5 text-white bg-blue-600 dark:bg-zinc-800 rounded font-sans text-center mt-2">+ Submit Perk</Link>
           </div>
         )}
