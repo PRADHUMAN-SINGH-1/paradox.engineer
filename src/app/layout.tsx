@@ -31,6 +31,10 @@ export const metadata: Metadata = {
   authors: [{ name: 'Paradox Engineering Team' }],
   creator: 'Paradox',
   publisher: 'Paradox',
+  icons: {
+    icon: '/icon.svg',
+    shortcut: '/favicon.svg',
+  },
   formatDetection: {
     email: false,
     address: false,
