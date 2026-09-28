@@ -1,18 +1,19 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { SITE_URL } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Affiliate Disclosure & Transparency | Paradox',
   description:
     'Full transparency on how Paradox operates, our editorial independence, and affiliate monetization policies.',
   alternates: {
-    canonical: 'https://paradox.engineer/affiliate-disclosure',
+    canonical: SITE_URL + '/affiliate-disclosure',
   },
   openGraph: {
     title: 'Affiliate Disclosure & Reader Transparency | Paradox',
     description:
       'Transparency on how Paradox operates, our editorial independence, and affiliate monetization policies.',
-    url: 'https://paradox.engineer/affiliate-disclosure',
+    url: SITE_URL + '/affiliate-disclosure',
     siteName: 'Paradox',
     type: 'article',
   },
