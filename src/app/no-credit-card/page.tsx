@@ -3,10 +3,12 @@ import DealGrid from '@/components/DealGrid';
 import Pagination from '@/components/Pagination';
 import Link from 'next/link';
 import { Metadata } from 'next';
+import { SITE_URL } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'No Credit Card Required Deals | Paradox',
-  description: 'Verified digital tools, free trials, and developer platform grants requiring zero credit card details.',
+  description: 'Verified digital tools, free trials, and developer platform grants that do not require credit card details upfront.',
+  alternates: { canonical: SITE_URL + '/no-credit-card' },
 };
 
 
