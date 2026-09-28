@@ -6,14 +6,6 @@ import BrandLogo from '@/components/BrandLogo';
 import { Metadata } from 'next';
 
 
-export async function generateStaticParams() {
-  const brands = await prisma.brand.findMany({
-    where: { deals: { some: { isActive: true } } },
-    select: { slug: true },
-  });
-  return brands.map((brand) => ({ slug: brand.slug }));
-}
-
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const brand = await prisma.brand.findUnique({ where: { slug } });
