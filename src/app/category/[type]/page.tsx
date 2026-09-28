@@ -23,7 +23,6 @@ export async function generateMetadata({ params }: { params: Promise<{ type: str
   };
 }
 
-export const revalidate = 120;
 
 export default async function CategoryPage({
   params,
