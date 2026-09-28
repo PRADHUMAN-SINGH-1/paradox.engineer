@@ -7,7 +7,6 @@ import SortTabs from '@/components/SortTabs';
 import Pagination from '@/components/Pagination';
 import Link from 'next/link';
 
-export const revalidate = 120;
 
 export default async function Home({
   searchParams,
