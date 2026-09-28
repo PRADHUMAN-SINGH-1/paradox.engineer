@@ -6,7 +6,7 @@ import { Metadata } from 'next';
 import { SITE_URL } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'No Credit Card Required Deals | Paradox',
+  title: 'No Credit Card Required Deals',
   description: 'Verified digital tools, free trials, and developer platform grants that do not require credit card details upfront.',
   alternates: { canonical: SITE_URL + '/no-credit-card' },
 };
