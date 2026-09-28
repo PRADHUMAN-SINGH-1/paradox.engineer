@@ -1,4 +1,4 @@
-import { getPublicDeals } from '@/lib/public-data';
+import { getDealBySlug } from '@/lib/public-data';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import Link from 'next/link';
@@ -11,7 +11,7 @@ import ViewTracker from '@/components/ViewTracker';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const deal = (await getPublicDeals()).find((item) => item.slug === slug);
+  const deal = await getDealBySlug(slug);
   if (!deal) return { title: 'Offer Not Found' };
 
   const title = deal.title + ' – Promo Code & Deal';
