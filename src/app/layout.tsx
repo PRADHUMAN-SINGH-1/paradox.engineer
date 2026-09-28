@@ -4,10 +4,11 @@ import './globals.css';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import AppShell from '@/components/AppShell';
 import { getPublicTopics, getDealTypeCounts } from '@/lib/public-data';
+import { SITE_URL } from '@/lib/site';
 
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://paradox.engineer'),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: 'Paradox – Digital Deals, Developer Perks & Discounts, Sorted.',
     template: '%s | Paradox',
@@ -36,12 +37,12 @@ export const metadata: Metadata = {
     telephone: false,
   },
   alternates: {
-    canonical: '/',
+    canonical: SITE_URL,
   },
   openGraph: {
     title: 'Paradox – Digital Deals, Sorted.',
     description: 'The best digital discounts, developer deals, freelancer offers, and student savings, updated daily.',
-    url: 'https://paradox.engineer',
+    url: SITE_URL,
     siteName: 'Paradox',
     locale: 'en_US',
     type: 'website',
