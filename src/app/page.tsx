@@ -36,7 +36,15 @@ export default async function Home({
   const totalDeals = filteredDeals.length;
   const popularBrands = brands
     .filter((brand) => brand.deals.length > 0)
-    .slice(0, 16);
+    .slice(0, 16)
+    .map((brand) => ({
+      id: brand.id,
+      name: brand.name,
+      slug: brand.slug,
+      logoUrl: brand.logoUrl,
+      website: brand.website,
+      _count: { deals: brand.deals.length },
+    }));
   const newArrivals = allDeals.slice(0, 6);
 
   const totalPages = Math.ceil(totalDeals / limit);
