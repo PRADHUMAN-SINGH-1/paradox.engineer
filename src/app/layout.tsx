@@ -3,7 +3,7 @@ import Script from 'next/script';
 import './globals.css';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import AppShell from '@/components/AppShell';
-import { prisma } from '@/lib/db';
+import { getPublicTopics, getPublicDeals } from '@/lib/public-data';
 
 export const revalidate = 300;
 
@@ -87,23 +87,9 @@ export default async function RootLayout({
   };
 
   try {
-    const [dbTopics, dbDealTypes] = await Promise.all([
-      prisma.topic.findMany({
-        select: {
-          name: true,
-          slug: true,
-          icon: true,
-          _count: {
-            select: { deals: { where: { isActive: true } } },
-          },
-        },
-        orderBy: { name: 'asc' },
-      }),
-      prisma.deal.groupBy({
-        by: ['dealType'],
-        _count: { id: true },
-        where: { isActive: true },
-      }),
+    const [dbTopics, activeDeals] = await Promise.all([
+      getPublicTopics(),
+      getPublicDeals(),
     ]);
 
     topics = dbTopics;
@@ -116,13 +102,13 @@ export default async function RootLayout({
       promoCodes: 0,
     };
 
-    dbDealTypes.forEach((entry) => {
-      if (entry.dealType === 'freebie') counts.freebies = entry._count.id;
-      if (entry.dealType === 'discount') counts.discounts = entry._count.id;
-      if (entry.dealType === 'trial') counts.trials = entry._count.id;
-      if (entry.dealType === 'credit') counts.credits = entry._count.id;
-      if (entry.dealType === 'promo-code') counts.promoCodes = entry._count.id;
-    });
+    for (const deal of activeDeals) {
+      if (deal.dealType === 'freebie') counts.freebies += 1;
+      if (deal.dealType === 'discount') counts.discounts += 1;
+      if (deal.dealType === 'trial') counts.trials += 1;
+      if (deal.dealType === 'credit') counts.credits += 1;
+      if (deal.dealType === 'promo-code') counts.promoCodes += 1;
+    }
 
     categoryCounts = counts;
   } catch (error) {
