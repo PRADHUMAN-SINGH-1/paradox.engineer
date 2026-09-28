@@ -46,7 +46,7 @@ const INITIAL_FORM_DATA: DealFormData = {
 
 export default function AdminDashboardPage() {
   // 1. Authentication State
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(true);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const [adminKeyInput, setAdminKeyInput] = useState('');
   const [authError, setAuthError] = useState<string | null>(null);
   const [authLoading, setAuthLoading] = useState(false);
@@ -92,17 +92,49 @@ export default function AdminDashboardPage() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [refreshLog, setRefreshLog] = useState<string | null>(null);
 
-  // Helper to compose security headers
+  // Helper to compose security headers strictly from stored credentials
   const getAdminHeaders = (): Record<string, string> => {
     const key =
       typeof window !== 'undefined'
-        ? localStorage.getItem('paradox_admin_key') || 'Para@638823'
-        : 'Para@638823';
+        ? localStorage.getItem('paradox_admin_key') || ''
+        : '';
     return {
       'x-admin-key': key,
-      Authorization: 'Basic ' + (typeof window !== 'undefined' ? btoa(`admin:${key}`) : ''),
+      Authorization: key ? 'Basic ' + btoa(`admin:${key}`) : '',
     };
   };
+
+  // Verify stored session on mount
+  useEffect(() => {
+    const savedKey = typeof window !== 'undefined' ? localStorage.getItem('paradox_admin_key') : null;
+    if (savedKey) {
+      setAuthLoading(true);
+      fetch('/api/admin/overview', {
+        headers: {
+          'x-admin-key': savedKey,
+          Authorization: 'Basic ' + btoa(`admin:${savedKey}`),
+        },
+      })
+        .then((res) => {
+          if (res.ok) {
+            document.cookie = `paradox_admin_key=${encodeURIComponent(savedKey)}; path=/; max-age=604800; SameSite=Lax`;
+            setIsAuthenticated(true);
+          } else {
+            localStorage.removeItem('paradox_admin_key');
+            document.cookie = 'paradox_admin_key=; path=/; max-age=0';
+            setIsAuthenticated(false);
+          }
+        })
+        .catch(() => {
+          setIsAuthenticated(false);
+        })
+        .finally(() => {
+          setAuthLoading(false);
+        });
+    } else {
+      setIsAuthenticated(false);
+    }
+  }, []);
 
   // Login handler
   const handleLogin = async (e: React.FormEvent) => {
@@ -123,8 +155,8 @@ export default function AdminDashboardPage() {
       });
       if (res.ok) {
         localStorage.setItem('paradox_admin_key', key);
+        document.cookie = `paradox_admin_key=${encodeURIComponent(key)}; path=/; max-age=604800; SameSite=Lax`;
         setIsAuthenticated(true);
-        fetchOverview();
       } else {
         setAuthError('Access denied: Invalid master key.');
       }
@@ -137,8 +169,12 @@ export default function AdminDashboardPage() {
 
   const handleLogout = () => {
     localStorage.removeItem('paradox_admin_key');
+    document.cookie = 'paradox_admin_key=; path=/; max-age=0';
     setIsAuthenticated(false);
     setAdminKeyInput('');
+    setDeals([]);
+    setDiscoveredDeals([]);
+    setSubmissions([]);
   };
 
   const [isDealsLoading, setIsDealsLoading] = useState(false);
@@ -190,15 +226,17 @@ export default function AdminDashboardPage() {
   };
 
   useEffect(() => {
-    fetchOverview();
-    fetchDiscovered();
-  }, [dealsFilter, searchQuery]);
-
-  useEffect(() => {
-    if (activeTab === 'crawler' && discoveredDeals.length === 0) {
+    if (isAuthenticated) {
+      fetchOverview();
       fetchDiscovered();
     }
-  }, [activeTab]);
+  }, [isAuthenticated, dealsFilter, searchQuery]);
+
+  useEffect(() => {
+    if (isAuthenticated && activeTab === 'crawler' && discoveredDeals.length === 0) {
+      fetchDiscovered();
+    }
+  }, [isAuthenticated, activeTab]);
 
   // Ingest Deal from Crawler into Catalog with section routing
   const handleIngestDeal = async (
@@ -508,6 +546,18 @@ export default function AdminDashboardPage() {
       alert(`Error saving deal: ${String(err)}`);
     }
   };
+
+  // Initial session verification loader
+  if (isAuthenticated === null) {
+    return (
+      <div className="min-h-[70vh] flex items-center justify-center font-sans">
+        <div className="flex flex-col items-center gap-3 text-slate-500 dark:text-zinc-400 text-sm">
+          <div className="w-8 h-8 border-3 border-blue-600 border-t-transparent rounded-full animate-spin" />
+          <span className="text-xs font-medium">Verifying administrator session...</span>
+        </div>
+      </div>
+    );
+  }
 
   // Gate rendered if unauthenticated
   if (isAuthenticated === false) {
