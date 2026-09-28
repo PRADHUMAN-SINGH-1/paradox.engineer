@@ -3,10 +3,12 @@ import DealGrid from '@/components/DealGrid';
 import SortTabs from '@/components/SortTabs';
 import Pagination from '@/components/Pagination';
 import { Metadata } from 'next';
+import { SITE_URL } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Latest Deals & Developer Perks | Paradox',
   description: 'Chronological index of freshly added software infrastructure credits, trials, and student savings.',
+  alternates: { canonical: SITE_URL + '/latest' },
 };
 
 
