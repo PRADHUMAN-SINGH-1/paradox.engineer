@@ -8,14 +8,33 @@ import { Metadata } from 'next';
 import { SITE_URL } from '@/lib/site';
 
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ slug: string }>;
+  searchParams?: Promise<{ sort?: string; page?: string }>;
+}): Promise<Metadata> {
   const { slug } = await params;
+  const resolved = searchParams ? await searchParams : {};
+  const page = Number(resolved.page) || 1;
   const topic = await getTopicBySlug(slug);
   if (!topic) return { title: 'Topic Not Found' };
+
+  const hasVariant = page > 1 || (resolved.sort && resolved.sort !== 'latest');
+
   return {
     title: topic.name + ' Deals & Perks',
     description: 'Verified infrastructure credits, software tiers, and discounts for ' + topic.name + '.',
     alternates: { canonical: SITE_URL + '/topics/' + slug },
+    robots: hasVariant ? { index: false, follow: true } : { index: true, follow: true },
+    openGraph: {
+      title: topic.name + ' Deals & Perks',
+      description: 'Verified infrastructure credits, software tiers, and discounts for ' + topic.name + '.',
+      url: SITE_URL + '/topics/' + slug,
+      siteName: 'Paradox',
+      type: 'website',
+    },
   };
 }
 
