@@ -1,4 +1,4 @@
-# ⚡ Paradox (`paradox.engineer`)
+#  Paradox (`paradox.engineer`)
 
 > **Autonomous Developer Perks & Tech Deal Discovery Engine**  
 > A production-grade full-stack platform aggregating verified developer credits, cloud infrastructure grants, student packs, and software discounts with automated deal ingestion and dynamic affiliate monetization.
