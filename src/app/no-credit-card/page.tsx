@@ -9,7 +9,6 @@ export const metadata: Metadata = {
   description: 'Verified digital tools, free trials, and developer platform grants requiring zero credit card details.',
 };
 
-export const revalidate = 120;
 
 export default async function NoCreditCardPage({ searchParams }: { searchParams?: Promise<{ page?: string }> }) {
   const resolved = searchParams ? await searchParams : {};
