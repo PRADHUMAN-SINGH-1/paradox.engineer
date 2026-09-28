@@ -71,7 +71,7 @@ export default async function Home({
     '@type': 'Organization',
     name: 'Paradox',
     url: SITE_URL,
-    logo: SITE_URL + '/icon.png',
+    logo: SITE_URL + '/icon.svg',
     description: 'Curated index of software credits, cloud infrastructure perks, AI tokens, and developer discounts.',
   };
 
