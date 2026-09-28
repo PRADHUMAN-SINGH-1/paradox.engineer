@@ -4,11 +4,17 @@ import Pagination from '@/components/Pagination';
 import { Metadata } from 'next';
 import { SITE_URL } from '@/lib/site';
 
-export const metadata: Metadata = {
-  title: 'Startup Cloud Infrastructure Credits',
-  description: 'Cloud infrastructure grants, database credits, and developer programs for early-stage engineering teams.',
-  alternates: { canonical: SITE_URL + '/startups' },
-};
+export async function generateMetadata({ searchParams }: { searchParams?: Promise<{ page?: string }> }): Promise<Metadata> {
+  const resolved = searchParams ? await searchParams : {};
+  const page = Number(resolved.page) || 1;
+
+  return {
+    title: 'Startup Cloud Infrastructure Credits',
+    description: 'Cloud infrastructure grants, database credits, and developer programs for early-stage engineering teams.',
+    alternates: { canonical: SITE_URL + '/startups' },
+    robots: page > 1 ? { index: false, follow: true } : { index: true, follow: true },
+  };
+}
 
 
 export default async function StartupDealsPage({ searchParams }: { searchParams?: Promise<{ page?: string }> }) {
