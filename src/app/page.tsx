@@ -55,12 +55,12 @@ export default async function Home({
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'Paradox',
-    url: 'https://paradox.engineer',
+    url: SITE_URL,
     potentialAction: {
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: 'https://paradox.engineer/?q={search_term_string}',
+        urlTemplate: SITE_URL + '/?q={search_term_string}',
       },
       'query-input': 'required name=search_term_string',
     },
@@ -71,7 +71,7 @@ export default async function Home({
     '@type': 'Organization',
     name: 'Paradox',
     url: 'https://paradox.engineer',
-    logo: 'https://paradox.engineer/icon.png',
+    logo: SITE_URL + '/icon.png',
     description: 'Curated index of software credits, cloud infrastructure perks, AI tokens, and developer discounts.',
   };
 
