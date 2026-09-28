@@ -58,6 +58,7 @@ export default function Footer() {
             <ul className="space-y-2">
               <li><Link href="/submit" className="hover:text-blue-600 dark:hover:text-white transition">Submit a New Perk</Link></li>
               <li><Link href="/category/freebies" className="hover:text-blue-600 dark:hover:text-white transition">Free Developer Vault</Link></li>
+              <li><Link href="/about" className="hover:text-blue-600 dark:hover:text-white transition">About & Verification</Link></li>
               <li><Link href="/affiliate-disclosure" className="hover:text-blue-600 dark:hover:text-white transition">Affiliate Disclosure</Link></li>
             </ul>
           </div>
