@@ -26,7 +26,6 @@ const BRAND_COLORS: Record<string, { bg: string; text: string; border: string }>
 export default function BrandLogo({
   name,
   logoUrl,
-  website,
   size = 'md',
   className = '',
 }: BrandLogoProps) {
