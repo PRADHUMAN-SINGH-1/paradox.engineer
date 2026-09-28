@@ -36,6 +36,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: SITE_URL + '/topics', changeFrequency: 'daily', priority: 0.8 },
     { url: SITE_URL + '/submit', changeFrequency: 'monthly', priority: 0.5 },
     { url: SITE_URL + '/affiliate-disclosure', changeFrequency: 'monthly', priority: 0.4 },
+    { url: SITE_URL + '/about', changeFrequency: 'monthly', priority: 0.5 },
   ];
 
   const categoryTypes = ['freebies', 'discounts', 'trials', 'credits', 'promo-codes'];
