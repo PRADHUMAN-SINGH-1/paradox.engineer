@@ -23,15 +23,6 @@ const BRAND_COLORS: Record<string, { bg: string; text: string; border: string }>
   'perplexity-ai': { bg: 'bg-teal-50 dark:bg-teal-950/40', text: 'text-teal-700 dark:text-teal-300', border: 'border-teal-200 dark:border-teal-800/60' },
 };
 
-function extractHostname(url?: string | null): string {
-  if (!url) return '';
-  try {
-    return new URL(url).hostname;
-  } catch {
-    return url.replace(/https?:\/\//, '').split('/')[0];
-  }
-}
-
 export default function BrandLogo({
   name,
   logoUrl,
@@ -43,7 +34,6 @@ export default function BrandLogo({
 
   const initial = name ? name.charAt(0).toUpperCase() : '?';
   const brandKey = name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-  const domain = extractHostname(website);
   
   // Use only first-party stored logos. Avoid remote favicon requests on every card/page.
   const primarySrc = logoUrl || null;
