@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ type: str
   };
 }
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 120;
 
 export default async function CategoryPage({
   params,
