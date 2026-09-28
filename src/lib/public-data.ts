@@ -223,6 +223,55 @@ export const getDealsByTopic = (slug: string) =>
     { revalidate: 120, tags: ['paradox:topic:' + slug, 'paradox:deals'] }
   )();
 
+export const getRelatedDeals = (topicSlug: string, excludeSlug: string) =>
+  unstable_cache(
+    async () =>
+      prisma.deal.findMany({
+        where: {
+          isActive: true,
+          slug: { not: excludeSlug },
+          topic: { slug: topicSlug },
+        },
+        select: {
+          id: true,
+          title: true,
+          shortDescription: true,
+          slug: true,
+          dealType: true,
+          discountAmount: true,
+          promoCode: true,
+          clickCount: true,
+          viewCount: true,
+          isTrending: true,
+          isLimitedTime: true,
+          isStudentDeal: true,
+          isStartupDeal: true,
+          needsCreditCard: true,
+          expiryDate: true,
+          createdAt: true,
+          updatedAt: true,
+          brand: {
+            select: {
+              name: true,
+              slug: true,
+              logoUrl: true,
+              website: true,
+            },
+          },
+          topic: {
+            select: {
+              name: true,
+              slug: true,
+            },
+          },
+        },
+        orderBy: { createdAt: 'desc' },
+        take: 4,
+      }),
+    ['paradox-related-deals', topicSlug, excludeSlug],
+    { revalidate: 120, tags: ['paradox:topic:' + topicSlug, 'paradox:deals'] }
+  )();
+
 export const getDealBySlug = (slug: string) =>
   unstable_cache(
     async () =>
