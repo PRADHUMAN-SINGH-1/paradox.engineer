@@ -15,7 +15,7 @@ export async function generateMetadata({ searchParams }: { searchParams?: Promis
   const q = resolved.q?.trim();
 
   return {
-    title: q ? 'Search results for ' + q + ' | Paradox' : 'Developer Deals, Credits & Discounts',
+    title: q ? 'Search results for ' + q : 'Developer Deals, Credits & Discounts',
     description: 'Verified digital discounts, developer cloud credits, AI token grants, and student savings, updated daily.',
     alternates: { canonical: SITE_URL },
     robots: q ? { index: false, follow: true } : { index: true, follow: true },
