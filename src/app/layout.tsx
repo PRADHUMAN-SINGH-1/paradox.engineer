@@ -122,6 +122,8 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Google AdSense Verification */}
+        <meta name="google-adsense-account" content="ca-pub-4630615697632107" />
         {/* Anti-flicker inline theme script */}
         <script
           dangerouslySetInnerHTML={{
@@ -164,6 +166,15 @@ export default async function RootLayout({
         <Script
           strategy="afterInteractive"
           src="https://s.skimresources.com/js/310009X1798390.skimlinks.js"
+        />
+
+        {/* Google AdSense */}
+        <Script
+          id="google-adsense"
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4630615697632107"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
         />
       </body>
     </html>
