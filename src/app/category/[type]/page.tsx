@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ type: str
   const category = TYPE_MAP[rawType];
   if (!category) return { title: 'Category Not Found' };
   return {
-    title: `${category.name} | Paradox`,
+    title: category.name,
     description: `Verified ${category.name.toLowerCase()} for developers, startups, and engineers.`,
     alternates: { canonical: SITE_URL + '/category/' + rawType },
   };
