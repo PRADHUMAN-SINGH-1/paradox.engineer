@@ -49,6 +49,8 @@ export default function AdminLoginGate({
               <input
                 type={showKey ? 'text' : 'password'}
                 required
+                autoFocus
+                autoComplete="current-password"
                 value={adminKeyInput}
                 onChange={(e) => setAdminKeyInput(e.target.value)}
                 placeholder="Enter master key..."

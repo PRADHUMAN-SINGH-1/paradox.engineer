@@ -1,58 +1,63 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { isValidAdminKey } from '@/lib/admin-auth';
 
 function unauthorized() {
-  const response = new NextResponse('Authentication required', { status: 401 });
-  response.headers.set('WWW-Authenticate', 'Basic realm="Paradox Admin"');
-  response.headers.set('Cache-Control', 'no-store');
-  return response;
+  return NextResponse.json(
+    { success: false, error: 'Authentication required' },
+    { status: 401, headers: { 'Cache-Control': 'no-store' } }
+  );
 }
 
 export function proxy(request: NextRequest) {
-  const adminPassword = process.env.ADMIN_PASSWORD || 'Para@638823';
+  const pathname = request.nextUrl.pathname;
 
-  // 1. Check custom header x-admin-key
+  // 1. Always allow the admin dashboard page itself to load so the Login Gate panel displays
+  if (pathname === '/admin') {
+    return NextResponse.next();
+  }
+
+  // 2. Always allow the dedicated login route so the client can submit the master key
+  if (pathname === '/api/admin/login') {
+    return NextResponse.next();
+  }
+
+  // 3. Check custom header x-admin-key
   const adminKey = request.headers.get('x-admin-key');
-  if (adminKey && adminKey === adminPassword) {
+  if (isValidAdminKey(adminKey)) {
     return NextResponse.next();
   }
 
-  // 2. Check cookie 'paradox_admin_key'
+  // 4. Check cookie 'paradox_admin_key'
   const cookieKey = request.cookies.get('paradox_admin_key')?.value;
-  if (cookieKey && decodeURIComponent(cookieKey) === adminPassword) {
+  if (cookieKey && isValidAdminKey(decodeURIComponent(cookieKey))) {
     return NextResponse.next();
   }
 
-  // 3. Check Authorization header
+  // 5. Check Authorization header
   const authorization = request.headers.get('authorization');
 
-  // 3a. Bearer token
+  // 5a. Bearer token
   if (authorization?.startsWith('Bearer ')) {
     const token = authorization.slice(7).trim();
-    if (token === adminPassword) {
+    if (isValidAdminKey(token)) {
       return NextResponse.next();
     }
   }
 
-  // 3b. Basic Auth
+  // 5b. Basic Auth
   if (authorization?.startsWith('Basic ')) {
     try {
       const decoded = atob(authorization.slice(6));
       const separator = decoded.indexOf(':');
-      const username = separator >= 0 ? decoded.slice(0, separator) : '';
-      const password = separator >= 0 ? decoded.slice(separator + 1) : '';
+      const password = separator >= 0 ? decoded.slice(separator + 1) : decoded;
 
-      if ((username === 'admin' || username === '') && password === adminPassword) {
+      if (isValidAdminKey(password)) {
         return NextResponse.next();
       }
     } catch {
       // ignore decoding error
     }
-  }
-
-  // Allow the client-side admin portal page itself to load and present the login gate
-  if (request.nextUrl.pathname === '/admin') {
-    return NextResponse.next();
   }
 
   return unauthorized();
