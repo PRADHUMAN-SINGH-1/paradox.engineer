@@ -71,7 +71,7 @@ export default function AdminDashboardPage() {
 
   // 4. Deal Discovery Crawler Studio State
   const [crawlerHub, setCrawlerHub] = useState<CrawlerHub>('referral_programs');
-  const [crawlerFilter, setCrawlerFilter] = useState<CrawlerFilter>('all');
+  const [crawlerFilter, setCrawlerFilter] = useState<CrawlerFilter>('pending');
   const [crawlerSearch, setCrawlerSearch] = useState('');
   const [discoveredDeals, setDiscoveredDeals] = useState<DiscoveredDealItem[]>([]);
   const [crawlerLoading, setCrawlerLoading] = useState(false);

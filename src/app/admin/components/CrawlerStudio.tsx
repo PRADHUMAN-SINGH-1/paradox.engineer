@@ -175,11 +175,11 @@ export default function CrawlerStudio({
           <div className="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs">
             {(
               [
+                { id: 'pending', label: `⏳ Pending Action (${hubBaseDeals.filter((d) => !d.isPublished).length})` },
                 { id: 'all', label: `All in Hub (${hubBaseDeals.length})` },
                 { id: 'cloud', label: '☁️ Cloud & Infra' },
                 { id: 'ai', label: '🤖 AI & LLM Grants' },
                 { id: 'student', label: '🎓 Student Perks' },
-                { id: 'pending', label: `⏳ Pending (${hubBaseDeals.filter((d) => !d.isPublished).length})` },
                 { id: 'published', label: `✅ In Catalog (${hubBaseDeals.filter((d) => d.isPublished).length})` },
               ] as const
             ).map((tab) => (
@@ -242,23 +242,38 @@ export default function CrawlerStudio({
         </div>
       ) : filteredDiscoveredDeals.length === 0 ? (
         <div className="text-center py-16 bg-white dark:bg-zinc-900 rounded-2xl border border-slate-200 dark:border-zinc-800 p-8 space-y-3">
-          <p className="text-3xl">🔍</p>
+          <p className="text-4xl">{crawlerFilter === 'pending' ? '🎉' : '🔍'}</p>
           <h4 className="text-sm font-semibold text-slate-800 dark:text-zinc-200">
-            No discovered deals found
+            {crawlerFilter === 'pending'
+              ? 'All candidates in this view have been ingested!'
+              : 'No discovered deals match your filter'}
           </h4>
-          <p className="text-xs text-slate-500 dark:text-zinc-400">
-            No offers match your selected hub, filter, or search query.
+          <p className="text-xs text-slate-500 dark:text-zinc-400 max-w-sm mx-auto">
+            {crawlerFilter === 'pending'
+              ? 'You have published all available offers in this category into your live catalog.'
+              : 'Try clearing your search query or selecting a different filter.'}
           </p>
-          <button
-            type="button"
-            onClick={() => {
-              onSelectFilter('all');
-              onSearchChange('');
-            }}
-            className="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-blue-600 text-white shadow-xs cursor-pointer"
-          >
-            Reset Filters
-          </button>
+          <div className="flex items-center justify-center gap-2 pt-2">
+            {crawlerFilter === 'pending' && (
+              <button
+                type="button"
+                onClick={() => onSelectFilter('published')}
+                className="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow-xs cursor-pointer"
+              >
+                View Live in Catalog ({hubBaseDeals.filter((d) => d.isPublished).length})
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={() => {
+                onSelectFilter('all');
+                onSearchChange('');
+              }}
+              className="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-zinc-800 dark:text-zinc-300 shadow-xs cursor-pointer"
+            >
+              Show All Offers
+            </button>
+          </div>
         </div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
