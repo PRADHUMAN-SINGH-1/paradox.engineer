@@ -24,15 +24,17 @@ export default function AffiliateDisclosurePage() {
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-10 font-sans">
       {/* Breadcrumb */}
       <nav className="text-xs text-slate-500 dark:text-zinc-400 flex items-center gap-1.5 font-medium">
-        <Link href="/" className="hover:text-blue-600 dark:hover:text-white transition">Home</Link>
+        <Link href="/" className="hover:text-indigo-600 dark:hover:text-white transition">Home</Link>
         <span className="text-slate-300 dark:text-zinc-600">/</span>
         <span className="text-slate-900 dark:text-white font-semibold">Affiliate Disclosure</span>
       </nav>
 
       {/* Page Header */}
       <div className="pb-6 border-b border-slate-200 dark:border-zinc-800 space-y-3">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-xs font-semibold text-blue-700 dark:bg-blue-950/60 dark:border-blue-800 dark:text-blue-300">
-          <span>🛡️</span>
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-200/90 text-xs font-semibold text-indigo-700 dark:bg-indigo-950/60 dark:border-indigo-800/80 dark:text-indigo-300">
+          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
           <span>Reader Transparency & Trust</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
@@ -58,9 +60,9 @@ export default function AffiliateDisclosurePage() {
             Paradox (<span className="font-semibold text-slate-900 dark:text-white">paradox.engineer</span>) is a reader-supported deal aggregator and developer perk catalog. When you click on buttons such as &ldquo;Claim Deal&rdquo;, &ldquo;Get Code&rdquo;, or &ldquo;Visit Website&rdquo; and subsequently sign up for a plan, activate an account, or complete a purchase on a merchant&rsquo;s website, we may receive an affiliate referral commission or bounty.
           </p>
           <p>
-            We monetize through direct SaaS affiliate partnerships as well as automated affiliate technology networks (such as <strong>Skimlinks</strong>). These systems automatically tag qualifying merchant outbound links with an affiliate tracking parameter so that referring traffic can be accurately credited.
+            We monetize through direct SaaS affiliate partnerships as well as automated affiliate technology networks . 
           </p>
-          <div className="p-4 rounded-xl bg-blue-50/80 border border-blue-200/80 dark:bg-blue-950/40 dark:border-blue-900/60 text-xs text-blue-900 dark:text-blue-200">
+          <div className="p-4 rounded-xl bg-indigo-50/80 border border-indigo-200/80 dark:bg-indigo-950/40 dark:border-indigo-900/60 text-xs text-indigo-900 dark:text-indigo-200">
             <strong>Important Guarantee:</strong> Clicking our affiliate links or using our discount promo codes <strong>never costs you a single extra cent</strong>. In fact, our verified deals and exclusive partner promotions typically grant you lower subscription fees, longer trial windows, or complementary cloud credits that are unavailable through standard signup pages.
           </div>
         </section>
@@ -112,24 +114,7 @@ export default function AffiliateDisclosurePage() {
           </p>
         </section>
 
-        {/* Section 4: Why We Rely on Affiliate Monetization */}
-        <section className="space-y-3 bg-white dark:bg-zinc-900/50 p-6 rounded-2xl border border-slate-200/80 dark:border-zinc-800 shadow-2xs">
-          <div className="flex items-center gap-2 text-base font-bold text-slate-900 dark:text-white">
-            <span className="text-lg">🚀</span>
-            <h2>Why We Use Affiliate Links Instead of Display Ads</h2>
-          </div>
-          <p>
-            Operating an always-updated directory with real-time deal verification, sitemaps, API proxies, and 156+ brand catalogs incurs ongoing infrastructure costs:
-          </p>
-          <ul className="space-y-2 list-disc pl-5 text-xs sm:text-sm">
-            <li>High-availability cloud hosting, CDN distribution, and database servers.</li>
-            <li>Automated cron jobs that poll provider status endpoints to expire dead promo codes.</li>
-            <li>Continuous content curation and community submission screening.</li>
-          </ul>
-          <p>
-            By utilizing affiliate links, we can keep Paradox <strong>100% free for everyone</strong> without resorting to intrusive banner ads, video popups, sponsored paywalls, or selling user data.
-          </p>
-        </section>
+      
 
         {/* Section 5: Reader Promise */}
         <section className="space-y-3 bg-white dark:bg-zinc-900/50 p-6 rounded-2xl border border-slate-200/80 dark:border-zinc-800 shadow-2xs">
@@ -153,7 +138,7 @@ export default function AffiliateDisclosurePage() {
           <div className="flex flex-wrap items-center gap-3 pt-2">
             <a
               href="mailto:pradhumansingh196@gmail.com"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-blue-600 text-white font-semibold text-xs hover:bg-blue-700 transition"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 text-white font-semibold text-xs hover:bg-indigo-700 shadow-xs shadow-indigo-500/25 transition"
             >
               <span>✉️</span>
               <span>pradhumansingh196@gmail.com</span>

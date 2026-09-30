@@ -137,13 +137,13 @@ export default function CandidateDealCard({
 
         {/* Claims & Verification Info */}
         <div className="text-[11px] text-slate-500 dark:text-zinc-400 flex items-center gap-2">
-          <span>👤 {deal.howToClaim?.length || 0} user redemption steps</span>
+          <span>{deal.howToClaim?.length || 0} redemption steps</span>
           <span>•</span>
-          <span>✨ {deal.keyBenefits?.length || 0} key perks</span>
+          <span>{deal.keyBenefits?.length || 0} perks</span>
           {deal.isStudentDeal && (
             <>
               <span>•</span>
-              <span className="text-blue-600 font-medium">🎓 Student Verified</span>
+              <span className="text-blue-600 font-medium">Student Verified</span>
             </>
           )}
         </div>

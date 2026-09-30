@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import BrandLogo from './BrandLogo';
+import TopicIcon from './TopicIcon';
 
 export interface SearchResultDeal {
   id: string;
@@ -77,7 +78,10 @@ export default function SearchAutocompleteDropdown({
     >
       {isLoading ? (
         <div className="p-4 flex items-center justify-center gap-2 text-xs text-slate-500 dark:text-zinc-400">
-          <span className="animate-spin text-sm">🔄</span>
+          <svg className="animate-spin w-4 h-4 text-indigo-600 dark:text-indigo-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3"></circle>
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
           <span>Searching deals, brands, and categories...</span>
         </div>
       ) : hasResults ? (
@@ -86,7 +90,7 @@ export default function SearchAutocompleteDropdown({
           {deals.length > 0 && (
             <div className="p-2 space-y-1">
               <div className="px-3 py-1.5 text-[10px] font-bold text-slate-400 dark:text-zinc-500 uppercase tracking-wider flex items-center justify-between">
-                <span>⚡ Matching Deals & Discounts</span>
+                <span>Matching Deals & Discounts</span>
                 <span className="font-mono">{deals.length}</span>
               </div>
               <div className="space-y-0.5">
@@ -115,13 +119,13 @@ export default function SearchAutocompleteDropdown({
                             </span>
                           )}
                         </div>
-                        <p className="text-xs text-slate-600 dark:text-zinc-300 truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition">
+                        <p className="text-xs text-slate-600 dark:text-zinc-300 truncate group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
                           {deal.title}
                         </p>
                       </div>
                     </div>
                     {deal.discountAmount && (
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300 whitespace-nowrap shrink-0">
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 border border-indigo-200/60 dark:border-indigo-800/40 whitespace-nowrap shrink-0">
                         {deal.discountAmount}
                       </span>
                     )}
@@ -135,7 +139,7 @@ export default function SearchAutocompleteDropdown({
           {brands.length > 0 && (
             <div className="p-2 space-y-1">
               <div className="px-3 py-1.5 text-[10px] font-bold text-slate-400 dark:text-zinc-500 uppercase tracking-wider flex items-center justify-between">
-                <span>🏢 Matching Brands</span>
+                <span>Matching Brands</span>
                 <span className="font-mono">{brands.length}</span>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
@@ -153,7 +157,7 @@ export default function SearchAutocompleteDropdown({
                         website={brand.website}
                         size="sm"
                       />
-                      <span className="text-xs font-semibold text-slate-800 dark:text-zinc-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 truncate">
+                      <span className="text-xs font-bold text-slate-800 dark:text-zinc-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 truncate">
                         {brand.name}
                       </span>
                     </div>
@@ -172,7 +176,7 @@ export default function SearchAutocompleteDropdown({
           {topics.length > 0 && (
             <div className="p-2 space-y-1">
               <div className="px-3 py-1.5 text-[10px] font-bold text-slate-400 dark:text-zinc-500 uppercase tracking-wider flex items-center justify-between">
-                <span>📁 Categories</span>
+                <span>Categories</span>
                 <span className="font-mono">{topics.length}</span>
               </div>
               <div className="flex flex-wrap gap-1 px-2 pb-1">
@@ -181,9 +185,9 @@ export default function SearchAutocompleteDropdown({
                     key={topic.id}
                     href={`/topics/${topic.slug}`}
                     onClick={() => onSelectTopic?.(topic)}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-zinc-800 hover:bg-blue-50 dark:hover:bg-blue-950/40 text-slate-700 dark:text-zinc-300 hover:text-blue-600 dark:hover:text-blue-400 text-xs font-medium transition"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-zinc-800 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 text-slate-700 dark:text-zinc-300 hover:text-indigo-600 dark:hover:text-indigo-400 text-xs font-medium transition"
                   >
-                    <span>{topic.icon || '🏷️'}</span>
+                    <TopicIcon slug={topic.slug} name={topic.name} className="w-3.5 h-3.5 text-slate-500 dark:text-zinc-400 shrink-0" />
                     <span>{topic.name}</span>
                     {topic._count && (
                       <span className="text-[10px] text-slate-400 font-mono">({topic._count.deals})</span>
@@ -199,7 +203,7 @@ export default function SearchAutocompleteDropdown({
             <button
               type="button"
               onClick={onViewAll}
-              className="w-full px-4 py-2.5 bg-slate-50/80 dark:bg-zinc-800/50 hover:bg-slate-100 dark:hover:bg-zinc-800 text-blue-600 dark:text-blue-400 text-xs font-semibold flex items-center justify-between transition cursor-pointer"
+              className="w-full px-4 py-2.5 bg-slate-50/80 dark:bg-zinc-800/50 hover:bg-slate-100 dark:hover:bg-zinc-800 text-indigo-600 dark:text-indigo-400 text-xs font-semibold flex items-center justify-between transition cursor-pointer"
             >
               <span>See all matching results for &ldquo;{query}&rdquo;</span>
               <span>➔</span>

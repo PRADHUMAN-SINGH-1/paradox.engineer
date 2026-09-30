@@ -22,7 +22,11 @@ export async function GET(
       data: { clickCount: { increment: 1 } },
     }).catch(() => {});
 
-    const targetUrl = deal.claimUrl || deal.affiliateUrl || deal.brand.website || '/';
+    let rawUrl = deal.claimUrl || deal.affiliateUrl || deal.brand?.website || '/';
+    if (!rawUrl.startsWith('http://') && !rawUrl.startsWith('https://') && !rawUrl.startsWith('/')) {
+      rawUrl = `https://${rawUrl}`;
+    }
+    const targetUrl = rawUrl.startsWith('/') ? new URL(rawUrl, req.url) : new URL(rawUrl);
     return NextResponse.redirect(targetUrl, 307);
   } catch (error) {
     console.error('Redirect error:', error);

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import BrandLogo from './BrandLogo';
-import ExpiryBadge from './ExpiryBadge';
 import PromoCodeBadge from './PromoCodeBadge';
+import ExpiryBadge from './ExpiryBadge';
 
 interface DealCardProps {
   deal: {
@@ -30,92 +30,226 @@ interface DealCardProps {
   };
 }
 
+function formatDealTitle(title: string, brandName: string): string {
+  const brand = (brandName || '').trim();
+  if (!brand) return title;
+  const escapedBrand = brand.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const regex = new RegExp(`^${escapedBrand}\\s*[:\\-\\–\\—\\|]\\s*`, 'i');
+  return title.replace(regex, '').trim() || title;
+}
+
+function getDiscountBadgeClasses(discountAmount?: string | null, dealType?: string) {
+  const text = (discountAmount || '').toLowerCase();
+  const type = (dealType || '').toLowerCase();
+
+  if (text.includes('free') || type === 'freebie') {
+    return {
+      container: 'bg-emerald-50 text-emerald-700 border-emerald-200/90 dark:bg-emerald-950/50 dark:text-emerald-300 dark:border-emerald-800/60',
+      icon: 'text-emerald-600 dark:text-emerald-400',
+    };
+  }
+  if (text.includes('credit') || text.includes('$') || type === 'credit') {
+    return {
+      container: 'bg-indigo-50 text-indigo-700 border-indigo-200/90 dark:bg-indigo-950/40 dark:text-indigo-300 dark:border-indigo-800/60',
+      icon: 'text-indigo-600 dark:text-indigo-400',
+    };
+  }
+  if (text.includes('%') || text.includes('off') || type === 'discount') {
+    return {
+      container: 'bg-indigo-50 text-indigo-700 border-indigo-200/90 dark:bg-indigo-950/40 dark:text-indigo-300 dark:border-indigo-800/60',
+      icon: 'text-indigo-600 dark:text-indigo-400',
+    };
+  }
+  if (text.includes('trial') || type === 'trial') {
+    return {
+      container: 'bg-indigo-50 text-indigo-700 border-indigo-200/90 dark:bg-indigo-950/50 dark:text-indigo-300 dark:border-indigo-800/60',
+      icon: 'text-indigo-600 dark:text-indigo-400',
+    };
+  }
+  return {
+    container: 'bg-indigo-50 text-indigo-700 border-indigo-200/90 dark:bg-indigo-950/50 dark:text-indigo-300 dark:border-indigo-800/60',
+    icon: 'text-indigo-600 dark:text-indigo-400',
+  };
+}
+
+const DEAL_TYPE_LABELS: Record<string, string> = {
+  freebie: 'Free Tier',
+  discount: 'Discount',
+  trial: 'Free Trial',
+  credit: 'Cloud Credit',
+  'promo-code': 'Promo Code',
+};
+
 export default function DealCard({ deal }: DealCardProps) {
+  const brandName = deal.brand?.name || 'Partner';
+  const brandSlug = deal.brand?.slug || 'partner';
+  const displayTitle = formatDealTitle(deal.title, brandName);
+  const badgeStyle = getDiscountBadgeClasses(deal.discountAmount, deal.dealType);
+
+  // Expiry monitoring calculation
+  let isExpiringSoon = false;
+  let expiryDays = 0;
+  let expiryHours = 0;
+  let expiryShortDate = '';
+  let expiryTimeFormatted = '';
+
+  if (deal.expiryDate) {
+    const exp = new Date(deal.expiryDate);
+    const diffMs = exp.getTime() - Date.now();
+    if (diffMs > 0) {
+      expiryDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+      expiryHours = Math.max(1, Math.floor(diffMs / (1000 * 60 * 60)));
+      if (expiryDays <= 5) {
+        isExpiringSoon = true;
+        expiryShortDate = exp.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        expiryTimeFormatted = exp.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+      }
+    }
+  }
+
   return (
-    <div className="group relative bg-white hover:bg-slate-50/70 border border-slate-200/90 hover:border-blue-400/80 dark:bg-zinc-900/50 dark:hover:bg-zinc-900 dark:border-zinc-800 dark:hover:border-zinc-700 rounded-2xl p-5 transition-all duration-200 flex flex-col justify-between shadow-xs hover:shadow-md hover:-translate-y-0.5 cursor-pointer">
+    <div className="group relative rounded-2xl bg-white dark:bg-[#111114] border border-slate-200/90 dark:border-white/[0.08] hover:border-slate-350 dark:hover:border-white/20 p-5 flex flex-col justify-between shadow-[0_1px_3px_rgba(0,0,0,0.04),0_6px_16px_rgba(0,0,0,0.02)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.3)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_10px_30px_rgba(0,0,0,0.4)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer overflow-hidden">
+      {/* Subtle top hover line (sleek indigo accent) */}
+      <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-700 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+
       <div>
-        {/* Top Meta Bar */}
-        <div className="flex items-center justify-between gap-2 mb-3">
+        {/* Brand & Top-Right Status / Expiry / Trending */}
+        <div className="flex items-center justify-between gap-2.5 mb-3.5">
           <div className="flex items-center gap-2.5 min-w-0 relative z-10">
             <Link
-              href={`/brands/${deal.brand.slug}`}
-              className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-zinc-800 border border-slate-100 dark:border-zinc-700/60 p-1 flex items-center justify-center shrink-0 hover:border-blue-400 transition"
-              title={`View ${deal.brand.name} perks`}
+              href={`/brands/${brandSlug}`}
+              className="shrink-0 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-indigo-500/30 transition-transform active:scale-95"
+              title={`View ${brandName} perks`}
             >
               <BrandLogo
-                name={deal.brand.name}
-                logoUrl={deal.brand.logoUrl}
-                website={deal.brand.website}
-                size="sm"
+                name={brandName}
+                logoUrl={deal.brand?.logoUrl}
+                website={deal.brand?.website}
+                size="md"
               />
             </Link>
-            <div className="min-w-0 truncate">
+            <div className="min-w-0">
               <Link 
-                href={`/brands/${deal.brand.slug}`}
-                className="text-xs font-bold text-slate-900 hover:text-blue-600 dark:text-zinc-200 dark:hover:text-white transition truncate block"
+                href={`/brands/${brandSlug}`}
+                className="text-[13px] font-bold text-slate-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition truncate block"
               >
-                {deal.brand.name}
+                {brandName}
               </Link>
               {deal.topic && (
-                <span className="text-[11px] text-slate-400 dark:text-zinc-500 block truncate">
+                <span className="text-xs text-slate-500 dark:text-zinc-400 font-medium block truncate">
                   {deal.topic.name}
                 </span>
               )}
             </div>
           </div>
 
-          <div className="relative z-10">
+          {/* Right side: Trending + Expiry Status */}
+          <div className="flex items-center gap-1.5 relative z-10 shrink-0">
+            {deal.isTrending && (
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/25 shadow-2xs">
+                <span>Trending</span>
+                <svg className="w-3 h-3 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                </svg>
+              </span>
+            )}
             <ExpiryBadge expiryDate={deal.expiryDate} isLimitedTime={deal.isLimitedTime} />
           </div>
         </div>
 
-        {/* Title & Short Description with Stretched Link covering whole card */}
+        {/* Title & Description with Stretched Link covering the card */}
         <Link 
           href={`/resources/${deal.slug}`} 
-          className="block group mb-3 before:absolute before:inset-0 before:z-0 before:rounded-2xl"
+          className="block group/link mb-3.5 before:absolute before:inset-0 before:z-0 before:rounded-2xl"
         >
-          <h3 className="text-sm font-bold text-slate-900 group-hover:text-blue-600 dark:text-zinc-100 dark:group-hover:text-blue-400 transition-colors line-clamp-1 mb-1 leading-snug">
-            {deal.title}
+          <h3 className="text-[15.5px] font-bold text-slate-900 dark:text-white group-hover/link:text-indigo-600 dark:group-hover/link:text-indigo-400 transition-colors line-clamp-2 leading-snug tracking-tight mb-1.5 min-h-[2.5rem]">
+            {displayTitle}
           </h3>
-          <p className="text-xs text-slate-600 dark:text-zinc-400 line-clamp-2 leading-relaxed font-normal">
+          <p className="text-[13px] text-slate-600 dark:text-zinc-300 line-clamp-2 leading-relaxed min-h-[2.25rem]">
             {deal.shortDescription}
           </p>
         </Link>
       </div>
 
       <div>
-        {/* Value / Discount / Code */}
+        {/* Urgent Expiry Banner if Ending in <= 5 Days */}
+        {isExpiringSoon && (
+          <div className="mb-3 px-2.5 py-1.5 rounded-lg bg-amber-500/10 dark:bg-amber-950/40 border border-amber-500/30 text-amber-900 dark:text-amber-300 text-xs flex items-center justify-between gap-1.5 relative z-10 shadow-2xs">
+            <div className="flex items-center gap-1.5 min-w-0 font-semibold">
+              <svg className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span className="truncate">
+                {expiryHours <= 24 ? `Closing today: ${expiryHours}h left` : `Closing in ${expiryDays} days`}
+              </span>
+            </div>
+            <span className="text-[11px] font-mono shrink-0 font-medium text-amber-800/80 dark:text-amber-300/80">
+              Last date: {expiryShortDate} {expiryTimeFormatted}
+            </span>
+          </div>
+        )}
+
+        {/* Value Token Badge */}
         <div className="flex flex-wrap items-center gap-2 mb-3.5 relative z-10">
-          <span className="text-xs font-bold text-blue-700 bg-blue-50 border border-blue-200 dark:text-emerald-400 dark:bg-emerald-950/40 dark:border-emerald-800/60 px-2.5 py-1 rounded-lg shadow-2xs">
-            {deal.discountAmount}
-          </span>
+          <div className={`inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-1 rounded-lg border shadow-2xs ${badgeStyle.container}`}>
+            <svg className={`w-3.5 h-3.5 shrink-0 ${badgeStyle.icon}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+            </svg>
+            <span className="truncate">{deal.discountAmount}</span>
+          </div>
           {deal.promoCode && (
             <PromoCodeBadge code={deal.promoCode} />
           )}
         </div>
 
-        {/* Footer Technical Indicators */}
-        <div className="pt-3 border-t border-slate-100 dark:border-zinc-800/70 flex items-center justify-between text-[11px] text-slate-500 dark:text-zinc-400 relative z-10">
+        {/* Footer Technical Indicators & Action Button */}
+        <div className="pt-3.5 border-t border-slate-100 dark:border-zinc-800/80 flex items-center justify-between text-xs relative z-10 gap-2">
+          {/* Highlighted Micro-Badges with Crisp Icons */}
           <div className="flex items-center gap-1.5 flex-wrap">
-            {deal.isStudentDeal && (
-              <span className="px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 dark:bg-zinc-800 dark:text-blue-300 font-medium text-[10px]">
-                Student
+            {deal.isStartupDeal && (
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200/90 dark:bg-indigo-950/40 dark:text-indigo-300 dark:border-indigo-800/60 shadow-2xs">
+                <svg className="w-3 h-3 text-indigo-600 dark:text-indigo-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                <span>Startup</span>
               </span>
             )}
+
             {!deal.needsCreditCard && (
-              <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-zinc-800 dark:text-emerald-300 font-medium text-[10px]">
-                No Credit Card
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200/90 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800/60 shadow-2xs">
+                <svg className="w-3 h-3 text-emerald-600 dark:text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
+                </svg>
+                <span>No CC</span>
               </span>
             )}
-            {deal.isTrending && (
-              <span className="px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 font-medium text-[10px]">
-                Trending
+
+            {deal.isStudentDeal && (
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold bg-sky-50 text-sky-700 border border-sky-200/90 dark:bg-sky-950/40 dark:text-sky-300 dark:border-sky-800/60 shadow-2xs">
+                <svg className="w-3 h-3 text-sky-600 dark:text-sky-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5" />
+                </svg>
+                <span>Student</span>
+              </span>
+            )}
+
+            {!deal.isStartupDeal && !deal.isStudentDeal && deal.needsCreditCard && (
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-slate-100 text-slate-700 border border-slate-200/80 dark:bg-zinc-800 dark:text-zinc-300 dark:border-zinc-700">
+                <span>{DEAL_TYPE_LABELS[deal.dealType] || 'Verified'}</span>
               </span>
             )}
           </div>
 
-          <div className="shrink-0 font-medium">
-            {deal.clickCount.toLocaleString()} claims
+          <div className="flex items-center gap-2 shrink-0 ml-auto">
+            <span className="text-[11px] font-mono font-medium text-slate-500 dark:text-zinc-400 hidden xl:inline">
+              {deal.clickCount > 0 ? `${deal.clickCount.toLocaleString()} claims` : 'Verified'}
+            </span>
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-800 border border-slate-200/90 hover:bg-indigo-600 hover:text-white hover:border-indigo-600 dark:bg-zinc-800 dark:text-zinc-200 dark:border-zinc-700 dark:hover:bg-indigo-600 dark:hover:text-white group-hover:bg-indigo-600 group-hover:border-indigo-600 group-hover:text-white transition-all shadow-2xs shrink-0 whitespace-nowrap">
+              <span>Claim</span>
+              <svg className="w-3 h-3 group-hover:translate-x-0.5 transition-transform shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
           </div>
         </div>
       </div>

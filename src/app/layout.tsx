@@ -9,7 +9,7 @@ import { SITE_URL } from '@/lib/site';
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Paradox – Digital Deals, Developer Perks & Discounts, Sorted.',
+    default: 'Paradox – Curated Developer Perks, Cloud Credits & Software Deals',
     template: '%s | Paradox',
   },
   description: 'The curated index of verified digital discounts, developer cloud credits, AI token grants, and student savings. Updated daily.',
@@ -31,8 +31,13 @@ export const metadata: Metadata = {
   creator: 'Paradox',
   publisher: 'Paradox',
   icons: {
-    icon: '/icon.svg',
-    shortcut: '/favicon.svg',
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon.ico', sizes: '32x32' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
   },
   formatDetection: {
     email: false,
@@ -43,8 +48,8 @@ export const metadata: Metadata = {
     canonical: SITE_URL,
   },
   openGraph: {
-    title: 'Paradox – Digital Deals, Sorted.',
-    description: 'The best digital discounts, developer deals, freelancer offers, and student savings, updated daily.',
+    title: 'Paradox – Curated Developer Perks & Cloud Credits',
+    description: 'The curated index of developer discounts, cloud infrastructure credits, AI tokens, and student savings, updated daily.',
     url: SITE_URL,
     siteName: 'Paradox',
     locale: 'en_US',
@@ -52,7 +57,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Paradox – Digital Deals, Sorted.',
+    title: 'Paradox – Curated Developer Perks & Cloud Credits',
     description: 'Curated index of software credits, cloud infrastructure perks, AI tokens, and developer discounts.',
     creator: '@paradoxengineer',
   },
@@ -121,13 +126,19 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Modern Typography: Plus Jakarta Sans & JetBrains Mono */}
+        {/* Modern Typography: Plus Jakarta Sans (Google Sans geometry) & JetBrains Mono */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
+
+        {/* Explicit Favicon / App Icons */}
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
         {/* Google AdSense Verification */}
         <meta name="google-adsense-account" content="ca-pub-4630615697632107" />
@@ -147,7 +158,7 @@ export default async function RootLayout({
           }}
         />
       </head>
-      <body className="bg-slate-50 text-slate-900 dark:bg-[#09090b] dark:text-zinc-100 font-sans antialiased selection:bg-blue-600 selection:text-white dark:selection:bg-zinc-800 dark:selection:text-white transition-colors duration-200">
+      <body className="bg-slate-50 text-slate-900 dark:bg-[#09090b] dark:text-zinc-100 font-sans antialiased selection:bg-indigo-600 selection:text-white dark:selection:bg-indigo-500 dark:selection:text-white transition-colors duration-200">
         <ThemeProvider>
           <AppShell topics={topics} categoryCounts={categoryCounts}>
             {children}

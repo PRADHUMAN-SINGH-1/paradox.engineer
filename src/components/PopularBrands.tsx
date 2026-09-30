@@ -30,7 +30,7 @@ export default function PopularBrands({ brands }: PopularBrandsProps) {
         </div>
         <Link
           href="/brands"
-          className="text-xs font-medium text-slate-500 hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-400 transition flex items-center gap-1"
+          className="text-xs font-medium text-slate-500 hover:text-indigo-600 dark:text-zinc-400 dark:hover:text-indigo-400 transition flex items-center gap-1"
         >
           <span>Show all brand deals</span>
           <span>&rarr;</span>
@@ -50,7 +50,7 @@ export default function PopularBrands({ brands }: PopularBrandsProps) {
               website={brand.website}
               size="sm"
             />
-            <span className="text-xs font-semibold text-slate-800 group-hover:text-blue-600 dark:text-zinc-200 dark:group-hover:text-white transition whitespace-nowrap">
+            <span className="text-xs font-bold text-slate-900 group-hover:text-indigo-600 dark:text-zinc-100 dark:group-hover:text-white transition whitespace-nowrap">
               {brand.name}
             </span>
           </Link>

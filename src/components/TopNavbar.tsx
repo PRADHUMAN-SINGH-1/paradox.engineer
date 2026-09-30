@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import ThemeToggle from './ThemeToggle';
 import ParadoxLogo from './ParadoxLogo';
 import SearchAutocompleteDropdown from './SearchAutocompleteDropdown';
+import TopicIcon from './TopicIcon';
 
 interface TopNavbarProps {
   topics?: Array<{
@@ -137,7 +138,7 @@ export default function TopNavbar({ topics = [], onOpenMobileMenu }: TopNavbarPr
 
           {/* Full Logo + Wordmark visible on mobile */}
           <div className="lg:hidden flex items-center">
-            <ParadoxLogo href="/" size="sm" showWordmark={true} />
+            <ParadoxLogo href="/" size="sm" showWordmark={true} tag="" />
           </div>
         </div>
 
@@ -147,7 +148,10 @@ export default function TopNavbar({ topics = [], onOpenMobileMenu }: TopNavbarPr
             <div className="relative flex items-center">
               <span className="absolute left-3 text-slate-400 dark:text-zinc-500 pointer-events-none">
                 {isSearching ? (
-                  <span className="animate-spin inline-block text-xs">🔄</span>
+                  <svg className="animate-spin w-4 h-4 text-indigo-600 dark:text-indigo-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
                 ) : (
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -165,7 +169,7 @@ export default function TopNavbar({ topics = [], onOpenMobileMenu }: TopNavbarPr
                   }
                 }}
                 placeholder="Search deals, brands, or perks..."
-                className="w-full pl-9 pr-14 py-1.5 text-xs sm:text-sm bg-slate-100/80 dark:bg-zinc-900/90 text-slate-900 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 rounded-full border border-slate-200 dark:border-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-600/40 focus:border-blue-600 transition"
+                className="w-full pl-9 pr-14 py-1.5 text-xs sm:text-sm bg-slate-100/80 dark:bg-zinc-900/90 text-slate-900 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 rounded-full border border-slate-200 dark:border-zinc-800 focus:outline-none focus:ring-2 focus:ring-indigo-600/30 focus:border-indigo-600 transition"
               />
               <span className="absolute right-2.5 hidden sm:flex items-center gap-0.5 text-[10px] font-mono font-medium text-slate-400 dark:text-zinc-500 bg-white dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 rounded px-1.5 py-0.5 pointer-events-none">
                 ⌘K
@@ -227,7 +231,7 @@ export default function TopNavbar({ topics = [], onOpenMobileMenu }: TopNavbarPr
                   <Link
                     href="/topics"
                     onClick={() => setTopicsOpen(false)}
-                    className="text-[11px] text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                    className="text-[11px] text-indigo-600 dark:text-indigo-400 hover:underline font-medium"
                   >
                     View All &rarr;
                   </Link>
@@ -238,10 +242,10 @@ export default function TopNavbar({ topics = [], onOpenMobileMenu }: TopNavbarPr
                       key={topic.slug}
                       href={`/topics/${topic.slug}`}
                       onClick={() => setTopicsOpen(false)}
-                      className="flex items-center justify-between px-3 py-2 rounded-xl text-xs text-slate-700 dark:text-zinc-300 hover:bg-blue-50/70 hover:text-blue-700 dark:hover:bg-zinc-800/70 dark:hover:text-white transition"
+                      className="flex items-center justify-between px-3 py-2 rounded-xl text-xs text-slate-700 dark:text-zinc-300 hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-zinc-800/70 dark:hover:text-white transition"
                     >
                       <div className="flex items-center gap-2.5 truncate">
-                        <span className="text-sm shrink-0">{topic.icon || '🏷️'}</span>
+                        <TopicIcon slug={topic.slug} name={topic.name} className="w-4 h-4 text-slate-500 dark:text-zinc-400 shrink-0" />
                         <span className="font-medium truncate">{topic.name}</span>
                       </div>
                       {typeof topic._count?.deals === 'number' && (
@@ -259,13 +263,13 @@ export default function TopNavbar({ topics = [], onOpenMobileMenu }: TopNavbarPr
           {/* Theme Toggle (Night mode) - visible on mobile & desktop */}
           <ThemeToggle />
 
-          {/* Submit Deal Button */}
+          {/* Submit Deal Button (Responsive on mobile) */}
           <Link
             href="/submit"
-            className="inline-flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white dark:bg-white dark:hover:bg-zinc-200 dark:text-zinc-950 font-semibold text-xs px-3 sm:px-3.5 py-1.5 rounded-full transition shadow-xs hover:shadow-sm shrink-0"
+            className="inline-flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white dark:bg-zinc-100 dark:hover:bg-white dark:text-zinc-950 font-bold text-xs px-2.5 sm:px-3.5 py-1.5 rounded-full transition shadow-xs hover:shadow-sm shrink-0"
           >
             <span className="text-sm leading-none">+</span>
-            <span>Submit Deal</span>
+            <span>Submit<span className="hidden sm:inline"> Deal</span></span>
           </Link>
         </div>
       </div>
@@ -277,7 +281,10 @@ export default function TopNavbar({ topics = [], onOpenMobileMenu }: TopNavbarPr
             <div className="relative flex items-center">
               <span className="absolute left-3 text-slate-400 dark:text-zinc-500 pointer-events-none">
                 {isSearching ? (
-                  <span className="animate-spin inline-block text-xs">🔄</span>
+                  <svg className="animate-spin w-4 h-4 text-indigo-600 dark:text-indigo-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
                 ) : (
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -295,7 +302,7 @@ export default function TopNavbar({ topics = [], onOpenMobileMenu }: TopNavbarPr
                   }
                 }}
                 placeholder="Search deals, brands, or perks..."
-                className="w-full pl-9 pr-9 py-2 text-xs bg-white dark:bg-zinc-950 text-slate-900 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 rounded-lg border border-slate-200 dark:border-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-600/40 focus:border-blue-600 transition"
+                className="w-full pl-9 pr-9 py-2 text-xs bg-white dark:bg-zinc-950 text-slate-900 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 rounded-lg border border-slate-200 dark:border-zinc-800 focus:outline-none focus:ring-2 focus:ring-indigo-600/30 focus:border-indigo-600 transition"
               />
               {search && (
                 <button

@@ -57,7 +57,7 @@ export default function SubmitDealPage() {
             </button>
             <Link 
               href="/"
-              className="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition shadow-xs"
+              className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl transition shadow-xs shadow-indigo-500/25"
             >
               Browse All Deals &rarr;
             </Link>
@@ -94,7 +94,7 @@ export default function SubmitDealPage() {
             type="text" 
             id="brandName" 
             name="brandName" 
-            className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-xl text-slate-900 dark:text-zinc-100 placeholder:text-slate-400 focus:border-blue-600 focus:bg-white dark:focus:bg-zinc-900 outline-none text-xs transition" 
+            className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-xl text-slate-900 dark:text-zinc-100 placeholder:text-slate-400 focus:border-indigo-600 dark:focus:border-indigo-500 focus:bg-white dark:focus:bg-zinc-900 outline-none text-xs transition" 
             placeholder="e.g. Supabase, Anthropic, Vultr" 
           />
         </div>
@@ -108,7 +108,7 @@ export default function SubmitDealPage() {
             type="text" 
             id="dealTitle" 
             name="dealTitle" 
-            className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-xl text-slate-900 dark:text-zinc-100 placeholder:text-slate-400 focus:border-blue-600 focus:bg-white dark:focus:bg-zinc-900 outline-none text-xs transition" 
+            className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-xl text-slate-900 dark:text-zinc-100 placeholder:text-slate-400 focus:border-indigo-600 dark:focus:border-indigo-500 focus:bg-white dark:focus:bg-zinc-900 outline-none text-xs transition" 
             placeholder="e.g. $100 Free Cloud Credits for Startups" 
           />
         </div>
@@ -122,7 +122,7 @@ export default function SubmitDealPage() {
             type="url" 
             id="dealUrl" 
             name="dealUrl" 
-            className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-xl text-slate-900 dark:text-zinc-100 placeholder:text-slate-400 focus:border-blue-600 focus:bg-white dark:focus:bg-zinc-900 outline-none text-xs transition" 
+            className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-xl text-slate-900 dark:text-zinc-100 placeholder:text-slate-400 focus:border-indigo-600 dark:focus:border-indigo-500 focus:bg-white dark:focus:bg-zinc-900 outline-none text-xs transition" 
             placeholder="https://example.com/promo-claim" 
           />
         </div>
@@ -135,7 +135,7 @@ export default function SubmitDealPage() {
             id="description" 
             name="description" 
             rows={3} 
-            className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-xl text-slate-900 dark:text-zinc-100 placeholder:text-slate-400 focus:border-blue-600 focus:bg-white dark:focus:bg-zinc-900 outline-none text-xs transition" 
+            className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-xl text-slate-900 dark:text-zinc-100 placeholder:text-slate-400 focus:border-indigo-600 dark:focus:border-indigo-500 focus:bg-white dark:focus:bg-zinc-900 outline-none text-xs transition" 
             placeholder="Explain what the perk includes, promo codes needed, and who qualifies." 
           />
         </div>
@@ -148,7 +148,7 @@ export default function SubmitDealPage() {
             type="email" 
             id="submittedBy" 
             name="submittedBy" 
-            className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-xl text-slate-900 dark:text-zinc-100 placeholder:text-slate-400 focus:border-blue-600 focus:bg-white dark:focus:bg-zinc-900 outline-none text-xs transition" 
+            className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-xl text-slate-900 dark:text-zinc-100 placeholder:text-slate-400 focus:border-indigo-600 dark:focus:border-indigo-500 focus:bg-white dark:focus:bg-zinc-900 outline-none text-xs transition" 
             placeholder="you@domain.com" 
           />
         </div>
@@ -157,7 +157,7 @@ export default function SubmitDealPage() {
           <button 
             type="submit" 
             disabled={status === 'loading'}
-            className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl text-xs transition disabled:opacity-50 shadow-xs cursor-pointer"
+            className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl text-xs transition disabled:opacity-50 shadow-xs shadow-indigo-500/25 cursor-pointer"
           >
             {status === 'loading' ? 'Submitting...' : 'Submit Deal for Review'}
           </button>

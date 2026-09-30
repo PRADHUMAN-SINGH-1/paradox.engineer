@@ -157,7 +157,7 @@ export default function BrandsDirectoryClient({
       {/* Header section matching Resourify design */}
       <div className="space-y-3">
         <nav className="text-xs text-slate-500 dark:text-zinc-400 flex items-center gap-1.5 font-medium">
-          <Link href="/" className="hover:text-blue-600 dark:hover:text-white transition">Home</Link>
+          <Link href="/" className="hover:text-indigo-600 dark:hover:text-white transition">Home</Link>
           <span className="text-slate-300 dark:text-zinc-600">/</span>
           <span className="text-slate-900 dark:text-white font-semibold">Brands</span>
         </nav>
@@ -188,7 +188,7 @@ export default function BrandsDirectoryClient({
               onClick={() => setTopicDropdownOpen(!topicDropdownOpen)}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border font-medium transition ${
                 selectedTopic !== 'All'
-                  ? 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/60 dark:text-blue-300 dark:border-blue-800'
+                  ? 'bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-950/60 dark:text-indigo-300 dark:border-indigo-800'
                   : 'bg-white dark:bg-zinc-900 text-slate-700 dark:text-zinc-300 border-slate-200 dark:border-zinc-800 hover:border-slate-300 dark:hover:border-zinc-700'
               }`}
             >
@@ -204,7 +204,7 @@ export default function BrandsDirectoryClient({
                   type="button"
                   onClick={() => { setSelectedTopic('All'); setTopicDropdownOpen(false); }}
                   className={`w-full text-left px-3.5 py-1.5 text-xs transition flex items-center justify-between ${
-                    selectedTopic === 'All' ? 'bg-slate-100 dark:bg-zinc-800 font-semibold text-blue-600 dark:text-blue-400' : 'text-slate-700 dark:text-zinc-300 hover:bg-slate-50 dark:hover:bg-zinc-800/60'
+                    selectedTopic === 'All' ? 'bg-slate-100 dark:bg-zinc-800 font-semibold text-indigo-600 dark:text-indigo-400' : 'text-slate-700 dark:text-zinc-300 hover:bg-slate-50 dark:hover:bg-zinc-800/60'
                   }`}
                 >
                   <span>All Topics</span>
@@ -215,7 +215,7 @@ export default function BrandsDirectoryClient({
                     type="button"
                     onClick={() => { setSelectedTopic(t.slug); setTopicDropdownOpen(false); }}
                     className={`w-full text-left px-3.5 py-1.5 text-xs transition flex items-center justify-between ${
-                      selectedTopic === t.slug ? 'bg-slate-100 dark:bg-zinc-800 font-semibold text-blue-600 dark:text-blue-400' : 'text-slate-700 dark:text-zinc-300 hover:bg-slate-50 dark:hover:bg-zinc-800/60'
+                      selectedTopic === t.slug ? 'bg-slate-100 dark:bg-zinc-800 font-semibold text-indigo-600 dark:text-indigo-400' : 'text-slate-700 dark:text-zinc-300 hover:bg-slate-50 dark:hover:bg-zinc-800/60'
                     }`}
                   >
                     <span className="truncate">{t.name}</span>
@@ -233,7 +233,7 @@ export default function BrandsDirectoryClient({
               onClick={() => setCategoryDropdownOpen(!categoryDropdownOpen)}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border font-medium transition ${
                 selectedCategory !== 'All'
-                  ? 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/60 dark:text-blue-300 dark:border-blue-800'
+                  ? 'bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-950/60 dark:text-indigo-300 dark:border-indigo-800'
                   : 'bg-white dark:bg-zinc-900 text-slate-700 dark:text-zinc-300 border-slate-200 dark:border-zinc-800 hover:border-slate-300 dark:hover:border-zinc-700'
               }`}
             >
@@ -249,7 +249,7 @@ export default function BrandsDirectoryClient({
                   type="button"
                   onClick={() => { setSelectedCategory('All'); setCategoryDropdownOpen(false); }}
                   className={`w-full text-left px-3.5 py-1.5 text-xs transition flex items-center justify-between ${
-                    selectedCategory === 'All' ? 'bg-slate-100 dark:bg-zinc-800 font-semibold text-blue-600 dark:text-blue-400' : 'text-slate-700 dark:text-zinc-300 hover:bg-slate-50 dark:hover:bg-zinc-800/60'
+                    selectedCategory === 'All' ? 'bg-slate-100 dark:bg-zinc-800 font-semibold text-indigo-600 dark:text-indigo-400' : 'text-slate-700 dark:text-zinc-300 hover:bg-slate-50 dark:hover:bg-zinc-800/60'
                   }`}
                 >
                   <span>All Categories</span>
@@ -260,7 +260,7 @@ export default function BrandsDirectoryClient({
                     type="button"
                     onClick={() => { setSelectedCategory(c.slug); setCategoryDropdownOpen(false); }}
                     className={`w-full text-left px-3.5 py-1.5 text-xs transition flex items-center justify-between ${
-                      selectedCategory === c.slug ? 'bg-slate-100 dark:bg-zinc-800 font-semibold text-blue-600 dark:text-blue-400' : 'text-slate-700 dark:text-zinc-300 hover:bg-slate-50 dark:hover:bg-zinc-800/60'
+                      selectedCategory === c.slug ? 'bg-slate-100 dark:bg-zinc-800 font-semibold text-indigo-600 dark:text-indigo-400' : 'text-slate-700 dark:text-zinc-300 hover:bg-slate-50 dark:hover:bg-zinc-800/60'
                     }`}
                   >
                     <span>{c.name}</span>
@@ -293,7 +293,7 @@ export default function BrandsDirectoryClient({
                     onClick={() => { setSelectedSort(s); setSortDropdownOpen(false); }}
                     className={`w-full text-left px-3.5 py-1.5 text-xs transition ${
                       selectedSort === s
-                        ? 'bg-slate-100 dark:bg-zinc-800 font-semibold text-blue-600 dark:text-blue-400'
+                        ? 'bg-slate-100 dark:bg-zinc-800 font-semibold text-indigo-600 dark:text-indigo-400'
                         : 'text-slate-700 dark:text-zinc-300 hover:bg-slate-50 dark:hover:bg-zinc-800/60'
                     }`}
                   >
@@ -308,7 +308,7 @@ export default function BrandsDirectoryClient({
             <button
               type="button"
               onClick={resetFilters}
-              className="text-xs text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium ml-1"
+              className="text-xs text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 font-medium ml-1"
             >
               Reset filters
             </button>
@@ -324,10 +324,10 @@ export default function BrandsDirectoryClient({
                 key={char}
                 type="button"
                 onClick={() => setSelectedLetter(char)}
-                className={`min-w-6 h-7 px-2 rounded-lg transition-all font-semibold shrink-0 text-center ${
+                className={`min-w-6 h-7 px-2 rounded-lg transition-all shrink-0 text-center ${
                   isActive
-                    ? 'bg-slate-900 text-white dark:bg-white dark:text-zinc-950 shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-zinc-400 dark:hover:text-white dark:hover:bg-zinc-800'
+                    ? 'bg-slate-900 text-white dark:bg-zinc-100 dark:text-zinc-950 font-bold shadow-xs'
+                    : 'font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-zinc-400 dark:hover:text-white dark:hover:bg-zinc-800'
                 }`}
               >
                 {char}
@@ -354,7 +354,7 @@ export default function BrandsDirectoryClient({
               <Link
                 key={brand.id}
                 href={`/brands/${brand.slug}`}
-                className="group flex flex-col items-center justify-center p-3 rounded-2xl bg-white dark:bg-zinc-900/60 border border-slate-200/80 hover:border-blue-400 dark:border-zinc-800 dark:hover:border-zinc-700 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+                className="group flex flex-col items-center justify-center p-3 rounded-2xl bg-white dark:bg-zinc-900/60 border border-slate-200/80 hover:border-indigo-400/80 dark:border-zinc-800 dark:hover:border-zinc-700 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
                 title={`${brand.name} (${brand.dealCount} active offers)`}
               >
                 <div className="w-14 h-14 rounded-2xl bg-slate-50 dark:bg-zinc-800/80 border border-slate-100 dark:border-zinc-700/60 p-2 flex items-center justify-center group-hover:scale-105 transition-transform">
@@ -365,11 +365,11 @@ export default function BrandsDirectoryClient({
                     size="card"
                   />
                 </div>
-                <span className="text-xs font-semibold text-slate-800 group-hover:text-blue-600 dark:text-zinc-200 dark:group-hover:text-white transition truncate w-full text-center mt-2.5">
+                <span className="text-xs font-semibold text-slate-800 group-hover:text-indigo-600 dark:text-zinc-200 dark:group-hover:text-white transition truncate w-full text-center mt-2.5">
                   {brand.name}
                 </span>
                 {brand.dealCount > 0 && (
-                  <span className="text-[10px] text-blue-600 dark:text-blue-400 font-medium mt-0.5">
+                  <span className="text-[10px] text-indigo-600 dark:text-indigo-400 font-semibold mt-0.5">
                     {brand.dealCount} {brand.dealCount === 1 ? 'deal' : 'deals'}
                   </span>
                 )}
@@ -396,7 +396,7 @@ export default function BrandsDirectoryClient({
               <Link
                 key={brand.id}
                 href={`/brands/${brand.slug}`}
-                className="group flex flex-col items-center justify-center p-3 rounded-2xl bg-white dark:bg-zinc-900/60 border border-slate-200/80 hover:border-blue-400 dark:border-zinc-800 dark:hover:border-zinc-700 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+                className="group flex flex-col items-center justify-center p-3 rounded-2xl bg-white dark:bg-zinc-900/60 border border-slate-200/80 hover:border-indigo-400/80 dark:border-zinc-800 dark:hover:border-zinc-700 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
                 title={`${brand.name} (${brand.dealCount} active offers)`}
               >
                 <div className="w-14 h-14 rounded-2xl bg-slate-50 dark:bg-zinc-800/80 border border-slate-100 dark:border-zinc-700/60 p-2 flex items-center justify-center group-hover:scale-105 transition-transform">
@@ -407,11 +407,11 @@ export default function BrandsDirectoryClient({
                     size="card"
                   />
                 </div>
-                <span className="text-xs font-semibold text-slate-800 group-hover:text-blue-600 dark:text-zinc-200 dark:group-hover:text-white transition truncate w-full text-center mt-2.5">
+                <span className="text-xs font-semibold text-slate-800 group-hover:text-indigo-600 dark:text-zinc-200 dark:group-hover:text-white transition truncate w-full text-center mt-2.5">
                   {brand.name}
                 </span>
                 {brand.dealCount > 0 ? (
-                  <span className="text-[10px] text-blue-600 dark:text-blue-400 font-medium mt-0.5">
+                  <span className="text-[10px] text-indigo-600 dark:text-indigo-400 font-semibold mt-0.5">
                     {brand.dealCount} {brand.dealCount === 1 ? 'deal' : 'deals'}
                   </span>
                 ) : (
@@ -434,7 +434,7 @@ export default function BrandsDirectoryClient({
             <button
               type="button"
               onClick={resetFilters}
-              className="inline-flex text-xs font-semibold px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
+              className="inline-flex text-xs font-semibold px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 shadow-xs shadow-indigo-500/25 transition cursor-pointer"
             >
               Show All 156 Brands
             </button>

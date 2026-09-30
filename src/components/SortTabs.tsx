@@ -18,7 +18,12 @@ export default function SortTabs({ currentSort, baseUrl = '' }: SortTabsProps) {
   return (
     <div className="flex items-center gap-1 bg-slate-100 dark:bg-zinc-900 p-1 rounded-xl border border-slate-200/80 dark:border-zinc-800 text-xs transition-colors">
       {TABS.map((tab) => {
-        const href = `${baseUrl}?sort=${tab.id}`;
+        const [pathPart, queryPart] = baseUrl.split('?');
+        const searchParams = new URLSearchParams(queryPart || '');
+        searchParams.set('sort', tab.id);
+        searchParams.delete('page');
+        const queryString = searchParams.toString();
+        const href = `${pathPart || '/'}?${queryString}`;
         const isActive = currentSort === tab.id;
 
         return (

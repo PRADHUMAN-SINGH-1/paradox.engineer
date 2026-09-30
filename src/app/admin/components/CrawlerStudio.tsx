@@ -129,7 +129,9 @@ export default function CrawlerStudio({
               disabled={crawlerLoading}
               className="px-4 py-2.5 rounded-xl font-semibold text-xs bg-slate-800/80 hover:bg-slate-700 text-white border border-slate-700 shadow-xs transition flex items-center gap-2 cursor-pointer disabled:opacity-50"
             >
-              <span className={crawlerLoading ? 'animate-spin' : ''}>🔄</span>
+              <svg className={`w-3.5 h-3.5 ${crawlerLoading ? 'animate-spin' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
               <span>{crawlerLoading ? 'Scanning...' : 'Refresh Candidates'}</span>
             </button>
 
@@ -175,12 +177,12 @@ export default function CrawlerStudio({
           <div className="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs">
             {(
               [
-                { id: 'pending', label: `⏳ Pending Action (${hubBaseDeals.filter((d) => !d.isPublished).length})` },
+                { id: 'pending', label: `Pending Action (${hubBaseDeals.filter((d) => !d.isPublished).length})` },
                 { id: 'all', label: `All in Hub (${hubBaseDeals.length})` },
-                { id: 'cloud', label: '☁️ Cloud & Infra' },
-                { id: 'ai', label: '🤖 AI & LLM Grants' },
-                { id: 'student', label: '🎓 Student Perks' },
-                { id: 'published', label: `✅ In Catalog (${hubBaseDeals.filter((d) => d.isPublished).length})` },
+                { id: 'cloud', label: 'Cloud & Infra' },
+                { id: 'ai', label: 'AI & LLM Grants' },
+                { id: 'student', label: 'Student Perks' },
+                { id: 'published', label: `In Catalog (${hubBaseDeals.filter((d) => d.isPublished).length})` },
               ] as const
             ).map((tab) => (
               <button
@@ -233,10 +235,10 @@ export default function CrawlerStudio({
                 <div className="w-10 h-10 rounded-full bg-slate-200 dark:bg-zinc-800" />
                 <div className="space-y-1.5 flex-1">
                   <div className="h-4 bg-slate-200 dark:bg-zinc-800 rounded w-1/3" />
-                  <div className="h-3 bg-slate-100 dark:bg-zinc-850 rounded w-2/3" />
+                  <div className="h-3 bg-slate-100 dark:bg-zinc-800/80 rounded w-2/3" />
                 </div>
               </div>
-              <div className="h-10 bg-slate-100 dark:bg-zinc-850 rounded" />
+              <div className="h-10 bg-slate-100 dark:bg-zinc-800/80 rounded" />
             </div>
           ))}
         </div>

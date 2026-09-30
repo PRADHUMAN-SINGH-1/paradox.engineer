@@ -42,7 +42,7 @@ export default function AboutPage() {
       />
 
       <nav className="text-xs text-slate-500 dark:text-zinc-400 flex items-center gap-1.5 font-medium">
-        <Link href="/" className="hover:text-blue-600 dark:hover:text-white transition">
+        <Link href="/" className="hover:text-indigo-600 dark:hover:text-white transition">
           Home
         </Link>
         <span className="text-slate-300 dark:text-zinc-600">/</span>
@@ -50,7 +50,7 @@ export default function AboutPage() {
       </nav>
 
       <header className="pb-6 border-b border-slate-200 dark:border-zinc-800 space-y-3">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-xs font-semibold text-blue-700 dark:bg-blue-950/60 dark:border-blue-800 dark:text-blue-300">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-200/90 text-xs font-semibold text-indigo-700 dark:bg-indigo-950/60 dark:border-indigo-800/80 dark:text-indigo-300">
           <span>◎</span>
           <span>Developer Deal Directory</span>
         </div>
@@ -92,7 +92,7 @@ export default function AboutPage() {
         <p className="text-sm leading-relaxed text-slate-600 dark:text-zinc-400">
           For details on commissions, tracking, and editorial independence, see our
           {' '}
-          <Link href="/affiliate-disclosure" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">
+          <Link href="/affiliate-disclosure" className="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline">
             Affiliate Disclosure
           </Link>.
         </p>
@@ -103,7 +103,7 @@ export default function AboutPage() {
         <p className="text-sm leading-relaxed text-slate-600 dark:text-zinc-400">
           Found a new promotion or an offer that has expired? Send the details through
           {' '}
-          <Link href="/submit" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">
+          <Link href="/submit" className="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline">
             Submit a Deal
           </Link>
           {' '}

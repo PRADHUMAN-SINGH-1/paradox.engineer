@@ -38,15 +38,15 @@ export default function HeroSection() {
 
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 text-center">
         {/* Status Chip */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 dark:bg-zinc-900 dark:border-zinc-800 dark:text-zinc-300 text-[11px] font-mono mb-6 shadow-xs font-semibold">
-          <span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-emerald-400 shadow-[0_0_8px_rgba(37,99,235,0.6)] dark:shadow-[0_0_8px_rgba(52,211,153,0.8)]"></span>
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 dark:bg-zinc-900 dark:border-zinc-800 dark:text-zinc-300 text-[11px] font-mono mb-6 shadow-xs font-semibold">
+          <span className="w-1.5 h-1.5 rounded-full bg-indigo-600 dark:bg-emerald-400 shadow-[0_0_8px_rgba(79,70,229,0.6)] dark:shadow-[0_0_8px_rgba(52,211,153,0.8)]"></span>
           <span>PARADOX_INDEX // 36 VERIFIED ACTIVE GRANTS</span>
         </div>
 
         {/* Primary Title */}
         <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 dark:text-white mb-4 font-sans leading-tight">
           Infrastructure Credits &{' '}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-800 dark:from-zinc-200 dark:via-zinc-400 dark:to-zinc-500">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-700 dark:from-zinc-200 dark:via-zinc-400 dark:to-zinc-500">
             Developer Perks
           </span>
         </h1>
@@ -58,7 +58,7 @@ export default function HeroSection() {
         {/* Command Search Bar */}
         <form onSubmit={handleSearch} className="max-w-xl mx-auto mb-5">
           <div className="relative flex items-center group">
-            <div className="absolute left-4 text-blue-600 dark:text-zinc-500 font-mono text-sm pointer-events-none group-focus-within:text-blue-700 dark:group-focus-within:text-zinc-200 transition-colors font-bold">
+            <div className="absolute left-4 text-indigo-600 dark:text-indigo-400 font-mono text-sm pointer-events-none group-focus-within:text-indigo-700 dark:group-focus-within:text-indigo-300 transition-colors font-bold">
               $
             </div>
             <input 
@@ -66,11 +66,11 @@ export default function HeroSection() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="filter index by keyword (e.g. claude, supabase, student, credits)..." 
-              className="w-full pl-9 pr-28 py-3.5 rounded-xl border border-slate-300 bg-slate-50/70 hover:bg-white focus:bg-white dark:border-zinc-800 dark:bg-zinc-900/80 dark:hover:border-zinc-700 dark:focus:border-zinc-500 text-slate-900 dark:text-zinc-100 text-sm font-mono focus:outline-none focus:ring-4 focus:ring-blue-500/10 dark:focus:ring-zinc-600/20 focus:border-blue-600 transition-all placeholder:text-slate-400 dark:placeholder:text-zinc-500 shadow-xs"
+              className="w-full pl-9 pr-28 py-3.5 rounded-xl border border-slate-300 bg-slate-50/70 hover:bg-white focus:bg-white dark:border-zinc-800 dark:bg-zinc-900/80 dark:hover:border-zinc-750 dark:focus:border-indigo-500/60 text-slate-900 dark:text-zinc-100 text-sm font-mono focus:outline-none focus:ring-4 focus:ring-indigo-500/10 dark:focus:ring-indigo-600/20 focus:border-indigo-600 transition-all placeholder:text-slate-400 dark:placeholder:text-zinc-500 shadow-xs"
             />
             <button 
               type="submit" 
-              className="absolute right-2 bg-blue-600 hover:bg-blue-700 text-white dark:bg-zinc-100 dark:hover:bg-white dark:text-zinc-950 font-semibold px-4 py-1.5 rounded-lg text-xs transition cursor-pointer font-sans shadow-sm"
+              className="absolute right-2 bg-slate-900 hover:bg-slate-800 text-white dark:bg-zinc-100 dark:hover:bg-white dark:text-zinc-950 font-semibold px-4 py-1.5 rounded-lg text-xs transition cursor-pointer font-sans shadow-sm"
             >
               Search
             </button>
@@ -84,7 +84,7 @@ export default function HeroSection() {
             <button
               key={tag.label}
               onClick={() => handleTagClick(tag.query)}
-              className="px-2.5 py-1 rounded-md bg-white hover:bg-blue-50 hover:text-blue-700 hover:border-blue-200 text-slate-700 border border-slate-200 dark:bg-zinc-900/90 dark:hover:bg-zinc-800 dark:border-zinc-800 dark:text-zinc-300 text-[11px] font-medium transition cursor-pointer shadow-2xs"
+              className="px-2.5 py-1 rounded-md bg-white hover:bg-indigo-50 hover:text-indigo-700 hover:border-indigo-200 text-slate-700 border border-slate-200 dark:bg-zinc-900/90 dark:hover:bg-zinc-800 dark:border-zinc-800 dark:text-zinc-300 dark:hover:text-zinc-100 text-[11px] font-medium transition cursor-pointer shadow-2xs"
             >
               {tag.label}
             </button>

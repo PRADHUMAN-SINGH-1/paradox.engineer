@@ -76,14 +76,12 @@ export default function ClaimActionBox({
       {/* Brand Header */}
       <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-zinc-800">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-xl bg-slate-50 dark:bg-zinc-800 border border-slate-100 dark:border-zinc-700/60 p-1.5 flex items-center justify-center shrink-0">
-            <BrandLogo
-              name={brandName}
-              logoUrl={logoUrl}
-              website={websiteUrl}
-              size="md"
-            />
-          </div>
+          <BrandLogo
+            name={brandName}
+            logoUrl={logoUrl}
+            website={websiteUrl}
+            size="lg"
+          />
           <div>
             <h3 className="font-bold text-slate-900 dark:text-white text-sm leading-snug">{brandName}</h3>
             <span className="text-[11px] text-slate-500 dark:text-zinc-400 capitalize">
@@ -109,7 +107,7 @@ export default function ClaimActionBox({
             <button
               type="button"
               onClick={handleCopyCode}
-              className="text-xs font-semibold px-3 py-1 rounded-md bg-blue-50 text-blue-700 hover:bg-blue-100 dark:bg-zinc-800 dark:text-zinc-200 transition"
+              className="text-xs font-bold px-3 py-1 rounded-md bg-indigo-50 text-indigo-700 hover:bg-indigo-100 dark:bg-indigo-950/60 dark:text-indigo-300 dark:hover:bg-indigo-900/60 transition"
             >
               {copied ? '✓ Copied' : 'Copy Code'}
             </button>
@@ -127,7 +125,7 @@ export default function ClaimActionBox({
             trackClick();
             if (promoCode) handleCopyCode();
           }}
-          className="w-full py-3.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-xs hover:shadow-md transition text-center"
+          className="w-full py-3.5 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-sm shadow-indigo-600/20 hover:shadow-md transition text-center"
         >
           <span>Claim Offer on {brandName}</span>
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -170,6 +168,18 @@ export default function ClaimActionBox({
               {isStudentDeal ? 'Required (.edu email)' : 'Not required'}
             </span>
           </div>
+
+          {expiryDate && (
+            <div className="flex items-center justify-between text-slate-600 dark:text-zinc-400">
+              <span>Offer Expiry</span>
+              <span className="font-semibold text-amber-700 dark:text-amber-400 flex items-center gap-1">
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>{new Date(expiryDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+              </span>
+            </div>
+          )}
 
           <div className="flex items-center justify-between text-slate-600 dark:text-zinc-400">
             <span>Community Claims</span>

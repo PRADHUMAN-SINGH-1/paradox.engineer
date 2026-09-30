@@ -42,14 +42,14 @@ export default function NewsletterSignup() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="developer@domain.com"
-          className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-300 text-slate-900 placeholder:text-slate-400 focus:bg-white focus:border-blue-600 dark:bg-zinc-900 dark:border-zinc-800 dark:text-zinc-100 dark:placeholder:text-zinc-600 dark:focus:border-zinc-600 text-xs font-mono focus:outline-none transition"
+          className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-300 text-slate-900 placeholder:text-slate-400 focus:bg-white focus:border-indigo-600 dark:bg-zinc-900 dark:border-zinc-800 dark:text-zinc-100 dark:placeholder:text-zinc-600 dark:focus:border-indigo-500/60 text-xs font-mono focus:outline-none transition"
           required
           disabled={status === 'loading' || status === 'success'}
         />
         <button
           type="submit"
           disabled={status === 'loading' || status === 'success'}
-          className="px-3.5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white dark:bg-zinc-100 dark:hover:bg-white dark:text-zinc-950 font-semibold text-xs transition shrink-0 cursor-pointer disabled:opacity-50 font-sans shadow-xs"
+          className="px-4 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white dark:bg-zinc-100 dark:hover:bg-white dark:text-zinc-950 font-bold text-xs transition shrink-0 cursor-pointer disabled:opacity-50 font-sans shadow-xs"
         >
           {status === 'loading' ? '...' : status === 'success' ? 'Joined' : 'Subscribe'}
         </button>

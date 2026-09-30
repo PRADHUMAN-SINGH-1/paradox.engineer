@@ -4,7 +4,7 @@ import { Metadata } from 'next';
 import { SITE_URL } from '@/lib/site';
 import Link from 'next/link';
 import ClaimActionBox from '@/components/ClaimActionBox';
-import DealGrid from '@/components/DealGrid';
+import DealCard from '@/components/DealCard';
 import BrandLogo from '@/components/BrandLogo';
 import ExpiryBadge from '@/components/ExpiryBadge';
 import ViewTracker from '@/components/ViewTracker';
@@ -86,12 +86,6 @@ export default async function DealDetailPage({ params }: { params: Promise<{ slu
       {
         '@type': 'ListItem',
         position: 3,
-        name: deal.brand.name,
-        item: SITE_URL + `/brands/${deal.brand.slug}`,
-      },
-      {
-        '@type': 'ListItem',
-        position: 4,
         name: deal.title,
         item: SITE_URL + `/resources/${deal.slug}`,
       },
@@ -155,11 +149,9 @@ export default async function DealDetailPage({ params }: { params: Promise<{ slu
 
       {/* Clean Modern Breadcrumbs */}
       <nav className="text-xs text-slate-500 dark:text-zinc-400 flex items-center gap-1.5 overflow-x-auto whitespace-nowrap">
-        <Link href="/" className="hover:text-blue-600 dark:hover:text-white transition font-medium">Home</Link>
+        <Link href="/" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition font-medium">Home</Link>
         <span className="text-slate-300 dark:text-zinc-600">/</span>
-        <Link href={`/topics/${deal.topic.slug}`} className="hover:text-blue-600 dark:hover:text-white transition font-medium">{deal.topic.name}</Link>
-        <span className="text-slate-300 dark:text-zinc-600">/</span>
-        <Link href={`/brands/${deal.brand.slug}`} className="hover:text-blue-600 dark:hover:text-white transition font-medium">{deal.brand.name}</Link>
+        <Link href={`/topics/${deal.topic.slug}`} className="hover:text-indigo-600 dark:hover:text-indigo-400 transition font-medium">{deal.topic.name}</Link>
         <span className="text-slate-300 dark:text-zinc-600">/</span>
         <span className="text-slate-900 dark:text-white font-semibold truncate max-w-xs">{deal.title}</span>
       </nav>
@@ -171,18 +163,16 @@ export default async function DealDetailPage({ params }: { params: Promise<{ slu
           <div className="bg-white dark:bg-zinc-900 border border-slate-200/90 dark:border-zinc-800 rounded-2xl p-6 sm:p-8 space-y-4 shadow-xs">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-xl bg-slate-50 dark:bg-zinc-800 border border-slate-100 dark:border-zinc-700/60 p-1.5 flex items-center justify-center shrink-0">
-                  <BrandLogo
-                    name={deal.brand.name}
-                    logoUrl={deal.brand.logoUrl}
-                    website={deal.brand.website}
-                    size="md"
-                  />
-                </div>
+                <BrandLogo
+                  name={deal.brand.name}
+                  logoUrl={deal.brand.logoUrl}
+                  website={deal.brand.website}
+                  size="lg"
+                />
                 <div>
                   <Link
                     href={`/brands/${deal.brand.slug}`}
-                    className="text-sm font-bold text-slate-900 hover:text-blue-600 dark:text-zinc-100 dark:hover:text-white transition block"
+                    className="text-sm font-bold text-slate-900 hover:text-indigo-600 dark:text-zinc-100 dark:hover:text-indigo-400 transition block"
                   >
                     {deal.brand.name}
                   </Link>
@@ -201,11 +191,55 @@ export default async function DealDetailPage({ params }: { params: Promise<{ slu
               {deal.title}
             </h1>
 
-            {/* Highlighted Value Pill */}
-            {deal.discountAmount && (
-              <div className="inline-flex items-center gap-2 text-sm font-bold text-blue-700 bg-blue-50 border border-blue-200 dark:text-emerald-400 dark:bg-emerald-950/40 dark:border-emerald-800/80 px-3.5 py-1.5 rounded-xl">
-                <span>Value:</span>
-                <span>{deal.discountAmount}</span>
+            {/* Highlighted Value Pill + Key Attribute Badges */}
+            <div className="flex flex-wrap items-center gap-2">
+              {deal.discountAmount && (
+                <div className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-indigo-700 bg-indigo-50 border border-indigo-200/90 dark:text-indigo-300 dark:bg-indigo-950/40 dark:border-indigo-800/60 px-3 py-1.5 rounded-xl shadow-2xs">
+                  <span>Value:</span>
+                  <span>{deal.discountAmount}</span>
+                </div>
+              )}
+              {deal.isStartupDeal && (
+                <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200/90 dark:bg-indigo-950/40 dark:text-indigo-300 dark:border-indigo-800/60 shadow-2xs">
+                  <svg className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                  <span>Startup Program</span>
+                </span>
+              )}
+              {!deal.needsCreditCard && (
+                <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/90 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800/60 shadow-2xs">
+                  <svg className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>No CC Required</span>
+                </span>
+              )}
+              {deal.isStudentDeal && (
+                <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-semibold bg-sky-50 text-sky-700 border border-sky-200/90 dark:bg-sky-950/40 dark:text-sky-300 dark:border-sky-800/60 shadow-2xs">
+                  <svg className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5" />
+                  </svg>
+                  <span>Student Perk</span>
+                </span>
+              )}
+            </div>
+
+            {/* Offer Expiry Deadline Alert */}
+            {deal.expiryDate && (
+              <div className="p-3.5 rounded-xl bg-amber-500/10 dark:bg-amber-950/40 border border-amber-500/25 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+                <div className="flex items-center gap-2 text-amber-900 dark:text-amber-200">
+                  <svg className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>
+                    <strong>Offer Deadline:</strong> Last date to claim is{' '}
+                    <span className="font-semibold">
+                      {new Date(deal.expiryDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} at {new Date(deal.expiryDate).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}
+                    </span>
+                  </span>
+                </div>
+                <ExpiryBadge expiryDate={deal.expiryDate} isLimitedTime={deal.isLimitedTime} showExactTime={true} />
               </div>
             )}
 
@@ -232,7 +266,7 @@ export default async function DealDetailPage({ params }: { params: Promise<{ slu
                     key={idx}
                     className="flex items-start gap-3.5 p-3.5 rounded-xl bg-slate-50 border border-slate-100 text-xs sm:text-sm text-slate-700 dark:bg-zinc-950 dark:border-zinc-800 dark:text-zinc-300 leading-relaxed font-medium"
                   >
-                    <span className="w-6 h-6 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
+                    <span className="w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
                       {idx + 1}
                     </span>
                     <span>{step}</span>
@@ -273,24 +307,12 @@ export default async function DealDetailPage({ params }: { params: Promise<{ slu
               <ul className="space-y-2.5 text-xs sm:text-sm text-slate-600 dark:text-zinc-400">
                 {eligibility.map((req: string, idx: number) => (
                   <li key={idx} className="flex items-start gap-2.5">
-                    <span className="text-blue-600 dark:text-blue-400 font-bold">•</span>
+                    <span className="text-indigo-600 dark:text-indigo-400 font-bold">•</span>
                     <span>{req}</span>
                   </li>
                 ))}
               </ul>
             </div>
-          )}
-
-          {relatedDeals.length > 0 && (
-            <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-zinc-800">
-              <div>
-                <h2 className="text-lg font-bold text-slate-900 dark:text-white">Related Developer Deals</h2>
-                <p className="text-xs text-slate-500 dark:text-zinc-400 mt-1">
-                  More verified offers in {deal.topic.name}.
-                </p>
-              </div>
-              <DealGrid deals={relatedDeals as any} />
-            </section>
           )}
 
           {deal.termsUrl && (
@@ -300,7 +322,7 @@ export default async function DealDetailPage({ params }: { params: Promise<{ slu
                 href={deal.termsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:underline font-medium"
+                className="text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:underline font-medium"
               >
                 View Official Terms & Conditions ↗
               </a>
@@ -328,6 +350,39 @@ export default async function DealDetailPage({ params }: { params: Promise<{ slu
           />
         </div>
       </div>
+
+      {/* Full-Width Section: Related Developer Deals */}
+      {relatedDeals.length > 0 && (
+        <section className="pt-10 mt-6 border-t border-slate-200 dark:border-zinc-800 space-y-5">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200/90 dark:border-indigo-800/80 text-xs font-semibold text-indigo-700 dark:text-indigo-300 mb-2">
+                <span>⚡</span>
+                <span>More in {deal.topic.name}</span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                Related Developer Deals & Grants
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-500 dark:text-zinc-400 mt-1">
+                More verified offers, developer credits, and savings in {deal.topic.name}.
+              </p>
+            </div>
+            <Link
+              href={`/topics/${deal.topic.slug}`}
+              className="text-xs font-bold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 hover:underline flex items-center gap-1 shrink-0"
+            >
+              <span>Explore all {deal.topic.name}</span>
+              <span>&rarr;</span>
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {relatedDeals.slice(0, 3).map((rDeal: any) => (
+              <DealCard key={rDeal.slug || rDeal.id} deal={rDeal} />
+            ))}
+          </div>
+        </section>
+      )}
       </div>
     </>
   );

@@ -20,11 +20,11 @@ export async function GET(req: Request) {
           where: {
             isActive: true,
             OR: [
-              { title: { contains: query } },
-              { shortDescription: { contains: query } },
-              { promoCode: { contains: query } },
-              { brand: { name: { contains: query } } },
-              { topic: { name: { contains: query } } },
+              { title: { contains: query, mode: 'insensitive' } },
+              { shortDescription: { contains: query, mode: 'insensitive' } },
+              { promoCode: { contains: query, mode: 'insensitive' } },
+              { brand: { name: { contains: query, mode: 'insensitive' } } },
+              { topic: { name: { contains: query, mode: 'insensitive' } } },
             ],
           },
           select: {
@@ -54,7 +54,7 @@ export async function GET(req: Request) {
         }),
         prisma.brand.findMany({
           where: {
-            name: { contains: query },
+            name: { contains: query, mode: 'insensitive' },
           },
           select: {
             id: true,
@@ -69,7 +69,7 @@ export async function GET(req: Request) {
         }),
         prisma.topic.findMany({
           where: {
-            name: { contains: query },
+            name: { contains: query, mode: 'insensitive' },
           },
           select: {
             id: true,

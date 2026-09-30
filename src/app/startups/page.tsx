@@ -35,7 +35,9 @@ export default async function StartupDealsPage({ searchParams }: { searchParams?
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-8">
       <div id="curated-deals" className="pb-4 border-b border-slate-200 dark:border-zinc-800 scroll-mt-20">
         <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-purple-50 border border-purple-200 text-xs font-medium text-purple-700 dark:bg-indigo-950/60 dark:border-indigo-800 dark:text-indigo-300 mb-3">
-          <span>🚀</span>
+          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
           <span>Founder & Startup Grants</span>
         </div>
         <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-2 font-sans">

@@ -16,7 +16,7 @@ export default function ParadoxLogo({
   showWordmark = true,
   className = '',
   href,
-  tag = '/deals',
+  tag = '',
 }: ParadoxLogoProps) {
   const sizeMap = {
     sm: {
@@ -45,7 +45,7 @@ export default function ParadoxLogo({
 
   const logoMark = (
     <div
-      className={`relative ${icon} shrink-0 rounded-[10px] bg-[#2563EB] shadow-[0_2px_8px_rgba(37,99,235,0.32)] group-hover:scale-105 transition-transform duration-200 select-none overflow-hidden flex items-center justify-center`}
+      className={`relative ${icon} shrink-0 rounded-[10px] bg-gradient-to-br from-indigo-500 to-indigo-700 shadow-[0_2px_8px_rgba(79,70,229,0.28)] group-hover:scale-105 transition-transform duration-200 select-none overflow-hidden flex items-center justify-center`}
     >
       <svg
         viewBox="0 0 40 40"
@@ -55,8 +55,15 @@ export default function ParadoxLogo({
         width="100%"
         height="100%"
       >
-        {/* 1. Base Squircle Badge (Solid #2563EB - guaranteed visible across all mobile browsers) */}
-        <rect width="40" height="40" rx="10" fill="#2563EB" />
+        <defs>
+          <linearGradient id="pdx-logo-grad" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+            <stop stopColor="#6366F1" />
+            <stop offset="1" stopColor="#4338CA" />
+          </linearGradient>
+        </defs>
+
+        {/* 1. Base Squircle Badge */}
+        <rect width="40" height="40" rx="10" fill="url(#pdx-logo-grad)" />
 
         {/* 2. Top Specular Border Light */}
         <rect
@@ -79,7 +86,7 @@ export default function ParadoxLogo({
         />
 
         {/* 4. Optical Interlocking Underfold Shadow */}
-        <path d="M16.5 19H21V24H16.5V19Z" fill="#1E40AF" />
+        <path d="M16.5 19H21V24H16.5V19Z" fill="#312E81" />
       </svg>
     </div>
   );
@@ -96,7 +103,7 @@ export default function ParadoxLogo({
 
           {tag && (
             <span
-              className={`font-mono ${badge} font-semibold text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 dark:border-blue-500/30 rounded-md tracking-tight transition-colors group-hover:border-blue-500/40`}
+              className={`font-mono ${badge} font-semibold text-indigo-600 dark:text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 dark:border-indigo-500/30 rounded-md tracking-tight transition-colors group-hover:border-indigo-500/40`}
             >
               {tag}
             </span>
@@ -110,7 +117,7 @@ export default function ParadoxLogo({
     return (
       <Link
         href={href}
-        className="group inline-flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-lg whitespace-nowrap shrink-0"
+        className="group inline-flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-lg whitespace-nowrap shrink-0"
       >
         {content}
       </Link>

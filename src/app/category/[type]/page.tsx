@@ -87,7 +87,7 @@ export default async function CategoryPage({
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-8 font-sans">
       {/* Breadcrumb */}
       <nav className="text-xs text-slate-500 dark:text-zinc-400 flex items-center gap-1.5">
-        <Link href="/" className="hover:text-blue-600 dark:hover:text-white transition font-medium">Home</Link>
+        <Link href="/" className="hover:text-indigo-600 dark:hover:text-white transition font-medium">Home</Link>
         <span className="text-slate-300 dark:text-zinc-600">/</span>
         <span className="text-slate-900 dark:text-white font-semibold capitalize">{rawType}</span>
       </nav>

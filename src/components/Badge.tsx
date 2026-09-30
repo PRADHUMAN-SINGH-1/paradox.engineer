@@ -17,11 +17,11 @@ export default function Badge({ type, className = '', ...props }: BadgeProps) {
       label: 'EXPIRING_SOON' 
     },
     student: { 
-      bg: 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-sky-950/50 dark:text-sky-300 dark:border-sky-800/80', 
+      bg: 'bg-sky-50 text-sky-700 border-sky-200 dark:bg-sky-950/50 dark:text-sky-300 dark:border-sky-800/80', 
       label: 'EDU' 
     },
     startup: { 
-      bg: 'bg-purple-50 text-purple-700 border-purple-200 dark:bg-indigo-950/50 dark:text-indigo-300 dark:border-indigo-800/80', 
+      bg: 'bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-950/50 dark:text-indigo-300 dark:border-indigo-800/80', 
       label: 'STARTUP' 
     },
     nocc: { 
@@ -34,7 +34,7 @@ export default function Badge({ type, className = '', ...props }: BadgeProps) {
 
   return (
     <span 
-      className={`inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold border ${bg} ${className}`}
+      className={`inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono font-bold border ${bg} ${className}`}
       title={label}
       {...props}
     >

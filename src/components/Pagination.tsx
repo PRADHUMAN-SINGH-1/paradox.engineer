@@ -36,7 +36,7 @@ export default function Pagination({ currentPage, totalPages, baseUrl = '' }: Pa
         {currentPage > 1 ? (
           <Link
             href={getPageUrl(currentPage - 1)}
-            className="inline-flex items-center pt-2 pr-1 text-slate-500 hover:text-blue-600 dark:text-zinc-400 dark:hover:text-white transition"
+            className="inline-flex items-center pt-2 pr-1 text-slate-500 hover:text-indigo-600 dark:text-zinc-400 dark:hover:text-indigo-400 transition font-medium"
           >
             ← prev
           </Link>
@@ -50,7 +50,7 @@ export default function Pagination({ currentPage, totalPages, baseUrl = '' }: Pa
       <div className="hidden md:-mt-px md:flex gap-1">
         {startPage > 1 && (
           <>
-            <Link href={getPageUrl(1)} className="px-3 pt-2 text-slate-500 hover:text-blue-600 dark:text-zinc-400 dark:hover:text-white transition">
+            <Link href={getPageUrl(1)} className="px-3 pt-2 text-slate-500 hover:text-indigo-600 dark:text-zinc-400 dark:hover:text-indigo-400 transition">
               1
             </Link>
             {startPage > 2 && (
@@ -63,10 +63,10 @@ export default function Pagination({ currentPage, totalPages, baseUrl = '' }: Pa
           <Link
             key={page}
             href={getPageUrl(page)}
-            className={`px-3 py-1.5 rounded transition ${
+            className={`px-3 py-1.5 rounded-lg transition font-medium text-xs ${
               page === currentPage
-                ? 'bg-blue-600 text-white font-bold border border-blue-600 dark:bg-zinc-800 dark:text-white dark:border-zinc-700'
-                : 'text-slate-600 hover:text-blue-600 hover:bg-slate-100 dark:text-zinc-400 dark:hover:text-white dark:hover:bg-zinc-900'
+                ? 'bg-slate-900 text-white font-bold border border-slate-900 shadow-xs dark:bg-zinc-100 dark:text-zinc-950 dark:border-white'
+                : 'text-slate-600 hover:text-indigo-600 hover:bg-slate-100 dark:text-zinc-400 dark:hover:text-white dark:hover:bg-zinc-800'
             }`}
           >
             {page}
@@ -78,7 +78,7 @@ export default function Pagination({ currentPage, totalPages, baseUrl = '' }: Pa
             {endPage < totalPages - 1 && (
               <span className="px-2 pt-2 text-slate-400 dark:text-zinc-600">...</span>
             )}
-            <Link href={getPageUrl(totalPages)} className="px-3 pt-2 text-slate-500 hover:text-blue-600 dark:text-zinc-400 dark:hover:text-white transition">
+            <Link href={getPageUrl(totalPages)} className="px-3 pt-2 text-slate-500 hover:text-indigo-600 dark:text-zinc-400 dark:hover:text-indigo-400 transition">
               {totalPages}
             </Link>
           </>
@@ -89,7 +89,7 @@ export default function Pagination({ currentPage, totalPages, baseUrl = '' }: Pa
         {currentPage < totalPages ? (
           <Link
             href={getPageUrl(currentPage + 1)}
-            className="inline-flex items-center pt-2 pl-1 text-slate-500 hover:text-blue-600 dark:text-zinc-400 dark:hover:text-white transition"
+            className="inline-flex items-center pt-2 pl-1 text-slate-500 hover:text-indigo-600 dark:text-zinc-400 dark:hover:text-indigo-400 transition font-medium"
           >
             next →
           </Link>

@@ -40,26 +40,20 @@ export const fallbackTopics = fallbackTopicsRaw.map((t: any) => ({
   },
 }));
 
-export const fallbackBrands = fallbackBrandsRaw.map((b: any) => ({
-  id: b.id,
-  name: b.name,
-  slug: b.slug,
-  logoUrl: b.logoUrl,
-  website: b.website,
-  deals: fallbackDeals
-    .filter((d: any) => d.brandId === b.id)
-    .map((d: any) => ({
-      id: d.id,
-      dealType: d.dealType,
-      isTrending: Boolean(d.isTrending),
-      clickCount: d.clickCount || 0,
-      viewCount: d.viewCount || 0,
-      topic: { slug: d.topic?.slug || 'tools' },
-    })),
-  _count: {
-    deals: fallbackDeals.filter((d: any) => d.brandId === b.id).length,
-  },
-}));
+export const fallbackBrands = fallbackBrandsRaw.map((b: any) => {
+  const bDeals = fallbackDeals.filter((d: any) => d.brandId === b.id);
+  return {
+    id: b.id,
+    name: b.name,
+    slug: b.slug,
+    logoUrl: b.logoUrl,
+    website: b.website,
+    deals: bDeals,
+    _count: {
+      deals: bDeals.length,
+    },
+  };
+});
 
 export const getPublicDeals = unstable_cache(
   async () => {
@@ -207,12 +201,18 @@ export const getPublicBrands = unstable_cache(
   { revalidate: 120, tags: ['paradox:brands', 'paradox:deals'] }
 );
 
-export const getBrandBySlug = (slug: string) =>
-  unstable_cache(
+export const getBrandBySlug = (slug: string) => {
+  const normalizedSlug = slug.toLowerCase().trim();
+  return unstable_cache(
     async () => {
       try {
-        const brand = await prisma.brand.findUnique({
-          where: { slug },
+        const brand = await prisma.brand.findFirst({
+          where: {
+            OR: [
+              { slug: normalizedSlug },
+              { slug: { equals: slug, mode: 'insensitive' } },
+            ],
+          },
           select: {
             id: true,
             name: true,
@@ -262,35 +262,52 @@ export const getBrandBySlug = (slug: string) =>
       } catch {
         // Fallback
       }
-      return fallbackBrands.find((b) => b.slug === slug) || null;
+      return fallbackBrands.find((b) => b.slug.toLowerCase() === normalizedSlug) || null;
     },
-    ['paradox-brand', slug],
-    { revalidate: 120, tags: ['paradox:brand:' + slug, 'paradox:brands', 'paradox:deals'] }
+    ['paradox-brand-v8', normalizedSlug],
+    { revalidate: 120, tags: ['paradox:brand:' + normalizedSlug, 'paradox:brands', 'paradox:deals'] }
   )();
+};
 
-export const getTopicBySlug = (slug: string) =>
-  unstable_cache(
+export const getTopicBySlug = (slug: string) => {
+  const normalizedSlug = slug.toLowerCase().trim();
+  return unstable_cache(
     async () => {
       try {
-        const topic = await prisma.topic.findUnique({
-          where: { slug },
+        const topic = await prisma.topic.findFirst({
+          where: {
+            OR: [
+              { slug: normalizedSlug },
+              { slug: { equals: slug, mode: 'insensitive' } },
+            ],
+          },
         });
         if (topic) return topic;
       } catch {
         // Fallback
       }
-      return fallbackTopicsRaw.find((t: any) => t.slug === slug) || null;
+      return fallbackTopics.find((t: any) => t.slug.toLowerCase() === normalizedSlug) || null;
     },
-    ['paradox-topic', slug],
-    { revalidate: 300, tags: ['paradox:topic:' + slug, 'paradox:topics'] }
+    ['paradox-topic-v8', normalizedSlug],
+    { revalidate: 300, tags: ['paradox:topic:' + normalizedSlug, 'paradox:topics'] }
   )();
+};
 
-export const getDealsByTopic = (slug: string) =>
-  unstable_cache(
+export const getDealsByTopic = (slug: string) => {
+  const normalizedSlug = slug.toLowerCase().trim();
+  return unstable_cache(
     async () => {
       try {
         return await prisma.deal.findMany({
-          where: { topic: { slug }, isActive: true },
+          where: {
+            topic: {
+              OR: [
+                { slug: normalizedSlug },
+                { slug: { equals: slug, mode: 'insensitive' } },
+              ],
+            },
+            isActive: true,
+          },
           select: {
             id: true,
             title: true,
@@ -327,12 +344,13 @@ export const getDealsByTopic = (slug: string) =>
           orderBy: { createdAt: 'desc' },
         });
       } catch {
-        return fallbackDeals.filter((d: any) => d.topic?.slug === slug);
+        return fallbackDeals.filter((d: any) => d.topic?.slug?.toLowerCase() === normalizedSlug);
       }
     },
-    ['paradox-topic-deals', slug],
-    { revalidate: 120, tags: ['paradox:topic:' + slug, 'paradox:deals'] }
+    ['paradox-topic-deals-v8', normalizedSlug],
+    { revalidate: 120, tags: ['paradox:topic:' + normalizedSlug, 'paradox:deals'] }
   )();
+};
 
 export const getRelatedDeals = (topicSlug: string, excludeSlug: string) =>
   unstable_cache(

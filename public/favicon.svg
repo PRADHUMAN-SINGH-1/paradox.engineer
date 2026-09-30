@@ -1,6 +1,12 @@
 <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="pdx-fav-grad" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6366F1" />
+      <stop offset="1" stop-color="#4338CA" />
+    </linearGradient>
+  </defs>
   <!-- Base Squircle -->
-  <rect width="40" height="40" rx="10" fill="#2563EB" />
+  <rect width="40" height="40" rx="10" fill="url(#pdx-fav-grad)" />
 
   <!-- Rim Highlight -->
   <rect
@@ -23,5 +29,5 @@
   />
 
   <!-- Optical Underfold Shadow -->
-  <path d="M16.5 19H21V24H16.5V19Z" fill="#1E40AF" />
+  <path d="M16.5 19H21V24H16.5V19Z" fill="#312E81" />
 </svg>
