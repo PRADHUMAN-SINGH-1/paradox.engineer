@@ -141,6 +141,7 @@ export default async function RootLayout({
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
         {/* Cuelinks Verification */}
+        <meta name="cuelinks-verification" content="VERIFY-CL-XIWUYLDQ" />
         <meta name="cuelinks-verification" content="VERIFY-CL-PSNIM4UI" />
 
         {/* Cuelinks Automated Link Monetization Engine */}
