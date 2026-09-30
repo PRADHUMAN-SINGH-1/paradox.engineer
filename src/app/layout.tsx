@@ -154,14 +154,7 @@ export default async function RootLayout({
   s.type = "text/javascript";
   s.async = true;
   s.src = (document.location.protocol == "https:" ? "https://cdn0.cuelinks.com/js/" : "http://cdn0.cuelinks.com/js/") + "cuelinksv2.js";
-  var target = document.getElementsByTagName("body")[0] || document.getElementsByTagName("head")[0];
-  if (target) {
-    target.appendChild(s);
-  } else {
-    document.addEventListener("DOMContentLoaded", function() {
-      document.getElementsByTagName("body")[0].appendChild(s);
-    });
-  }
+  document.getElementsByTagName("body")[0] ? document.getElementsByTagName("body")[0].appendChild(s) : document.getElementsByTagName("head")[0].appendChild(s);
 }());`,
           }}
         />
