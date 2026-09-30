@@ -188,8 +188,21 @@ export default async function RootLayout({
           gtag('config', 'G-5V0LJN6HTS');
         `}</Script>
 
-
-
+        {/* Cuelinks Automated Link Monetization Engine */}
+        <Script
+          id="cuelinks-script"
+          strategy="afterInteractive"
+        >{`
+          window.cId = "324309";
+          var cId = "324309";
+          (function(d, t) {
+            var s = document.createElement("script");
+            s.type = "text/javascript";
+            s.async = true;
+            s.src = (document.location.protocol == "https:" ? "https://cdn0.cuelinks.com/js/" : "http://cdn0.cuelinks.com/js/") + "cuelinksv2.js";
+            document.getElementsByTagName("body")[0].appendChild(s);
+          }());
+        `}</Script>
       </body>
     </html>
   );
