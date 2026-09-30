@@ -28,7 +28,7 @@ export default function AdminHeader({
           Paradox Deal Management
         </h1>
         <p className="text-xs sm:text-sm text-slate-500 dark:text-zinc-400 mt-1">
-          Manage live catalog offers, exact redemption URLs, automated crawler, and Skimlinks monetization.
+          Manage live catalog offers, exact redemption URLs, automated crawler, and Cuelinks monetization.
         </p>
       </div>
 

@@ -83,7 +83,7 @@ export default function AdminTabsNav({
             : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 hover:bg-slate-100 dark:hover:bg-zinc-800'
         }`}
       >
-        Skimlinks Earnings & India Payouts
+        Cuelinks Earnings & Payouts
       </button>
     </div>
   );

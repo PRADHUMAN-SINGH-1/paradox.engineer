@@ -87,7 +87,7 @@ export default function AboutPage() {
       <section className="bg-white dark:bg-zinc-900/50 p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-zinc-800 shadow-2xs space-y-4">
         <h2 className="text-lg font-bold text-slate-900 dark:text-white">How we approach affiliate links</h2>
         <p className="text-sm leading-relaxed text-slate-600 dark:text-zinc-400">
-          Some outbound links may be monetized through affiliate partnerships or networks such as Skimlinks. This does not change the deal data shown on the page, and visitors do not pay an additional fee because Paradox receives a referral.
+          Some outbound links may be monetized through affiliate partnerships or networks such as Cuelinks. This does not change the deal data shown on the page, and visitors do not pay an additional fee because Paradox receives a referral.
         </p>
         <p className="text-sm leading-relaxed text-slate-600 dark:text-zinc-400">
           For details on commissions, tracking, and editorial independence, see our

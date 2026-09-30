@@ -60,7 +60,7 @@ export default function AffiliateDisclosurePage() {
             Paradox (<span className="font-semibold text-slate-900 dark:text-white">paradox.engineer</span>) is a reader-supported deal aggregator and developer perk catalog. When you click on buttons such as &ldquo;Claim Deal&rdquo;, &ldquo;Get Code&rdquo;, or &ldquo;Visit Website&rdquo; and subsequently sign up for a plan, activate an account, or complete a purchase on a merchant&rsquo;s website, we may receive an affiliate referral commission or bounty.
           </p>
           <p>
-            We monetize through direct SaaS affiliate partnerships as well as automated affiliate technology networks . 
+            We monetize through direct SaaS affiliate partnerships as well as verified affiliate networks such as Cuelinks.
           </p>
           <div className="p-4 rounded-xl bg-indigo-50/80 border border-indigo-200/80 dark:bg-indigo-950/40 dark:border-indigo-900/60 text-xs text-indigo-900 dark:text-indigo-200">
             <strong>Important Guarantee:</strong> Clicking our affiliate links or using our discount promo codes <strong>never costs you a single extra cent</strong>. In fact, our verified deals and exclusive partner promotions typically grant you lower subscription fees, longer trial windows, or complementary cloud credits that are unavailable through standard signup pages.

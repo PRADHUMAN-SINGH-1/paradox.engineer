@@ -155,28 +155,20 @@ export default function PrivacyPolicyPage() {
           </div>
         </section>
 
-        {/* Section 4: Affiliate Tracking & Skimlinks */}
+        {/* Section 4: Affiliate Tracking & Cuelinks */}
         <section className="space-y-3 bg-white dark:bg-zinc-900/50 p-6 rounded-2xl border border-slate-200/80 dark:border-zinc-800 shadow-2xs">
           <div className="flex items-center gap-2 text-base font-bold text-slate-900 dark:text-white">
             <span className="text-lg">🔗</span>
             <h2>4. Affiliate Tracking & Merchant Referrals</h2>
           </div>
           <p>
-            Paradox participates in affiliate marketing programs, including direct merchant affiliate programs and automated affiliate networks such as Skimlinks (Connexity).
+            Paradox participates in affiliate marketing programs, including direct merchant affiliate programs and performance marketing networks such as Cuelinks.
           </p>
           <p>
-            When you click on outbound buttons such as &ldquo;Claim Deal&rdquo; or &ldquo;Visit Website&rdquo;, affiliate tracking scripts or referral parameters record that Paradox referred you to the merchant&rsquo;s site. If you complete a qualifying signup or purchase, the merchant pays Paradox a referral commission at zero extra cost to you.
+            When you click on outbound buttons such as &ldquo;Claim Deal&rdquo; or &ldquo;Visit Website&rdquo;, affiliate tracking parameters or redirect links record that Paradox referred you to the merchant&rsquo;s site. If you complete a qualifying signup or purchase, the merchant pays Paradox a referral commission at zero extra cost to you.
           </p>
           <p>
-            These tracking technologies record referral timestamps and deal identifiers, but do not collect credit card numbers, passwords, or personal billing credentials from your merchant interaction. To learn more or opt out of Skimlinks tracking, visit the{' '}
-            <a
-              href="https://optout.skimlinks.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline"
-            >
-              Skimlinks Opt-Out Page
-            </a>. For full details on our editorial standards, read our{' '}
+            These tracking technologies record referral timestamps and deal identifiers, but do not collect credit card numbers, passwords, or personal billing credentials from your merchant interaction. For full details on our editorial standards, read our{' '}
             <Link href="/affiliate-disclosure" className="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline">
               Affiliate Disclosure
             </Link>.

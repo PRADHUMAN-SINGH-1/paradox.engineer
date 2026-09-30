@@ -140,8 +140,16 @@ export default async function RootLayout({
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
-        {/* Google AdSense Verification */}
+        {/* Cuelinks Verification */}
+        <meta name="cuelinks-verification" content="VERIFY-CL-PSNIM4UI" />
+
+        {/* Google AdSense Verification & Script */}
         <meta name="google-adsense-account" content="ca-pub-4630615697632107" />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4630615697632107"
+          crossOrigin="anonymous"
+        />
         {/* Anti-flicker inline theme script */}
         <script
           dangerouslySetInnerHTML={{
@@ -180,20 +188,8 @@ export default async function RootLayout({
           gtag('config', 'G-5V0LJN6HTS');
         `}</Script>
 
-        {/* Skimlinks Affiliate Engine */}
-        <Script
-          strategy="afterInteractive"
-          src="https://s.skimresources.com/js/310009X1798390.skimlinks.js"
-        />
 
-        {/* Google AdSense */}
-        <Script
-          id="google-adsense"
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4630615697632107"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
+
       </body>
     </html>
   );

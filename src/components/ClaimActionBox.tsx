@@ -115,7 +115,7 @@ export default function ClaimActionBox({
         </div>
       )}
 
-      {/* Primary Claim Action - Real HTML <a> anchor tag for Skimlinks affiliate tracking */}
+      {/* Primary Claim Action - Real HTML <a> anchor tag for affiliate tracking */}
       <div className="space-y-2">
         <a
           href={finalUrl}

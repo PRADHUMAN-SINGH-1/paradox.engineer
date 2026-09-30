@@ -12,10 +12,10 @@ export default function EarningsPanel() {
           </span>
           <div>
             <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
-              Skimlinks Affiliate Monetization & Direct Payouts
+              Cuelinks Affiliate Monetization & Direct Payouts
             </h3>
             <p className="text-xs text-slate-500 dark:text-zinc-400">
-              Universal dynamic link rewriting across 48,000+ merchant affiliate programs.
+              Automated monetization and merchant campaigns with direct Indian bank payouts.
             </p>
           </div>
         </div>
@@ -23,19 +23,19 @@ export default function EarningsPanel() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs pt-2">
           <div className="p-4 bg-slate-50 dark:bg-zinc-950 rounded-xl border border-slate-200/80 dark:border-zinc-800 space-y-1.5">
             <span className="font-bold text-slate-900 dark:text-white block">
-              1. Universal Link Wrapping
+              1. Cuelinks Campaign Linking
             </span>
             <p className="text-slate-600 dark:text-zinc-400 text-[11px] leading-relaxed">
-              When users click &quot;Claim Deal&quot;, your Skimlinks publisher tag automatically appends tracking tokens, crediting commissions to your account.
+              When users click &quot;Claim Deal&quot;, your Cuelinks campaign links record conversions and attribute referral payouts to your account.
             </p>
           </div>
 
           <div className="p-4 bg-slate-50 dark:bg-zinc-950 rounded-xl border border-slate-200/80 dark:border-zinc-800 space-y-1.5">
             <span className="font-bold text-slate-900 dark:text-white block">
-              2. India Bank Transfers (Wire / ACH)
+              2. India Bank Transfers (NEFT / RTGS)
             </span>
             <p className="text-slate-600 dark:text-zinc-400 text-[11px] leading-relaxed">
-              Supports monthly automatic direct bank deposits to Indian bank accounts (SWIFT/IFSC) or PayPal / Payoneer without transaction deductions.
+              Native monthly bank deposits directly to Indian bank accounts without foreign exchange fee deductions.
             </p>
           </div>
 
@@ -51,22 +51,12 @@ export default function EarningsPanel() {
 
         <div className="pt-4 border-t border-slate-100 dark:border-zinc-800 flex items-center gap-3 flex-wrap">
           <a
-            href="https://hub.skimlinks.com/settings/payment"
+            href="https://www.cuelinks.com/publishers"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-2 rounded-xl text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition flex items-center gap-1.5 cursor-pointer"
+            className="px-4 py-2 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs transition flex items-center gap-1.5 cursor-pointer"
           >
-            <span>Open Skimlinks Payment Settings</span>
-            <span>↗</span>
-          </a>
-
-          <a
-            href="https://hub.skimlinks.com/reports/performance"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-slate-800 dark:text-zinc-200 transition flex items-center gap-1.5 cursor-pointer"
-          >
-            <span>View Real-Time Commission Reports</span>
+            <span>Open Cuelinks Publisher Dashboard</span>
             <span>↗</span>
           </a>
         </div>

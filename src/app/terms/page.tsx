@@ -128,7 +128,7 @@ export default function TermsOfServicePage() {
             <h2>4. Affiliate Links & Advertising Disclosure</h2>
           </div>
           <p>
-            Paradox participates in affiliate marketing programs (including Skimlinks and direct SaaS affiliate programs) and displays advertisements via Google AdSense. Some outbound links may earn us an affiliate commission when you claim an offer or register for an account, at zero extra cost to you.
+            Paradox participates in affiliate marketing programs (including Cuelinks and direct SaaS affiliate programs) and displays advertisements via Google AdSense. Some outbound links may earn us an affiliate commission when you claim an offer or register for an account, at zero extra cost to you.
           </p>
           <p>
             For a comprehensive breakdown of our commercial partnerships and strict editorial independence policy, please read our{' '}
