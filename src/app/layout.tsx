@@ -143,6 +143,28 @@ export default async function RootLayout({
         {/* Cuelinks Verification */}
         <meta name="cuelinks-verification" content="VERIFY-CL-PSNIM4UI" />
 
+        {/* Cuelinks Automated Link Monetization Engine */}
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html: `var cId = "324309";
+(function(d, t) {
+  var s = document.createElement("script");
+  s.type = "text/javascript";
+  s.async = true;
+  s.src = (document.location.protocol == "https:" ? "https://cdn0.cuelinks.com/js/" : "http://cdn0.cuelinks.com/js/") + "cuelinksv2.js";
+  var target = document.getElementsByTagName("body")[0] || document.getElementsByTagName("head")[0];
+  if (target) {
+    target.appendChild(s);
+  } else {
+    document.addEventListener("DOMContentLoaded", function() {
+      document.getElementsByTagName("body")[0].appendChild(s);
+    });
+  }
+}());`,
+          }}
+        />
+
         {/* Google AdSense Verification & Script */}
         <meta name="google-adsense-account" content="ca-pub-4630615697632107" />
         <script
@@ -186,22 +208,6 @@ export default async function RootLayout({
           function gtag(){window.dataLayer.push(arguments);}
           gtag('js', new Date());
           gtag('config', 'G-5V0LJN6HTS');
-        `}</Script>
-
-        {/* Cuelinks Automated Link Monetization Engine */}
-        <Script
-          id="cuelinks-script"
-          strategy="afterInteractive"
-        >{`
-          window.cId = "324309";
-          var cId = "324309";
-          (function(d, t) {
-            var s = document.createElement("script");
-            s.type = "text/javascript";
-            s.async = true;
-            s.src = (document.location.protocol == "https:" ? "https://cdn0.cuelinks.com/js/" : "http://cdn0.cuelinks.com/js/") + "cuelinksv2.js";
-            document.getElementsByTagName("body")[0].appendChild(s);
-          }());
         `}</Script>
       </body>
     </html>
