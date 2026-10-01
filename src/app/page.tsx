@@ -193,7 +193,7 @@ export default async function Home({
                 </span>
                 <span className="font-semibold text-slate-900 dark:text-white">Live Catalog</span>
                 <span className="text-slate-300 dark:text-zinc-600">•</span>
-                <span>150+ Verified Programs</span>
+                <span>{allDeals.length} Active Programs</span>
                 <span className="text-slate-300 dark:text-zinc-600">•</span>
                 <span>Checked Daily • Last Verified: {latestUpdatedLabel || 'Sep 30, 2026'}</span>
               </div>
