@@ -50,7 +50,7 @@ export default function Footer() {
               <li><Link href="/student" className="hover:text-indigo-600 dark:hover:text-white transition">Student Discounts (.edu)</Link></li>
               <li><Link href="/startups" className="hover:text-indigo-600 dark:hover:text-white transition">Startup Programs & Credits</Link></li>
               <li><Link href="/no-credit-card" className="hover:text-indigo-600 dark:hover:text-white transition">No Credit Card Needed</Link></li>
-              <li><Link href="/brands" className="hover:text-indigo-600 dark:hover:text-white transition">Browse All 156+ Brands</Link></li>
+              <li><Link href="/brands" className="hover:text-indigo-600 dark:hover:text-white transition">Browse All Brands</Link></li>
             </ul>
           </div>
           <div>
