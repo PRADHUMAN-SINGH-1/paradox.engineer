@@ -12,7 +12,7 @@ export const revalidate = 120; // Revalidate every 2 minutes
 export const metadata: Metadata = {
   title: 'Browse Developer Deals by Brand',
   description:
-    'Discover {/* dynamic brand count rendered below */} verified developer credits, cloud computing grants, AI API tokens, and software discounts organized by provider.',
+    'Discover verified developer credits, cloud computing grants, AI API tokens, and software discounts organized by provider.',
   alternates: {
     canonical: SITE_URL + '/brands',
   },
