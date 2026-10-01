@@ -195,7 +195,7 @@ export default async function Home({
                 <span className="text-slate-300 dark:text-zinc-600">•</span>
                 <span>{allDeals.length} Active Programs</span>
                 <span className="text-slate-300 dark:text-zinc-600">•</span>
-                <span>Checked Daily • Last Verified: {latestUpdatedLabel || 'Sep 30, 2026'}</span>
+                <span>Live Catalog • Active programs are reviewed before publication</span>
               </div>
 
               <h1 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-slate-950 dark:text-white tracking-tight leading-[1.15]">
