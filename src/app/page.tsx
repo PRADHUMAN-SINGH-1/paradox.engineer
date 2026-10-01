@@ -68,12 +68,6 @@ export default async function Home({
   const newArrivals = allDeals.slice(0, 4);
 
   const totalPages = Math.ceil(totalDeals / limit);
-  const latestUpdatedLabel = new Intl.DateTimeFormat('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  }).format(new Date());
-
   // Build Pagination URL preserving topic & search query
   const queryParams = new URLSearchParams();
   if (searchQuery) queryParams.set('q', searchQuery);
