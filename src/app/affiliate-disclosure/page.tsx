@@ -63,7 +63,7 @@ export default function AffiliateDisclosurePage() {
             We monetize through direct SaaS affiliate partnerships as well as verified affiliate networks such as Cuelinks.
           </p>
           <div className="p-4 rounded-xl bg-indigo-50/80 border border-indigo-200/80 dark:bg-indigo-950/40 dark:border-indigo-900/60 text-xs text-indigo-900 dark:text-indigo-200">
-            <strong>Important Guarantee:</strong> Clicking our affiliate links or using our discount promo codes <strong>never costs you a single extra cent</strong>. In fact, our verified deals and exclusive partner promotions typically grant you lower subscription fees, longer trial windows, or complementary cloud credits that are unavailable through standard signup pages.
+            <strong>How pricing works:</strong> Paradox does not add a fee to an affiliate click. Any price, trial, credit, eligibility requirement, or promotion is set by the provider and may change. Affiliate compensation does not guarantee that an offer is available or that a visitor will receive a particular benefit.
           </div>
         </section>
 
