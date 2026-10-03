@@ -89,6 +89,7 @@ export const getPublicDeals = unstable_cache(
           topic: {
             select: {
               name: true,
+              slug: true,
             },
           },
         },
@@ -98,7 +99,7 @@ export const getPublicDeals = unstable_cache(
       return fallbackDeals;
     }
   },
-  ['paradox-public-active-deals-v6'],
+  ['paradox-public-active-deals-v7'],
   { revalidate: 60, tags: ['paradox:deals'] }
 );
 
