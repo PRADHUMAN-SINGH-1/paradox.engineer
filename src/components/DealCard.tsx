@@ -136,7 +136,7 @@ export default function DealCard({ deal }: DealCardProps) {
                 {brandName}
               </Link>
               {deal.topic && (
-                <span className="text-xs text-slate-500 dark:text-zinc-400 font-medium block truncate">
+                <span className="text-xs text-slate-600 dark:text-zinc-350 font-medium block truncate">
                   {deal.topic.name}
                 </span>
               )}
@@ -241,7 +241,7 @@ export default function DealCard({ deal }: DealCardProps) {
           </div>
 
           <div className="flex items-center gap-2 shrink-0 ml-auto">
-            <span className="text-[11px] font-mono font-medium text-slate-500 dark:text-zinc-400 hidden xl:inline">
+            <span className="text-[11px] font-mono font-semibold text-slate-600 dark:text-zinc-350 hidden xl:inline">
               {deal.clickCount > 0 ? `${deal.clickCount.toLocaleString()} claims` : 'Verified'}
             </span>
             <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-800 border border-slate-200/90 hover:bg-indigo-600 hover:text-white hover:border-indigo-600 dark:bg-zinc-800 dark:text-zinc-200 dark:border-zinc-700 dark:hover:bg-indigo-600 dark:hover:text-white group-hover:bg-indigo-600 group-hover:border-indigo-600 group-hover:text-white transition-all shadow-2xs shrink-0 whitespace-nowrap">

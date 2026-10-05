@@ -124,7 +124,7 @@ export default async function Home({
               <h1 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
                 Search Results for &ldquo;{searchQuery}&rdquo;
               </h1>
-              <p className="text-xs text-slate-500 dark:text-zinc-400 mt-1">
+              <p className="text-xs text-slate-600 dark:text-zinc-300 mt-1">
                 Found {totalDeals} {totalDeals === 1 ? 'deal' : 'deals'} matching your query
               </p>
             </div>
@@ -303,7 +303,7 @@ export default async function Home({
                     {totalDeals} Verified
                   </span>
                 </div>
-                <div className="flex items-center gap-2 mt-0.5 text-xs text-slate-500 dark:text-zinc-400">
+                <div className="flex items-center gap-2 mt-0.5 text-xs text-slate-600 dark:text-zinc-300">
                   <span>
                     {currentTopicObj
                       ? `Browsing verified deals in ${currentTopicObj.name}`
@@ -326,7 +326,7 @@ export default async function Home({
             </div>
 
             {directoryDeals.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 min-h-[500px] sm:min-h-[800px] lg:min-h-[1050px]">
                 {directoryDeals.map((deal) => (
                   <DealCard key={deal.id} deal={deal as any} />
                 ))}
@@ -369,7 +369,7 @@ export default async function Home({
                 </div>
                 <Link
                   href="/latest"
-                  className="text-xs font-bold text-slate-500 hover:text-indigo-600 dark:text-zinc-400 dark:hover:text-indigo-400 transition flex items-center gap-1"
+                  className="text-xs font-bold text-slate-600 hover:text-indigo-600 dark:text-zinc-300 dark:hover:text-indigo-400 transition flex items-center gap-1"
                 >
                   <span>Browse latest additions</span>
                   <span>&rarr;</span>

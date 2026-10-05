@@ -36,14 +36,14 @@ export default function TopicFilterBar({
     <div className="space-y-2.5">
       <div className="flex items-center justify-between text-xs">
         <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-600"></span>
-          <span className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-500 dark:text-zinc-400">
+          <span className="w-1.5 h-1.5 rounded-full bg-slate-500 dark:bg-zinc-500"></span>
+          <span className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-600 dark:text-zinc-300">
             Browse by Topic
           </span>
         </div>
         <Link
           href="/topics"
-          className="text-xs font-medium text-slate-500 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-white transition flex items-center gap-1"
+          className="text-xs font-semibold text-slate-600 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-white transition flex items-center gap-1"
         >
           <span>Explore all 12 categories</span>
           <span>&rarr;</span>
@@ -95,7 +95,7 @@ export default function TopicFilterBar({
                   className={`text-[10px] font-mono px-1.5 py-0.2 rounded-md ${
                     isActive
                       ? 'text-slate-200 bg-slate-800 dark:bg-zinc-200 dark:text-zinc-900 font-bold'
-                      : 'bg-slate-100 dark:bg-zinc-800 text-slate-500 dark:text-zinc-400 font-medium'
+                      : 'bg-slate-100 dark:bg-zinc-800 text-slate-700 dark:text-zinc-300 font-semibold'
                   }`}
                 >
                   {count}

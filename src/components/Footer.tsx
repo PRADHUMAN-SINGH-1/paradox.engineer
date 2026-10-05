@@ -12,7 +12,7 @@ export default function Footer() {
               <span className="w-2 h-2 rounded-full bg-indigo-600"></span>
               <span>Stay Ahead with Paradox Deals</span>
             </div>
-            <p className="text-slate-500 dark:text-zinc-400 text-xs max-w-sm leading-relaxed">
+            <p className="text-slate-600 dark:text-zinc-300 text-xs max-w-sm leading-relaxed">
               Get the latest software discounts, cloud infrastructure credits, and developer tools delivered directly to your inbox weekly.
             </p>
           </div>

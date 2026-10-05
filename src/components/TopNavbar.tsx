@@ -168,8 +168,9 @@ export default function TopNavbar({ topics = [], onOpenMobileMenu }: TopNavbarPr
                     setSearchDropdownOpen(true);
                   }
                 }}
+                aria-label="Search deals, brands, or perks"
                 placeholder="Search deals, brands, or perks..."
-                className="w-full pl-9 pr-14 py-1.5 text-xs sm:text-sm bg-slate-100/80 dark:bg-zinc-900/90 text-slate-900 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 rounded-full border border-slate-200 dark:border-zinc-800 focus:outline-none focus:ring-2 focus:ring-indigo-600/30 focus:border-indigo-600 transition"
+                className="w-full pl-9 pr-14 py-1.5 text-xs sm:text-sm bg-slate-100/80 dark:bg-zinc-900/90 text-slate-900 dark:text-zinc-100 placeholder-slate-500 dark:placeholder-zinc-400 rounded-full border border-slate-200 dark:border-zinc-800 focus:outline-none focus:ring-2 focus:ring-indigo-600/30 focus:border-indigo-600 transition"
               />
               <span className="absolute right-2.5 hidden sm:flex items-center gap-0.5 text-[10px] font-mono font-medium text-slate-400 dark:text-zinc-500 bg-white dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 rounded px-1.5 py-0.5 pointer-events-none">
                 ⌘K
@@ -225,7 +226,7 @@ export default function TopNavbar({ topics = [], onOpenMobileMenu }: TopNavbarPr
             {topicsOpen && (
               <div className="absolute right-0 mt-2 w-72 bg-white dark:bg-[#0c0d0e] border border-slate-200 dark:border-zinc-800 rounded-2xl shadow-xl py-2 z-50 animate-in fade-in-50 zoom-in-95 duration-150">
                 <div className="px-3 py-1.5 border-b border-slate-100 dark:border-zinc-800/80 flex items-center justify-between">
-                  <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-400 dark:text-zinc-500">
+                  <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-600 dark:text-zinc-400">
                     All Categories
                   </span>
                   <Link
@@ -245,11 +246,11 @@ export default function TopNavbar({ topics = [], onOpenMobileMenu }: TopNavbarPr
                       className="flex items-center justify-between px-3 py-2 rounded-xl text-xs text-slate-700 dark:text-zinc-300 hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-zinc-800/70 dark:hover:text-white transition"
                     >
                       <div className="flex items-center gap-2.5 truncate">
-                        <TopicIcon slug={topic.slug} name={topic.name} className="w-4 h-4 text-slate-500 dark:text-zinc-400 shrink-0" />
+                        <TopicIcon slug={topic.slug} name={topic.name} className="w-4 h-4 text-slate-600 dark:text-zinc-400 shrink-0" />
                         <span className="font-medium truncate">{topic.name}</span>
                       </div>
                       {typeof topic._count?.deals === 'number' && (
-                        <span className="text-[11px] font-mono text-slate-400 dark:text-zinc-500 bg-slate-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded shrink-0">
+                        <span className="text-[11px] font-mono text-slate-600 dark:text-zinc-300 bg-slate-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded shrink-0">
                           {topic._count.deals}
                         </span>
                       )}
@@ -301,14 +302,16 @@ export default function TopNavbar({ topics = [], onOpenMobileMenu }: TopNavbarPr
                     setSearchDropdownOpen(true);
                   }
                 }}
+                aria-label="Search deals, brands, or perks"
                 placeholder="Search deals, brands, or perks..."
-                className="w-full pl-9 pr-9 py-2 text-xs bg-white dark:bg-zinc-950 text-slate-900 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 rounded-lg border border-slate-200 dark:border-zinc-800 focus:outline-none focus:ring-2 focus:ring-indigo-600/30 focus:border-indigo-600 transition"
+                className="w-full pl-9 pr-9 py-2 text-xs bg-white dark:bg-zinc-950 text-slate-900 dark:text-zinc-100 placeholder-slate-500 dark:placeholder-zinc-400 rounded-lg border border-slate-200 dark:border-zinc-800 focus:outline-none focus:ring-2 focus:ring-indigo-600/30 focus:border-indigo-600 transition"
               />
               {search && (
                 <button
                   type="button"
                   onClick={() => setSearch('')}
-                  className="absolute right-2.5 p-1 text-slate-400 hover:text-slate-600 dark:hover:text-zinc-300"
+                  aria-label="Clear search input"
+                  className="absolute right-2.5 p-1 text-slate-500 hover:text-slate-700 dark:hover:text-zinc-200"
                 >
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />

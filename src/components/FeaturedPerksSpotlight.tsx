@@ -84,7 +84,7 @@ export default function FeaturedPerksSpotlight({ deals }: FeaturedPerksSpotlight
         </div>
         <Link
           href="/category/credits"
-          className="text-xs font-medium text-slate-500 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-white transition flex items-center gap-1"
+          className="text-xs font-semibold text-slate-600 hover:text-slate-900 dark:text-zinc-300 dark:hover:text-white transition flex items-center gap-1"
         >
           <span>All grants & credits</span>
           <span>&rarr;</span>
@@ -130,7 +130,7 @@ export default function FeaturedPerksSpotlight({ deals }: FeaturedPerksSpotlight
                         {brandName}
                       </Link>
                       {deal.topic && (
-                        <span className="text-xs text-slate-500 dark:text-zinc-400 font-medium block truncate">
+                        <span className="text-xs text-slate-600 dark:text-zinc-350 font-medium block truncate">
                           {deal.topic.name}
                         </span>
                       )}
