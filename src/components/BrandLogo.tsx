@@ -296,6 +296,14 @@ export default function BrandLogo({
     border: 'border-slate-200 dark:border-zinc-750',
   };
 
+  const pixelDimensions = {
+    sm: 32,
+    md: 40,
+    lg: 48,
+    card: 56,
+    xl: 64,
+  }[size];
+
   return (
     <div
       className={`relative shrink-0 flex items-center justify-center bg-white dark:bg-zinc-850 border border-slate-200/90 dark:border-zinc-700/80 shadow-[0_1px_3px_rgba(0,0,0,0.06)] overflow-hidden ${sizeClasses} ${className}`}
@@ -306,6 +314,9 @@ export default function BrandLogo({
         <img
           src={currentSrc}
           alt={`${name} logo`}
+          width={pixelDimensions}
+          height={pixelDimensions}
+          decoding="async"
           className="w-full h-full object-contain transition-transform group-hover:scale-105 duration-200 rounded-xs"
           loading="lazy"
           onError={handleError}

@@ -17,7 +17,7 @@ export default function ThemeToggle({ showLabel = false, className = '' }: Theme
   }, []);
 
   if (!mounted) {
-    return <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-zinc-800" />;
+    return <div className={`w-8 h-8 rounded-lg border border-slate-200/80 dark:border-zinc-800 bg-slate-100/50 dark:bg-zinc-800/50 ${className}`} />;
   }
 
   return (
