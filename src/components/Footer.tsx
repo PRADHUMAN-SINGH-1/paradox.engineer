@@ -24,7 +24,7 @@ export default function Footer() {
         {/* Directory Columns */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10 text-xs">
           <div>
-            <h4 className="font-bold mb-3 text-slate-900 dark:text-white text-xs">Popular Deals</h4>
+            <h3 className="font-bold mb-3 text-slate-900 dark:text-white text-xs">Popular Deals</h3>
             <ul className="space-y-2">
               <li><Link href="/resources/claude-for-oss" className="hover:text-indigo-600 dark:hover:text-white transition">Claude for Open Source</Link></li>
               <li><Link href="/resources/vultr-free-credits" className="hover:text-indigo-600 dark:hover:text-white transition">Vultr $250 Cloud Credits</Link></li>
@@ -34,7 +34,7 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h4 className="font-bold mb-3 text-slate-900 dark:text-white text-xs">Categories</h4>
+            <h3 className="font-bold mb-3 text-slate-900 dark:text-white text-xs">Categories</h3>
             <ul className="space-y-2">
               <li><Link href="/topics/ai" className="hover:text-indigo-600 dark:hover:text-white transition">AI & Foundation Models</Link></li>
               <li><Link href="/topics/vibe-coding" className="hover:text-indigo-600 dark:hover:text-white transition">Developer Tooling</Link></li>
@@ -44,7 +44,7 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h4 className="font-bold mb-3 text-slate-900 dark:text-white text-xs">Quick Access</h4>
+            <h3 className="font-bold mb-3 text-slate-900 dark:text-white text-xs">Quick Access</h3>
             <ul className="space-y-2">
               <li><Link href="/latest" className="hover:text-indigo-600 dark:hover:text-white transition">Latest New Arrivals</Link></li>
               <li><Link href="/student" className="hover:text-indigo-600 dark:hover:text-white transition">Student Discounts (.edu)</Link></li>
@@ -54,7 +54,7 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h4 className="font-bold mb-3 text-slate-900 dark:text-white text-xs">Platform & Trust</h4>
+            <h3 className="font-bold mb-3 text-slate-900 dark:text-white text-xs">Platform & Trust</h3>
             <ul className="space-y-2">
               <li><Link href="/about" className="hover:text-indigo-600 dark:hover:text-white transition">About & Verification</Link></li>
               <li><Link href="/affiliate-disclosure" className="hover:text-indigo-600 dark:hover:text-white transition">Affiliate Disclosure</Link></li>
@@ -66,7 +66,7 @@ export default function Footer() {
         </div>
 
         {/* Reader Transparency Notice matching Resourify */}
-        <div className="py-4 px-4 rounded-xl bg-slate-50 dark:bg-zinc-900/60 border border-slate-200/80 dark:border-zinc-800 mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between text-xs text-slate-500 dark:text-zinc-400 gap-2">
+        <div className="py-4 px-4 rounded-xl bg-slate-50 dark:bg-zinc-900/60 border border-slate-200/80 dark:border-zinc-800 mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between text-xs text-slate-600 dark:text-zinc-300 gap-2">
           <p>
             This site is reader-supported. We may earn an affiliate commission when you claim deals or purchase through our links at no extra cost to you.
           </p>
@@ -79,18 +79,18 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-6 border-t border-slate-100 dark:border-zinc-800 flex flex-col sm:flex-row justify-between items-center text-slate-500 dark:text-zinc-500 text-xs gap-3">
+        <div className="pt-6 border-t border-slate-100 dark:border-zinc-800 flex flex-col sm:flex-row justify-between items-center text-slate-600 dark:text-zinc-400 text-xs gap-3">
           <p>© 2026 Paradox. All rights reserved. Curated digital deals, verified coupons & developer discounts.</p>
           <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs items-center justify-center sm:justify-end">
-            <Link href="/privacy" className="hover:text-indigo-600 dark:hover:text-white transition text-slate-600 dark:text-zinc-400">
+            <Link href="/privacy" className="hover:text-indigo-600 dark:hover:text-white transition text-slate-700 dark:text-zinc-300">
               Privacy Policy
             </Link>
-            <span>•</span>
-            <Link href="/terms" className="hover:text-indigo-600 dark:hover:text-white transition text-slate-600 dark:text-zinc-400">
+            <span className="text-slate-400 dark:text-zinc-600">•</span>
+            <Link href="/terms" className="hover:text-indigo-600 dark:hover:text-white transition text-slate-700 dark:text-zinc-300">
               Terms of Service
             </Link>
-            <span>•</span>
-            <Link href="/affiliate-disclosure" className="hover:text-indigo-600 dark:hover:text-white transition text-slate-600 dark:text-zinc-400">
+            <span className="text-slate-400 dark:text-zinc-600">•</span>
+            <Link href="/affiliate-disclosure" className="hover:text-indigo-600 dark:hover:text-white transition text-slate-700 dark:text-zinc-300">
               Affiliate Disclosure
             </Link>
           </div>

@@ -112,9 +112,9 @@ export default function NewArrivalCard({ deal }: NewArrivalCardProps) {
         </div>
 
         {/* Title */}
-        <h4 className="text-sm font-bold tracking-tight text-slate-900 group-hover:text-indigo-600 dark:text-white dark:group-hover:text-indigo-400 transition-colors line-clamp-1 leading-snug">
+        <h3 className="text-sm font-bold tracking-tight text-slate-900 group-hover:text-indigo-600 dark:text-white dark:group-hover:text-indigo-400 transition-colors line-clamp-1 leading-snug">
           {displayTitle}
-        </h4>
+        </h3>
       </div>
     </Link>
   );
