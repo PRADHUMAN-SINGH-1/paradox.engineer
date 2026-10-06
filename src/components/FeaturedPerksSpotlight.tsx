@@ -12,6 +12,9 @@ interface FeaturedDeal {
   promoCode?: string | null;
   clickCount: number;
   isTrending?: boolean;
+  isStartupDeal?: boolean;
+  isStudentDeal?: boolean;
+  needsCreditCard?: boolean;
   brand: {
     name: string;
     slug: string;
@@ -22,6 +25,14 @@ interface FeaturedDeal {
     name: string;
   };
 }
+
+const DEAL_TYPE_LABELS: Record<string, string> = {
+  freebie: 'Free Tier',
+  discount: 'Discount',
+  trial: 'Free Trial',
+  credit: 'Cloud Credit',
+  'promo-code': 'Promo Code',
+};
 
 interface FeaturedPerksSpotlightProps {
   deals: FeaturedDeal[];
@@ -169,9 +180,9 @@ export default function FeaturedPerksSpotlight({ deals }: FeaturedPerksSpotlight
                 </Link>
               </div>
 
-              {/* Perk Value & Action Row */}
-              <div className="pt-3.5 border-t border-slate-100 dark:border-zinc-800/80 flex items-center justify-between gap-2 relative z-10">
-                <div className="flex items-center gap-1.5 min-w-0">
+              <div>
+                {/* Value Token Badge & Promo Code Row */}
+                <div className="flex flex-wrap items-center gap-2 mb-3.5 relative z-10">
                   <div className={`inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-1 rounded-lg border shadow-2xs ${badgeStyle.container}`}>
                     <svg className={`w-3.5 h-3.5 shrink-0 ${badgeStyle.icon}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
@@ -183,11 +194,55 @@ export default function FeaturedPerksSpotlight({ deals }: FeaturedPerksSpotlight
                   )}
                 </div>
 
-                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-800 border border-slate-200/90 hover:bg-indigo-600 hover:text-white hover:border-indigo-600 dark:bg-zinc-800 dark:text-zinc-200 dark:border-zinc-700 dark:hover:bg-indigo-600 dark:hover:text-white group-hover:bg-indigo-600 group-hover:border-indigo-600 group-hover:text-white transition-all shadow-2xs shrink-0">
-                  <span>Claim</span>
-                  <svg className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
-                  </svg>
+                {/* Footer Technical Indicators & Action Button */}
+                <div className="pt-3.5 border-t border-slate-100 dark:border-zinc-800/80 flex items-center justify-between text-xs relative z-10 gap-2">
+                  {/* Highlighted Micro-Badges with Crisp Icons */}
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    {deal.isStartupDeal && (
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200/90 dark:bg-indigo-950/40 dark:text-indigo-300 dark:border-indigo-800/60 shadow-2xs">
+                        <svg className="w-3 h-3 text-indigo-600 dark:text-indigo-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                        <span>Startup</span>
+                      </span>
+                    )}
+
+                    {!deal.needsCreditCard && (
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200/90 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800/60 shadow-2xs">
+                        <svg className="w-3 h-3 text-emerald-600 dark:text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span>No CC</span>
+                      </span>
+                    )}
+
+                    {deal.isStudentDeal && (
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold bg-sky-50 text-sky-700 border border-sky-200/90 dark:bg-sky-950/40 dark:text-sky-300 dark:border-sky-800/60 shadow-2xs">
+                        <svg className="w-3 h-3 text-sky-600 dark:text-sky-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5" />
+                        </svg>
+                        <span>Student</span>
+                      </span>
+                    )}
+
+                    {!deal.isStartupDeal && !deal.isStudentDeal && deal.needsCreditCard && (
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-slate-100 text-slate-700 border border-slate-200/80 dark:bg-zinc-800 dark:text-zinc-300 dark:border-zinc-700">
+                        <span>{DEAL_TYPE_LABELS[deal.dealType] || 'Verified'}</span>
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="flex items-center gap-2 shrink-0 ml-auto">
+                    <span className="text-[11px] font-mono font-semibold text-slate-600 dark:text-zinc-350 hidden xl:inline">
+                      {deal.clickCount > 0 ? `${deal.clickCount.toLocaleString()} claims` : 'Verified'}
+                    </span>
+                    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-800 border border-slate-200/90 hover:bg-indigo-600 hover:text-white hover:border-indigo-600 dark:bg-zinc-800 dark:text-zinc-200 dark:border-zinc-700 dark:hover:bg-indigo-600 dark:hover:text-white group-hover:bg-indigo-600 group-hover:border-indigo-600 group-hover:text-white transition-all shadow-2xs shrink-0 whitespace-nowrap">
+                      <span>Claim</span>
+                      <svg className="w-3 h-3 group-hover:translate-x-0.5 transition-transform shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
