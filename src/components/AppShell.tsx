@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Sidebar from './Sidebar';
 import TopNavbar from './TopNavbar';
 import Footer from './Footer';
+import RobotAssistant from './RobotAssistant';
 
 interface AppShellProps {
   topics: Array<{
@@ -55,6 +56,7 @@ export default function AppShell({ topics, categoryCounts, children }: AppShellP
           {children}
         </main>
         <Footer />
+        <RobotAssistant />
       </div>
     </div>
   );

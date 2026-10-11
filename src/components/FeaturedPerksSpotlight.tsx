@@ -136,12 +136,12 @@ export default function FeaturedPerksSpotlight({ deals }: FeaturedPerksSpotlight
                     <div className="min-w-0">
                       <Link
                         href={`/brands/${brandSlug}`}
-                        className="text-[13px] font-bold text-slate-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition truncate block"
+                        className="text-[13px] font-bold text-slate-950 dark:text-zinc-50 hover:text-indigo-600 dark:hover:text-indigo-400 transition truncate block"
                       >
                         {brandName}
                       </Link>
                       {deal.topic && (
-                        <span className="text-xs text-slate-600 dark:text-zinc-350 font-medium block truncate">
+                        <span className="text-xs text-slate-700 dark:text-zinc-300 font-semibold block truncate">
                           {deal.topic.name}
                         </span>
                       )}
@@ -171,10 +171,10 @@ export default function FeaturedPerksSpotlight({ deals }: FeaturedPerksSpotlight
                   href={`/resources/${deal.slug}`}
                   className="block group/link mb-3.5 before:absolute before:inset-0 before:z-0 before:rounded-2xl"
                 >
-                  <h3 className="text-[15.5px] font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2 leading-snug tracking-tight mb-1 min-h-[2.5rem]">
+                  <h3 className="text-[15.5px] font-extrabold text-slate-950 dark:text-zinc-50 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2 leading-snug tracking-tight mb-1 min-h-[2.5rem]">
                     {title}
                   </h3>
-                  <p className="text-[13px] text-slate-600 dark:text-zinc-300 line-clamp-2 leading-relaxed">
+                  <p className="text-[13px] font-medium text-slate-800 dark:text-zinc-200 line-clamp-2 leading-relaxed">
                     {deal.shortDescription}
                   </p>
                 </Link>
@@ -232,16 +232,19 @@ export default function FeaturedPerksSpotlight({ deals }: FeaturedPerksSpotlight
                     )}
                   </div>
 
-                  <div className="flex items-center gap-2 shrink-0 ml-auto">
-                    <span className="text-[11px] font-mono font-semibold text-slate-600 dark:text-zinc-350 hidden xl:inline">
+                  <div className="flex items-center gap-2 shrink-0 ml-auto relative z-10">
+                    <span className="text-[11px] font-mono font-bold text-slate-750 dark:text-zinc-200 hidden xl:inline">
                       {deal.clickCount > 0 ? `${deal.clickCount.toLocaleString()} claims` : 'Verified'}
                     </span>
-                    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-800 border border-slate-200/90 hover:bg-indigo-600 hover:text-white hover:border-indigo-600 dark:bg-zinc-800 dark:text-zinc-200 dark:border-zinc-700 dark:hover:bg-indigo-600 dark:hover:text-white group-hover:bg-indigo-600 group-hover:border-indigo-600 group-hover:text-white transition-all shadow-2xs shrink-0 whitespace-nowrap">
+                    <Link
+                      href={`/resources/${deal.slug}`}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-900 border border-slate-300 dark:bg-zinc-800 dark:text-zinc-100 dark:border-zinc-700 hover:bg-indigo-600 hover:text-white hover:border-indigo-600 dark:hover:bg-indigo-600 dark:hover:text-white dark:hover:border-indigo-600 group-hover:bg-indigo-600 group-hover:border-indigo-600 group-hover:text-white active:scale-95 transition-all shadow-2xs shrink-0 whitespace-nowrap cursor-pointer"
+                    >
                       <span>Claim</span>
                       <svg className="w-3 h-3 group-hover:translate-x-0.5 transition-transform shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
                       </svg>
-                    </div>
+                    </Link>
                   </div>
                 </div>
               </div>

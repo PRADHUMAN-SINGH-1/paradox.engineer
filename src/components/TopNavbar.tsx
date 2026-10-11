@@ -170,9 +170,9 @@ export default function TopNavbar({ topics = [], onOpenMobileMenu }: TopNavbarPr
                 }}
                 aria-label="Search deals, brands, or perks"
                 placeholder="Search deals, brands, or perks..."
-                className="w-full pl-9 pr-14 py-1.5 text-xs sm:text-sm bg-slate-100/80 dark:bg-zinc-900/90 text-slate-900 dark:text-zinc-100 placeholder-slate-500 dark:placeholder-zinc-400 rounded-full border border-slate-200 dark:border-zinc-800 focus:outline-none focus:ring-2 focus:ring-indigo-600/30 focus:border-indigo-600 transition"
+                className="w-full pl-9 pr-14 py-1.5 text-xs sm:text-sm bg-slate-100 dark:bg-zinc-900 text-slate-950 dark:text-zinc-50 font-medium placeholder-slate-600 dark:placeholder-zinc-300 rounded-full border border-slate-300 dark:border-zinc-700 focus:outline-none focus:ring-2 focus:ring-indigo-600/30 focus:border-indigo-600 transition"
               />
-              <span className="absolute right-2.5 hidden sm:flex items-center gap-0.5 text-[10px] font-mono font-medium text-slate-400 dark:text-zinc-500 bg-white dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 rounded px-1.5 py-0.5 pointer-events-none">
+              <span className="absolute right-2.5 hidden sm:flex items-center gap-0.5 text-[10px] font-mono font-bold text-slate-600 dark:text-zinc-400 bg-white dark:bg-zinc-800 border border-slate-300 dark:border-zinc-700 rounded px-1.5 py-0.5 pointer-events-none">
                 ⌘K
               </span>
             </div>
@@ -266,6 +266,7 @@ export default function TopNavbar({ topics = [], onOpenMobileMenu }: TopNavbarPr
 
           {/* Submit Deal Button (Responsive on mobile) */}
           <Link
+            id="nav-submit-deal-btn"
             href="/submit"
             className="inline-flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white dark:bg-zinc-100 dark:hover:bg-white dark:text-zinc-950 font-bold text-xs px-2.5 sm:px-3.5 py-1.5 rounded-full transition shadow-xs hover:shadow-sm shrink-0"
           >

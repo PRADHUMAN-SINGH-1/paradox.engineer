@@ -177,7 +177,7 @@ export default function Sidebar({
       <div className="flex-1 overflow-y-auto px-3.5 py-4 space-y-6">
         {/* MAIN SECTION */}
         <div>
-          <div className="px-2.5 mb-2 text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-zinc-400 font-mono">
+          <div className="px-2.5 mb-2 text-[11px] font-extrabold uppercase tracking-wider text-slate-800 dark:text-zinc-300 font-mono">
             Main
           </div>
           <nav className="space-y-1">
@@ -188,11 +188,11 @@ export default function Sidebar({
                 onClick={onClose}
                 className={`group flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13.5px] transition-all duration-150 ${
                   item.active
-                    ? 'bg-slate-100 text-slate-950 font-bold dark:bg-zinc-800 dark:text-white border border-slate-200/80 dark:border-zinc-700/60 shadow-2xs'
-                    : 'text-slate-700 hover:text-slate-950 hover:bg-slate-100/70 dark:text-zinc-300 dark:hover:text-zinc-100 dark:hover:bg-zinc-800/60 font-medium'
+                    ? 'bg-slate-200 text-slate-950 font-bold dark:bg-zinc-800 dark:text-white border border-slate-300 dark:border-zinc-700/80 shadow-2xs'
+                    : 'text-slate-900 hover:text-slate-950 hover:bg-slate-100 dark:text-zinc-100 dark:hover:text-white dark:hover:bg-zinc-800 font-semibold'
                 }`}
               >
-                <span className={item.active ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-zinc-400 group-hover:text-slate-800 dark:group-hover:text-zinc-200 transition-colors'}>
+                <span className={item.active ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-700 dark:text-zinc-300 group-hover:text-slate-950 dark:group-hover:text-white transition-colors'}>
                   {item.icon}
                 </span>
                 <span>{item.label}</span>
@@ -202,8 +202,8 @@ export default function Sidebar({
         </div>
 
         {/* CATEGORIES SECTION */}
-        <div className="pt-3 border-t border-slate-100 dark:border-zinc-800/80">
-          <div className="px-2.5 mb-2 text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-zinc-400 font-mono">
+        <div className="pt-3 border-t border-slate-200 dark:border-zinc-800">
+          <div className="px-2.5 mb-2 text-[11px] font-extrabold uppercase tracking-wider text-slate-800 dark:text-zinc-300 font-mono">
             Categories
           </div>
           <nav className="space-y-1">
@@ -214,21 +214,21 @@ export default function Sidebar({
                 onClick={onClose}
                 className={`group flex items-center justify-between px-3 py-2.5 rounded-xl text-[13.5px] transition-all duration-150 ${
                   item.active
-                    ? 'bg-slate-100 text-slate-950 font-bold dark:bg-zinc-800 dark:text-white border border-slate-200/80 dark:border-zinc-700/60 shadow-2xs'
-                    : 'text-slate-700 hover:text-slate-950 hover:bg-slate-100/70 dark:text-zinc-300 dark:hover:text-zinc-100 dark:hover:bg-zinc-800/60 font-medium'
+                    ? 'bg-slate-200 text-slate-950 font-bold dark:bg-zinc-800 dark:text-white border border-slate-300 dark:border-zinc-700/80 shadow-2xs'
+                    : 'text-slate-900 hover:text-slate-950 hover:bg-slate-100 dark:text-zinc-100 dark:hover:text-white dark:hover:bg-zinc-800 font-semibold'
                 }`}
               >
                 <div className="flex items-center gap-3 min-w-0">
-                  <span className={item.active ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-zinc-400 group-hover:text-slate-800 dark:group-hover:text-zinc-200 transition-colors'}>
+                  <span className={item.active ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-700 dark:text-zinc-300 group-hover:text-slate-950 dark:group-hover:text-white transition-colors'}>
                     {item.icon}
                   </span>
                   <span className="truncate">{item.label}</span>
                 </div>
                 <span
-                  className={`font-mono text-xs px-2 py-0.5 rounded-md transition-colors shrink-0 ${
+                  className={`font-mono text-xs px-2.5 py-0.5 rounded-md transition-colors shrink-0 font-bold ${
                     item.active
-                      ? 'bg-slate-200/80 text-slate-900 font-bold dark:bg-zinc-700 dark:text-zinc-100'
-                      : 'bg-slate-100 text-slate-700 dark:bg-zinc-850 dark:text-zinc-300 font-semibold'
+                      ? 'bg-slate-300 text-slate-950 dark:bg-zinc-700 dark:text-white'
+                      : 'bg-slate-100 text-slate-900 border border-slate-300 dark:bg-zinc-800 dark:text-zinc-100 dark:border-zinc-700'
                   }`}
                 >
                   {item.count}

@@ -43,7 +43,7 @@ export default function NewsletterSignup() {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="developer@domain.com"
           aria-label="Email address for developer perks newsletter"
-          className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-300 text-slate-900 placeholder:text-slate-500 focus:bg-white focus:border-indigo-600 dark:bg-zinc-900 dark:border-zinc-800 dark:text-zinc-100 dark:placeholder:text-zinc-400 dark:focus:border-indigo-500/60 text-xs font-mono focus:outline-none transition"
+          className="w-full px-3 py-2 rounded-lg bg-slate-100 border border-slate-350 text-slate-950 font-semibold placeholder:text-slate-650 focus:bg-white focus:border-indigo-600 dark:bg-zinc-900 dark:border-zinc-700 dark:text-zinc-50 dark:placeholder:text-zinc-350 dark:focus:border-indigo-500/60 text-xs font-mono focus:outline-none transition shadow-2xs"
           required
           disabled={status === 'loading' || status === 'success'}
         />

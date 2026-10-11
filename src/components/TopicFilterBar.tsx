@@ -36,14 +36,14 @@ export default function TopicFilterBar({
     <div className="space-y-2.5">
       <div className="flex items-center justify-between text-xs">
         <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-slate-500 dark:bg-zinc-500"></span>
-          <span className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-600 dark:text-zinc-300">
+          <span className="w-1.5 h-1.5 rounded-full bg-slate-900 dark:bg-zinc-400"></span>
+          <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-900 dark:text-zinc-200">
             Browse by Topic
           </span>
         </div>
         <Link
           href="/topics"
-          className="text-xs font-semibold text-slate-600 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-white transition flex items-center gap-1"
+          className="text-xs font-bold text-slate-800 hover:text-slate-950 dark:text-zinc-300 dark:hover:text-white transition flex items-center gap-1"
         >
           <span>Explore all 12 categories</span>
           <span>&rarr;</span>
@@ -57,7 +57,7 @@ export default function TopicFilterBar({
           className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-150 shrink-0 ${
             !activeTopic
               ? 'bg-slate-900 text-white dark:bg-zinc-100 dark:text-zinc-950 border border-slate-900 dark:border-white shadow-xs'
-              : 'bg-white dark:bg-[#111114] border border-slate-200/80 dark:border-white/[0.08] text-slate-700 dark:text-zinc-300 hover:border-slate-350 dark:hover:border-white/20 hover:bg-slate-50 dark:hover:bg-zinc-800 font-medium'
+              : 'bg-white dark:bg-[#111114] border border-slate-300 dark:border-white/[0.12] text-slate-800 dark:text-zinc-200 hover:border-slate-400 dark:hover:border-white/30 hover:bg-slate-50 dark:hover:bg-zinc-800 font-bold'
           }`}
         >
           <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

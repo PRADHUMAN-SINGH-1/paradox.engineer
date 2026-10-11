@@ -5,14 +5,14 @@ import { SITE_URL } from '@/lib/site';
 export const metadata: Metadata = {
   title: 'Privacy Policy',
   description:
-    'Paradox Privacy Policy. Learn how we collect, use, and protect your information, including Google AdSense cookies and affiliate tracking disclosures.',
+    'Paradox Privacy Policy. Learn how we collect, use, and protect your information, cookies, and affiliate tracking disclosures.',
   alternates: {
     canonical: SITE_URL + '/privacy',
   },
   openGraph: {
     title: 'Privacy Policy | Paradox',
     description:
-      'Learn how Paradox protects your personal data, handles cookies, and maintains transparency regarding Google AdSense and affiliate partnerships.',
+      'Learn how Paradox protects your personal data, handles cookies, and maintains transparency regarding affiliate partnerships.',
     url: SITE_URL + '/privacy',
     siteName: 'Paradox',
     type: 'article',
@@ -24,7 +24,7 @@ const schema = {
   '@type': 'WebPage',
   name: 'Privacy Policy | Paradox',
   description:
-    'Paradox Privacy Policy detailing data handling, cookies, Google AdSense compliance, and affiliate tracking.',
+    'Paradox Privacy Policy detailing data handling, cookies, and affiliate tracking disclosures.',
   url: SITE_URL + '/privacy',
   isPartOf: {
     '@type': 'WebSite',
@@ -111,47 +111,28 @@ export default function PrivacyPolicyPage() {
           </ul>
         </section>
 
-        {/* Section 3: Cookies & Advertising (Google AdSense Compliant) */}
+        {/* Section 3: Cookies & Preferences */}
         <section className="space-y-4 bg-white dark:bg-zinc-900/50 p-6 rounded-2xl border border-slate-200/80 dark:border-zinc-800 shadow-2xs">
           <div className="flex items-center gap-2 text-base font-bold text-slate-900 dark:text-white">
             <span className="text-lg">🍪</span>
-            <h2>3. Cookies, Google AdSense & Advertising Technologies</h2>
+            <h2>3. Cookies & Local Storage Preferences</h2>
           </div>
           <p>
-            Cookies are small text files stored on your device that help web services remember preferences and understand visitor interactions. We use the following types of cookies:
+            Cookies and local browser storage are used to remember user preferences and understand visitor interactions. We use the following types of storage:
           </p>
           <ul className="space-y-2 list-disc pl-5 text-xs sm:text-sm">
             <li>
-              <strong>Essential & Preference Cookies:</strong> We store your UI theme preference (Light or Dark mode) locally in your browser storage so that your visual experience remains consistent across sessions.
+              <strong>Essential & Preference Storage:</strong> We store your UI theme preference (Light or Dark mode) locally in your browser storage so that your visual experience remains consistent across sessions.
             </li>
             <li>
-              <strong>Google AdSense & Third-Party Advertising:</strong> Third-party vendors, including Google, use cookies to serve ads based on a user&rsquo;s prior visits to our website or other websites on the Internet.
+              <strong>Analytics & Performance:</strong> Aggregated, anonymous traffic telemetry to evaluate which deals, categories, and developer tools are most valuable to our community.
             </li>
             <li>
-              <strong>Google&rsquo;s Use of Advertising Cookies:</strong> Google&rsquo;s use of advertising cookies enables it and its partners to serve ads to our users based on their visits to Paradox and/or other sites across the World Wide Web.
-            </li>
-            <li>
-              <strong>Opting Out of Personalized Ads:</strong> You may opt out of personalized advertising by visiting{' '}
-              <a
-                href="https://www.google.com/settings/ads"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline"
-              >
-                Google Ads Settings
-              </a>. Alternatively, you can opt out of a third-party vendor&rsquo;s use of cookies for personalized advertising by visiting{' '}
-              <a
-                href="https://www.aboutads.info/choices/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline"
-              >
-                aboutads.info/choices
-              </a>.
+              <strong>Affiliate Referral Cookies:</strong> Outbound links to verified partner platforms (including Cuelinks and direct SaaS partner platforms) may set referral cookies to credit referral transactions when a deal is claimed.
             </li>
           </ul>
           <div className="p-4 rounded-xl bg-indigo-50/80 border border-indigo-200/80 dark:bg-indigo-950/40 dark:border-indigo-900/60 text-xs text-indigo-900 dark:text-indigo-200">
-            <strong>Managing Cookies:</strong> You can choose to disable or selectively turn off our cookies or third-party cookies in your browser settings. However, this may affect how you are able to interact with our site as well as other websites.
+            <strong>Managing Cookies:</strong> You can choose to disable or selectively turn off cookies in your browser settings. However, this may affect how you are able to interact with our site as well as partner platforms.
           </div>
         </section>
 
@@ -242,7 +223,7 @@ export default function PrivacyPolicyPage() {
             Contact Paradox Privacy Team
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 dark:text-zinc-400">
-            For privacy inquiries, data deletion requests, or questions regarding our compliance with Google AdSense and advertising standards:
+            For privacy inquiries, data deletion requests, or questions regarding our data handling and transparency practices:
           </p>
           <div className="flex flex-wrap items-center gap-3 pt-2">
             <a

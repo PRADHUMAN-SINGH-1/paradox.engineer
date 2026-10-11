@@ -151,15 +151,10 @@ export default async function RootLayout({
         <meta name="cuelinks-verification" content="VERIFY-CL-XIWUYLDQ" />
         <meta name="cuelinks-verification" content="VERIFY-CL-PSNIM4UI" />
 
-        {/* Google AdSense Verification & Script */}
-        <meta name="google-adsense-account" content="ca-pub-4630615697632107" />
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4630615697632107"
-          crossOrigin="anonymous"
-        />
+
         {/* Anti-flicker inline theme script */}
         <script
+          suppressHydrationWarning
           dangerouslySetInnerHTML={{
             __html: `
               try {
