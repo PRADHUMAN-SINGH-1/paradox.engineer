@@ -4,6 +4,7 @@ import { requireAdmin } from '@/lib/admin-auth';
 import { revalidateTag } from 'next/cache';
 import { after } from 'next/server';
 import { sendNewDealNotifications } from '@/lib/email';
+import catalogData from '../../../../../prisma/catalog-data.json';
 
 export async function GET(req: Request) {
   const denied = requireAdmin(req);
@@ -52,7 +53,6 @@ export async function GET(req: Request) {
       const filter = searchParams.get('filter') || 'all';
       const query = searchParams.get('q')?.trim().toLowerCase() || '';
 
-      const catalogData = require('../../../../../prisma/catalog-data.json');
       const brandsMap = new Map((catalogData.brands || []).map((b: any) => [b.id, b]));
       const topicsMap = new Map((catalogData.topics || []).map((t: any) => [t.id, t]));
 
