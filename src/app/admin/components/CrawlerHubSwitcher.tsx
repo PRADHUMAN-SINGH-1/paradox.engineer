@@ -28,8 +28,58 @@ export default function CrawlerHubSwitcher({
   isBulkIngesting,
   onBulkIngestDirect,
 }: CrawlerHubSwitcherProps) {
+  const totalCount = referralDealsCount + directDealsCount;
+
   return (
     <div className="space-y-4">
+      {/* Quick Filter Pill Switcher */}
+      <div className="flex items-center gap-2 pb-1 overflow-x-auto">
+        <button
+          type="button"
+          onClick={() => onSelectHub('all')}
+          className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer whitespace-nowrap ${
+            crawlerHub === 'all'
+              ? 'bg-slate-900 text-white dark:bg-white dark:text-zinc-900 shadow-sm'
+              : 'bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-300 hover:bg-slate-200 dark:hover:bg-zinc-700'
+          }`}
+        >
+          <span>🌐 All Discovered Candidates</span>
+          <span className="px-1.5 py-0.5 rounded-full text-[10px] bg-slate-700 dark:bg-zinc-200 text-white dark:text-zinc-900 font-mono">
+            {totalCount}
+          </span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => onSelectHub('direct_injection')}
+          className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer whitespace-nowrap ${
+            crawlerHub === 'direct_injection'
+              ? 'bg-blue-600 text-white shadow-sm'
+              : 'bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-300 hover:bg-slate-200 dark:hover:bg-zinc-700'
+          }`}
+        >
+          <span>⚡ Direct 1-Click Deals</span>
+          <span className="px-1.5 py-0.5 rounded-full text-[10px] bg-blue-100 dark:bg-blue-900/60 text-blue-700 dark:text-blue-300 font-mono">
+            {directDealsCount}
+          </span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => onSelectHub('referral_programs')}
+          className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer whitespace-nowrap ${
+            crawlerHub === 'referral_programs'
+              ? 'bg-amber-600 text-white shadow-sm'
+              : 'bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-300 hover:bg-slate-200 dark:hover:bg-zinc-700'
+          }`}
+        >
+          <span>🔑 Custom Referral Programs</span>
+          <span className="px-1.5 py-0.5 rounded-full text-[10px] bg-amber-100 dark:bg-amber-900/60 text-amber-700 dark:text-amber-300 font-mono">
+            {referralDealsCount}
+          </span>
+        </button>
+      </div>
+
       {/* 1. Dual-Hub Segmented Switcher Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Hub 1: Custom Referral & Voucher Programs */}

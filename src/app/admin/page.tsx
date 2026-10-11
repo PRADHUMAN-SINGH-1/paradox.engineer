@@ -70,7 +70,7 @@ export default function AdminDashboardPage() {
   const [submissions, setSubmissions] = useState<SubmissionItem[]>([]);
 
   // 4. Deal Discovery Crawler Studio State
-  const [crawlerHub, setCrawlerHub] = useState<CrawlerHub>('referral_programs');
+  const [crawlerHub, setCrawlerHub] = useState<CrawlerHub>('all');
   const [crawlerFilter, setCrawlerFilter] = useState<CrawlerFilter>('pending');
   const [crawlerSearch, setCrawlerSearch] = useState('');
   const [discoveredDeals, setDiscoveredDeals] = useState<DiscoveredDealItem[]>([]);
@@ -558,6 +558,7 @@ export default function AdminDashboardPage() {
   }
 
   const referralDealsCount = discoveredDeals.filter((d) => d.canGenerateOwnCode).length;
+  const pendingCandidatesCount = discoveredDeals.filter((d) => !d.isPublished).length;
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-8 font-sans">
@@ -597,6 +598,7 @@ export default function AdminDashboardPage() {
         crawlerTotalCount={discoveredDeals.length}
         customCodeCount={referralDealsCount}
         submissionsCount={submissions.length}
+        pendingCandidatesCount={pendingCandidatesCount}
       />
 
       {/* 5. Tab Views */}
@@ -650,6 +652,11 @@ export default function AdminDashboardPage() {
         <PendingSubmissions
           submissions={submissions}
           onApprove={handleApproveSubmission}
+          candidateDeals={discoveredDeals}
+          onIngestCandidate={handleIngestDeal}
+          onBulkIngestCandidates={handleBulkIngestDirectDeals}
+          isBulkIngesting={isBulkIngesting}
+          crawlerActionLoading={crawlerActionLoading}
         />
       )}
 

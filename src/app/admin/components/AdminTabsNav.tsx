@@ -10,6 +10,7 @@ interface AdminTabsNavProps {
   crawlerTotalCount: number;
   customCodeCount: number;
   submissionsCount: number;
+  pendingCandidatesCount?: number;
 }
 
 export default function AdminTabsNav({
@@ -19,7 +20,9 @@ export default function AdminTabsNav({
   crawlerTotalCount,
   customCodeCount,
   submissionsCount,
+  pendingCandidatesCount = 0,
 }: AdminTabsNavProps) {
+  const totalPendingApprovals = submissionsCount + pendingCandidatesCount;
   return (
     <div className="flex items-center gap-2 border-b border-slate-200 dark:border-zinc-800 pb-2 overflow-x-auto">
       <button
@@ -43,7 +46,7 @@ export default function AdminTabsNav({
             : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 hover:bg-slate-100 dark:hover:bg-zinc-800'
         }`}
       >
-        <span>🤖 Deal Crawler & Voucher Studio</span>
+        <span>🤖 Deal Crawler Studio</span>
         {customCodeCount > 0 && (
           <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-amber-500 text-white font-mono flex items-center gap-0.5">
             <span>🔑</span>
@@ -66,10 +69,10 @@ export default function AdminTabsNav({
             : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 hover:bg-slate-100 dark:hover:bg-zinc-800'
         }`}
       >
-        <span>Pending Submissions</span>
-        {submissionsCount > 0 && (
-          <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-rose-500 text-white font-bold">
-            {submissionsCount}
+        <span>Pending Approvals</span>
+        {totalPendingApprovals > 0 && (
+          <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-rose-500 text-white font-bold animate-pulse">
+            {totalPendingApprovals}
           </span>
         )}
       </button>
